@@ -1,0 +1,583 @@
+
+<%- include('./partials/headers')%> 
+<%-include('./partials/!docType')%>
+
+<% console.log(data.length) %> 
+
+<% if(data.length <=  0 ) {%> 
+<style>
+
+body {
+     background-color: #eee;
+     font-family: 'Calibri', sans-serif !important
+ }
+ 
+ .mt-100 {
+     margin-top: 100px
+ }
+ 
+ .card {
+     margin-bottom: 30px;
+     border: 0;
+     -webkit-transition: all .3s ease;
+     transition: all .3s ease;
+     letter-spacing: .5px;
+     border-radius: 8px;
+     -webkit-box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
+     box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05)
+ }
+ 
+ .card .card-header {
+     background-color: #fff;
+     border-bottom: none;
+     padding: 24px;
+     border-bottom: 1px solid #f6f7fb;
+     border-top-left-radius: 8px;
+     border-top-right-radius: 8px
+ }
+ 
+ .card-header:first-child {
+     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+ }
+ 
+ .card .card-body {
+     padding: 30px;
+     background-color: transparent
+ }
+ 
+ .btn-primary,
+ .btn-primary.disabled,
+ .btn-primary:disabled {
+     background-color: #4466f2 !important;
+     border-color: #4466f2 !important
+ }
+      </style>
+
+      <div id="emptyCartDiv" style="" class="container-fluid ">
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="card">
+                       <div class="card-header">
+                           <h5></h5>
+                       </div>
+                       <div class="card-body cart">
+                           <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                               <h3><strong>Your Wishlist is Empty</strong></h3>
+                               <h4>Add something to make me happy :)</h4> <a href="/product" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+
+
+       <% }else{%> 
+<style>
+
+.colorAndSize{
+     display: flex;
+     justify-content: space-evenly;
+
+}
+     .red{
+    background-color: red;
+}
+.black{
+    background-color: black;
+}.green{
+    background-color: green;
+}.blue{
+    background-color: blue;
+}.violet{
+    background-color: violet;
+}.yellow{
+    background-color: yellow;
+}.brown{
+    background-color: brown;
+}
+
+div.scrollmenu {
+     
+  background-color: rgb(255, 255, 255);
+  overflow: auto;
+  white-space: nowrap;
+}
+.first{
+     
+     background-color: rgb(5, 5, 67);
+     color: rgb(255, 255, 255);
+}
+div.scrollmenu a {
+     cursor: pointer;
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 6px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: rgb(243, 243, 243);
+}
+     .sampleCard{
+          position: fixed;
+          left: 65%;
+          
+     }
+     .details{
+          width: 80%;
+     }
+   
+     .image-session{
+          width: 20%;
+          float: left;
+          background-color: rgb(255, 255, 255);
+     }
+     .center-details{
+          
+          text-align: left;
+          flex-direction: column;
+          display: flex;
+          width: 30%;
+          float: left;
+          background-color: rgb(255, 255, 255);
+     }
+     .quanitity{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 10%;
+          float: left;
+          background-color: rgb(255, 255, 255);
+     }
+     .opt{
+         
+          width: 20%;
+          float: left;
+          background-color: rgb(255, 255, 255);
+     }
+     .allOpt{
+          flex-direction: column;
+          justify-content: space-between;
+          display: flex;
+     }
+     .imageContainer{
+          margin: 1rem;
+          width: 100px;
+         
+          height: 100px;
+     }
+     .fa-trash-alt{
+          margin-left: 75%;
+          margin-top: 9%;
+          font-size: 1.4rem;
+          cursor: pointer;
+     }
+
+
+.tableContol{
+     width: 100%;
+     overflow-x: auto;
+     display: flex;
+     justify-content: center;
+}
+
+.table{
+     width: 65%;
+}
+@media all and (max-width : 400px){
+#table{
+          width: 300vw;
+     }
+     #deleteBtn{
+          margin-left: 60%;
+     }
+     #input-group{
+          margin-bottom: 1%;
+          display: flex;
+        flex-wrap: nowrap;
+        
+     }
+     .pagination{
+          font-size: 10px;
+     }
+}
+
+.dltbtn{
+     margin-left:88%
+}
+
+.pagination {
+     display: inline-block;
+   }
+   
+   .pagination a {
+     color: black;
+     float: left;
+     padding: 8px 16px;
+     text-decoration: none;
+   }
+   
+   .pagination a.active {
+     background-color: #4CAF50;
+     color: white;
+     border-radius: 5px;
+   }
+   
+   .pagination a:hover:not(.active) {
+     background-color: #ddd;
+     border-radius: 5px;
+   }
+
+
+
+#expreireDate,  #offerPrecentage , #offerName
+{
+  border: 1px solid rgb(0, 8, 67) ;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif
+}
+
+.search {
+    top: 6px;
+    left: 10px
+}
+
+.form-control {
+    border: none;
+    padding-left: 32px
+}
+
+.form-control:focus {
+    border: none;
+    box-shadow: none
+}
+
+.green {
+    color: green
+}
+.address{
+  width: 200%;
+}
+.table-responsive{
+  height: 18vh;
+  scroll-behavior: smooth;
+}
+@media screen and (max-width : 500px){
+  .address{
+    width: 145%;
+  }
+  .table-responsive{
+  height: 30vh;
+}
+}
+i{
+  cursor: pointer;
+}
+
+/* -------------------------------- */
+
+
+#username , #dob,  #email , #phone , #oldPassword  , #newPassword{
+  border: 1px solid #0c004c;
+}
+
+.item{
+  border: 1px solid #0c004c;
+}
+.registration-form{
+  padding: 1rem 3rem 2rem 3rem;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color:#133685;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 6px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    border-top: 1px solid #dee9ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+.tabelCntrl{
+     overflow-x: auto; margin: 0 auto; margin-left: 17%;
+}
+
+@media (max-width: 576px) {
+     .tabelCntrl{
+     overflow-x: auto; margin: 0 auto; margin-left: 0%;
+}
+  .registration-form{
+    padding:  1rem;
+  }
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+} 
+
+#editOfferPrecentage :focus{
+  border: 1px solid black !important;
+}
+</style>
+
+<body  >
+     
+
+
+  <div class="  tabelCntrl  container-fluid mt-5"   style="">
+    
+     <table class="table table-borderless shadow" id="table" >
+      
+        <tbody id="tabelBody">
+     
+          <% for(var i = 0 ; i< data.length ; i++){ %> 
+     
+          <tr  id="tableRow<%=data[i]._id%>" style="background-color: white;" class="table-white shadow-sm">
+            <th style="text-align: center;" scope="row" class="align-middle"><%=i+1 %> </th>
+     
+     
+            <td class="align-middle" style="text-align:center" >
+                 <!-- image -  -->
+                 <a href="/product/productDetails?id=<%=data[i].productArray._id  %> " >
+                 <img src="<%=data[i].productArray.image[0].imageUrl%>" style="width: 100px; height: 100px; object-fit: contain;" alt="">
+                 </a>
+            </td>
+
+            <!-- empth row -->
+            <td class="align-middle d-flex" style="text-align: center;">
+                <h5 style="letter-spacing: 2px;" class="text-success">  </h5>
+                
+          
+             </td>
+             
+
+             <td class="align-middle  d-flex" style="text-align: center; justify-content: space-evenly;"  class=" text-dark">   
+               
+               <span>   
+                    <div  class="scrollmenu ">
+                         <a style="color: white;"  id="first" class="first" href="">Color</a>
+                      <% for(var j = 0 ;j < data[i].productArray.color.length ;j++ ) {%> 
+                         <a style="padding: 9px; border-radius: 50px ;" class="<%=data[i].productArray.color[j] %> shadow " ></a>
+                         <% } %> 
+                      </div>
+              </span>
+               
+
+               <div  class="scrollmenu ">
+                    <a style="color: white;"  id="first" class="first" href="">Size</a>
+                 <% for(var j = 0 ;j < data[i].productArray.size.length ;j++ ) {%> 
+                    <a class="shadow-sm" ><%=data[i].productArray.size[j]  %> </a>
+                    <% } %> 
+               </div>
+                    
+
+
+          </i> 
+             
+             </td>
+             <td class="align-middle"  style="text-align: center;">
+               <span ><b>Price : <span style="color: green;">₹ <span id="price<%=data[i].productArray.price%>"><%=data[i].productArray.price%> </span>.00 </span> </b></span><br>
+               <span class="text-secondary"><%=data[i].quantity >20   ?  'Last 10 piece left'  : 'In stock'%>  </span>
+             </td>
+               
+             <td>
+             <div class="allOpt">
+               <button class="btn btn-primary shadow" style="background-color: #3b5998;" href="#!" role="button" >Add to Cart</button>
+               <i onclick="removeFormWishlist('<%=data[i].productArray._id%>'  , '<%=data[i]._id%>')" class="fas fa-trash-alt"></i> 
+
+          </div>
+               </td>
+          
+     
+               </tr>
+               
+               <% } %> 
+        </tbody>
+      </table>
+     </div>
+
+     </body>
+
+     <% } %> 
+     <script>
+          function removeFormWishlist(id  , wishlistId){
+               Swal.fire({
+       title: 'Are you sure?',
+       text: "You won't be able to revert this!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete it!'
+     }).then((result) => {
+       if (result.isConfirmed) {
+         $.ajax({
+              url:'/removeFormWishlist',
+              data : {id : id},
+              method :"delete",
+              success :(result)=>{
+                    if(result.status){
+                         document.getElementById('tableRow'+wishlistId).style.display = 'none';
+                         const Toast = Swal.mixin({
+       toast: true,
+       position: 'bottom-end',
+       showConfirmButton: false,
+       timer: 1000,
+       timerProgressBar: true,
+       didOpen: (toast) => {
+         toast.addEventListener('mouseenter', Swal.stopTimer)
+         toast.addEventListener('mouseleave', Swal.resumeTimer)
+       }
+     })
+     
+     Toast.fire({
+       icon: 'success',
+       title: 'item removed'
+     })
+                    }              
+              }
+         })
+       }
+     })
+          }
+     </script>
+
+<%- include('./partials/footer')%> 

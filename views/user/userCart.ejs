@@ -1,0 +1,386 @@
+<%- include('./partials/headers')%> 
+
+    <div class="breadcrumbs">
+     <div class="container">
+       <div class="row align-items-center">
+         <div class="col-lg-6 col-md-6 col-12">
+           <div class="breadcrumbs-content">
+             <h1 class="page-title">Cart</h1>
+           </div>
+         </div>
+         <div class="col-lg-6 col-md-6 col-12">
+           <ul class="breadcrumb-nav">
+             <li>
+               <a href="index.html"><i class="lni lni-home"></i> Home</a>
+             </li>
+             <li><a href="index.html">Shop</a></li>
+             <li>Cart</li>
+           </ul>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <%if( data.product.length <=  0 ){ %> 
+     <style>
+          @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+    background-color: #eee;
+    font-family: 'Calibri', sans-serif !important
+}
+
+.mt-100 {
+    margin-top: 100px
+}
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    letter-spacing: .5px;
+    border-radius: 8px;
+    -webkit-box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
+    box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05)
+}
+
+.card .card-header {
+    background-color: #fff;
+    border-bottom: none;
+    padding: 24px;
+    border-bottom: 1px solid #f6f7fb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px
+}
+
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+}
+
+.card .card-body {
+    padding: 30px;
+    background-color: transparent
+}
+
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: #4466f2 !important;
+    border-color: #4466f2 !important
+}
+     </style>
+     <div class="container-fluid ">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header">
+                          <h5></h5>
+                      </div>
+                      <div class="card-body cart">
+                          <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                              <h3><strong>Your Cart is Empty</strong></h3>
+                              <h4>Add something to make me happy :)</h4> <a href="/product" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+   <% }else{ %> 
+
+
+     <!-- ------------------- lates pupose ------------------------ -->
+     <style>
+          @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+    background-color: #eee;
+    font-family: 'Calibri', sans-serif !important
+}
+
+.mt-100 {
+    margin-top: 100px
+}
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    letter-spacing: .5px;
+    border-radius: 8px;
+    -webkit-box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
+    box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05)
+}
+
+.card .card-header {
+    background-color: #fff;
+    border-bottom: none;
+    padding: 24px;
+    border-bottom: 1px solid #f6f7fb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px
+}
+
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+}
+
+.card .card-body {
+    padding: 30px;
+    background-color: transparent
+}
+
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: #4466f2 !important;
+    border-color: #4466f2 !important
+}
+     </style>
+     <div id="emptyCartDiv" style="display: none;" class="container-fluid ">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header">
+                          <h5></h5>
+                      </div>
+                      <div class="card-body cart">
+                          <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                              <h3><strong>Your Cart is Empty</strong></h3>
+                              <h4>Add something to make me happy :)</h4> <a href="/product" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     <!-- --------------end of  the latest purpose------------- -->
+   <div id="mainDiv" class="shopping-cart section">
+     <div class="container">
+       <div class="cart-list-head">
+         <div class="cart-list-title">
+           <div class="row">
+             <div class="col-lg-1 col-md-1 col-12"></div>
+             <div class="col-lg-4 col-md-3 col-12">
+               <p>Product Name</p>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <p>Quantity</p>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <p>Subtotal</p>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <p>Discount</p>
+             </div>
+             <div class="col-lg-1 col-md-2 col-12">
+               <p>Remove</p>
+             </div>
+           </div>
+         </div>
+
+         <% for(var i = 0 ; i< data.product.length ; i++){ %> 
+
+         <div class="cart-single-list"  id="tableRow<%=data.product[i].vaientId%>">
+           <div class="row align-items-center">
+             <div class="col-lg-1 col-md-1 col-12">
+               <a href="/product/productDetails?id=<%=data.product[i].productId%>"
+                 ><img src="<%=data.product[i].productArray[0].image[0].imageUrl%>" alt="#"
+               /></a>
+             </div>
+             <div class="col-lg-4 col-md-3 col-12">
+               <h5 class="product-name">
+                 <a href="/product/productDetails?id=<%=data.product[i].productId%>">
+                   Canon EOS M50 Mirrorless Camera</a
+                 >
+               </h5>
+               <p class="product-des">
+                 <span><em>size:</em> <%=data.product[i].size  %> </span>
+                 <span><em>Color:</em> <%=data.product[i].color %></span>
+               </p>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <div class="count-input">
+                 <select  id="quantitySelect<%=data.product[i].vaientId%>"  onchange="chageQuantity('<%=data.product[i].vaientId%>' ,'<%=data.product[i].productArray[0]._id%>')"    class="form-control">
+                      <% var x ; %> 
+                      <% if(data.product[i].productArray[0].quantity > 5) {x = 5}else{x = data.product[i].productArray[0].quantity}  %> 
+                      
+                      <% for(var j = 0 ; j < x  ; j++) {%> 
+                   <option <%=data.product[i].quantity  == (j+1) ? 'selected' : ""  %>   ><%= j+1 %> </option>
+                   <% } %>
+                   
+                 </select>
+               </div>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <p>₹  <span id="subtotal<%=data.product[i].vaientId%>"><%=data.product[i].totalPrice%></span> .00</p>
+             </div>
+             <div class="col-lg-2 col-md-2 col-12">
+               <p> - <%=data.product[i].productArray[0].offerPercentage%> % off</p>
+             </div>
+             <div   class="col-lg-1 col-md-2 col-12" style="text-align: center;">
+               <a  onclick="deleteItem('<%=data.product[i].vaientId%>' , '<%=data.product[i]._id%>')"    class="remove-item" href="javascript:void(0)">
+               <i  style="line-height: 0px !important;"   class="fas fa-times"></i></a>
+             </div>
+           </div>
+         </div>
+
+         <% } %> 
+         
+     
+       </div>
+
+       <div class="row">
+         <div class="col-12">
+           <div class="total-amount">
+             <div class="row">
+               <div class="col-lg-8 col-md-6 col-12"> 
+                 <!-- <div class="left">
+                   <div class="coupon">
+                     <form action="#" target="_blank">
+                       <input name="Coupon" placeholder="Enter Your Coupon" />
+                       <div class="button">
+                         <button class="btn">Apply Coupon</button>
+                       </div>
+                     </form>
+                   </div>
+                 </div> -->
+                </div> 
+               <div class="col-lg-4 col-md-6 col-12">
+                 <div class="right">
+                   <ul>
+                     <li>Cart Subtotal  <span>₹  <span id="grandTotal1">  <%=data.grandTotal%> .00 </span>    </span>  </li>
+                     <li>Shipping<span>Free</span></li>
+                     <!-- <li>You Save<span>$29.00</span></li> -->
+                     <li class="last">You Pay <span>₹  <span id="grandTotal2">  <%=data.grandTotal%> .00 </span>  </li>
+                   </ul>
+                   <div class="button">
+                     <a href="/checkout" class="btn">Checkout</a>
+                     <a href="/product" class="btn btn-alt"
+                       >Continue shopping</a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+
+     </div>
+   </div>
+ <% } %> 
+<%- include('./partials/footer')%> 
+
+<script src="/javascripts/user/userCart.js"></script>
+<script>
+     // function to  chage the quantity;
+
+function chageQuantity(id , productId){
+
+
+var quantity = document.getElementById('quantitySelect'+id).value;
+
+     $.ajax({
+          url:"cart/chageQuantity",
+          data : { quantity : quantity ,  id : id , userId : localStorage.getItem("userId") , pid: productId},
+          method:'post',
+          success : (result)=>{
+             
+             for(var i = 0 ; i< result.status.product.product.length ;i++){
+                  if(result.status.product.product[i].vaientId == id){
+                    document.getElementById("subtotal"+id).innerHTML = result.status.product.product[i].totalPrice
+                       break;
+                  }
+             }
+
+             document.getElementById('grandTotal1').innerHTML = result.status.product.grandTotal + ".00"
+             document.getElementById('grandTotal2').innerHTML = result.status.product.grandTotal + ".00"
+               // if(result.status.status == true){
+                   
+               //      var y =  x +  parseInt(1)
+               //      qButton.innerHTML = y+""
+               // }else if(result.status.status == false){
+               //      var y =  x -  parseInt(1)
+               //      qButton.innerHTML = y+""
+               // }else{
+               //      swal.fire("Error" , result.status.status)
+               //      .then(()=>{
+               //           location.reload();
+               //      })
+               // }
+          }
+     })
+
+}
+
+
+function getCartCount(){
+$.ajax({
+  url:"/getCartCount",
+  data:{id: localStorage.getItem('userId')},
+  method:'post',
+  success :(result)=>{
+    document.getElementById('badge').innerHTML = result.count;
+  }
+})
+}
+
+function deleteItem(varientId , productId){
+var deleteItemPrice = parseInt(document.getElementById('subtotal'+varientId).innerHTML)
+var priceNow = parseInt(document.getElementById('grandTotal1').innerHTML)
+var finalPrice = priceNow - deleteItemPrice;
+
+
+Swal.fire({
+     title: 'Are you sure?',
+     text: "You won't be able to revert this!",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+          var row = document.getElementById('tableRow'+varientId);
+          $.ajax({
+               url:'cart/delteItem',
+               data : {varientId : varientId ,userId : localStorage.getItem('userId') , productId  : productId} ,
+               method:'delete',
+               success:(result)=>{
+                    // getCartCount();
+                    document.getElementById('grandTotal1').innerHTML = finalPrice
+                    document.getElementById('grandTotal2').innerHTML = finalPrice
+                    if(result.status.process == true){
+                         row.style.display = "none";
+
+                         const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'botton-end',
+                              showConfirmButton: false,
+                              timer: 2000,
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                            })
+                            Toast.fire({
+                              icon: 'success',
+                              title: 'Item Deleted  successfully'
+                            })
+                    };
+                    if(result.status.emptyCart){
+                         document.getElementById('mainDiv').style.display = "none"
+                         document.getElementById('emptyCartDiv').style.display = "block"
+                    }
+               }
+
+          })
+     }
+   })
+
+}
+</script>

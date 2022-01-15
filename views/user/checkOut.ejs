@@ -1,0 +1,890 @@
+
+<%- include('./partials/headers')%> 
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+
+<!-- -----start of  the cheout  page -------------- -->
+
+<div class="breadcrumbs">
+	<div class="container">
+	  <div class="row align-items-center">
+	    <div class="col-lg-6 col-md-6 col-12">
+		 <div class="breadcrumbs-content">
+		   <h1 class="page-title">checkout</h1>
+		 </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-12">
+		 <ul class="breadcrumb-nav">
+		   <li>
+			<a href="index.html"><i class="lni lni-home"></i> Home</a>
+		   </li>
+		   <li><a href="index.html">Shop</a></li>
+		   <li>checkout</li>
+		 </ul>
+	    </div>
+	  </div>
+	</div>
+   </div>
+
+   <section class="checkout-wrapper section">
+	<div class="container">
+	  <div class="row justify-content-center">
+	    <div class="col-lg-8">
+		 <div class="checkout-steps-form-style-1">
+		   <ul id="accordionExample">
+			<li>
+			  <h6
+			    class="title"
+			   
+			    aria-expanded="true"
+			    aria-controls="collapseThree"
+			  >
+			    Your Personal Details
+			  </h6>
+			  <section
+			    class="checkout-steps-form-content collapse show"
+			    id="addressForm"
+			    aria-labelledby="headingThree"
+			    data-bs-parent="#accordionExample"
+			  >
+			    <div class="row">
+				 <div class="col-md-12">
+				   <div class="single-form form-default">
+					<label>User Name</label>
+					<div class="row">
+					  <div class="col-md-6 form-input form">
+					    <input  onkeyup="Check(event);" type="text" id="input0" placeholder="First Name" />
+					  </div>
+					  <div class="col-md-6 form-input form">
+					    <input  onkeyup="Check(event);"  type="text" id="input1" placeholder="Last Name" />
+					  </div>
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>Email Address</label>
+					<div class="form-input form">
+					  <input type="email"   id="input3" placeholder="Email Address" />
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>Phone Number</label>
+					<div class="form-input form">
+					  <input   id="input2"  maxlength="10" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;"  type="number"    placeholder="Phone Number" />
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-12">
+				   <div class="single-form form-default">
+					<label>Mailing Address</label>
+					<div class="form-input form">
+					  <input type="text" id="input4" placeholder="Mailing Address" />
+					</div>
+				   </div>
+				 </div>
+
+				 <div class="col-md-12">
+					<div class="single-form form-default">
+					  <label>Land mark</label>
+					  <div class="form-input form">
+					    <input type="text" id="input5" placeholder="Mailing Address" />
+					  </div>
+					</div>
+				   </div>
+
+
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>City</label>
+					<div class="form-input form">
+					  <input type="text" id="input6" placeholder="City" />
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>Post Code</label>
+					<div class="form-input form">
+					  <input type="number" id="input7" class="form-control checkFrom"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==6) return false;" placeholder="Postal Code" />
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>Country</label>
+					<div class="form-input form">
+					  <input type="text" id="input8" placeholder="Country" />
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-6">
+				   <div class="single-form form-default">
+					<label>Region/State</label>
+					<div class="select-items">
+					  <select  id="input9" class="form-control">
+						<option value=""  selected ></option>
+						<option >Arunachal Pradesh</option>
+						<option >Andaman and Nicobar Islands</option>
+						<option >Assam</option>
+						<option >Bihar</option>
+						<option >Chandigarh</option>
+						<option >Chhattisgarh</option>
+						<option >Dadra and Nagar Haveli</option>
+						<option >Daman and Diu</option>
+						<option >Delhi</option>
+						<option >Goa</option>
+						<option >Gujarat</option>
+						<option >Haryana</option>
+						<option >Himachal Pradesh</option>
+						<option >Jammu and Kashmir</option>
+						<option >Jharkhand</option>
+						<option >Karnataka</option>
+						<option >Kerala</option>
+						<option >Ladakh</option>
+					  </select>
+					</div>
+				   </div>
+				 </div>
+				 <div class="col-md-12 p-3">
+				   <div class="d-flecx" style="justify-content: space-around;">
+					<input type="checkbox"     id="checkBoxSave"/>
+					<label for="checkBoxSave"  style="margin-left: 1%;">Save Address</label>
+					
+				   </div>
+				 </div>
+				 <div class="col-md-12">
+					 <p id="err" class="text-danger"></p>
+				   <div class="single-form button">
+					<button
+					 type="button"
+					  class="btn"
+					  data-bs-toggle="collapse"
+					  data-bs-target="#collapseFour"
+					  aria-expanded="false"
+					  aria-controls="collapseFour"
+					  onclick="addAddressAndProced()"
+					>
+					  Continue
+					</button>
+				   </div>
+				 </div>
+			    </div>
+			  </section>
+			</li>
+		   </ul>
+		 </div>
+	    </div>
+	    <div class="col-lg-4">
+		 <div class="checkout-sidebar">
+		   <div class="checkout-sidebar-coupon">
+			<p>Appy Coupon to get discount!</p>
+			<form action="#">
+			  <div class="single-form form-default">
+			    <div class="form-input form">
+				 <input id="coupone" type="text" placeholder="Coupon Code" />
+			    </div>
+			    <div class="button">
+				 <button type="button" onclick="allplyCoupone()" class="btn">apply</button>
+			    </div>
+			  </div>
+			 <center> <p class="text-danger " id="couponeErr" ></p></center>
+			</form>
+		   </div>
+		   <div class="checkout-sidebar-price-table mt-30" style="position: relative;  ">
+			<h5 class="title">Pricing Table</h5>
+			<div class="sub-total-price">
+			     <div class="">
+					<% for(var i = 0 ;i< product.product.length ;i++){ %> 
+				    <div class="p-2 " style="display: flex ;  justify-content: space-between; ">
+					 <P class="productName"> <%=product.product[i].productArray[0].productName %>   <span style="color: rgb(232, 56, 8);">	&nbsp;  (<%=product.product[i].quantity %>  ) </span></p>
+						<p> &#8377; <%=product.product[i].totalPrice %> .00   </p>
+					</div>
+					<% } %> 
+			 
+				 </div>
+			</div>
+			<div class="total-payable">
+			  <div class="payable-price">
+			    <p class="value">Subtotal Price:</p>
+			    <p class="price">&#8377;  <span id="grandTotal"> <%= product.grandTotal  %></span>.00</p>
+			  </div>
+			</div>
+			
+		   </div>
+		<!-- ----------start  of the pervious address form ;-0------ -->
+
+		   <div class="checkout-sidebar-banner mt-30" >
+			<div class="innerAddress p-3" style="overflow-y : auto ; height: 250px;">
+				<%  if(user.address.length >0 )  {%> 
+					<h6 class="p-3">Select One address</h6>
+				<% for(var i = 0 ;i< user.address.length ;i++){ %> 
+				<div class="multipleAddress" style="font-size: 18px;">
+					
+					<input id="radionbtn<%=i%>" value="<%=user.address[i]._id %> " onclick="hideAddressBtn()" type="radio" class="mr-3 radiobtnActivate<%=i%>  " style="width: 10%; cursor: pointer; "  name="chose">
+
+					<label for="radionbtn<%=i%>" style="cursor:pointer">
+					<p> <span><%=user.address[i].firstName %>...  &#160;&#160;&#160;&#160;  <%=user.address[i].email %>...  &#160;&#160;&#160;&#160; <%=user.address[i].address %>... </span>
+						<br>
+						<%=user.address[i].phone %>... &#160;&#160;&#160;&#160;   <%=user.address[i].poatalCode %>.....  </p>
+
+					</label>	
+				</div>
+				<hr>
+
+				<% } %> 
+				
+
+				
+				<%  }else{ %>
+					
+				<h4 class="p-4 text-danger" style="text-align: center;">Don't have any saved address ! </h4>
+
+				<% } %> 	
+			</div>
+			<p class="text-danger" id="oldAddressErr"></p>
+			<div class="d-flex pt-3 pb-3"  style="justify-content: space-evenly;">
+				<button  id="makePayment" onclick="ordereByPreviousAddress()" class="btn btn-primary " style=" display: none;">Continue</button>
+				<button  id="addressCancel" onclick="clearCheckOut()" class="btn btn-outline-primary " style=" display: none;">Cancel</button>
+			     </div>
+
+		   </div>
+
+		  <!-- ----------- end  of the previous address form------- -->
+		 </div>
+	    </div>
+	  </div>
+	</div>
+   </section>
+
+<!-- -------------end of the cheout page --------------- -->
+
+<!-- -------------start of the payment method-------------- -->
+
+
+
+<div class="w3-container">
+		
+	   
+	<div id="id02" class="w3-modal" style="z-index: 9999;">
+	  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+		
+
+<div id="responsive1" class=" responsive-div-media col-md-12 col-11 p-1 mt-3   p-3 mb-5 bg-white rounded " >
+<h4 class="mb-3">
+   Select Your Payment Methods 
+  
+</h4>
+<hr width="90%">
+<div class="" >
+
+    <div class="p-2">
+	   <input value="cod"    onchange="document.getElementById('errLast').innerHTML = '' ;  document.getElementById('confirmBtnPayment').setAttribute('onclick' , 'submitOrder(false)')  " id="cashOnDelevary" class="inputMet form-check-input " name="inputMethod" type="radio" style="margin-right: 2%;">
+	    <label style="cursor: pointer;" for="cashOnDelevary">Cash on Delevery</label>
+    </div>
+
+    <div class="p-2">
+	<input value="razorpay" onchange="document.getElementById('errLast').innerHTML = '' ; document.getElementById('confirmBtnPayment').setAttribute('onclick' , 'submitOrder(false)') "   id="rasorPay" class="inputMet form-check-input " name="inputMethod" type="radio" style="margin-right: 2%;">
+	<label style="cursor: pointer;" for="rasorPay">Razor Pay</label>
+ </div>
+
+ <div class="p-2" id="walletDiv">
+	<input value="wallet(payed ✔️)" onchange="document.getElementById('errLast').innerHTML = '' ; document.getElementById('confirmBtnPayment').setAttribute('onclick' , 'submitOrder(false)') "   id="wallet" class="inputMet form-check-input " name="inputMethod" type="radio" style="margin-right: 2%;">
+	<label style="cursor: pointer;" for="wallet">Use Wallet</label>
+ </div>
+
+
+ <div class="p-2">
+	
+	<div style="width: 20%;" id="paypal-button-container"></div> 	
+ </div>
+	 
+
+    
+</div>
+<p id="errLast" style="color: red;"></p>
+
+<button  id="confirmBtnPayment" type="button" class="btn btn-success" onclick="submitOrder(false)" >Place Order</button>
+
+<button class="btn btn-danger"  onclick="document.getElementById('id02').style.display = 'none'" >Cancel</button>
+</form>
+</div>
+
+
+	    
+	  </div>
+	</div>
+   </div>
+
+<!-- ------------end of the payment method ------------ -->
+
+<!-- !-- ----------------------payment success ---------------------- --> -->
+
+<div class="w3-container">
+	<div id="id03" class="w3-modal" style="z-index: 9999">
+	  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+		<style>
+			
+			  .card h1 {
+			    color: #88B04B;
+			    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+			    font-weight: 900;
+			    font-size: 40px;
+			    margin-bottom: 10px;
+			  }
+			  .card p {
+			    color: #404F5E;
+			    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+			    font-size:20px;
+			    margin: 0;
+			  }
+			.card i {
+			  color: #9ABC66;
+			  font-size: 100px;
+			  line-height: 200px !important;
+			  margin-left:30px;
+			}
+			.card {
+				text-align: start;
+				width: 100%;
+			  background: white;
+			  padding: 45px;
+			  border-radius: 4px;
+			  box-shadow: 0 2px 3px #C8D0D8;
+			  display: inline-block;
+			  margin: 0 auto;
+			}
+			@media screen and (max-width : 500px){
+				.card{
+					padding: 10px;
+				}
+			}
+
+			.productName {
+    letter-spacing: 0px;
+  white-space: nowrap; 
+  width: 180px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+ 
+}
+		   </style>
+		  
+			<div class="card">
+			<div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+			  <i class="checkmark">✓</i>
+			</div>
+			  <h1>Success</h1> 
+			  <p style="color: rgb(255, 94, 35);">Delevery Will be excepted in 7 days</p>
+
+
+  <table  class="table table-borderless pt-3 mt-4">
+	
+	<tbody id="tableBodyPaymentSuccess">
+	 
+	 
+	</tbody>
+   </table>
+ 
+
+<center class="mt-4" > 
+<a href="/checkout/orderHistory"   >
+	<button class="btn btn-primary">Show Order History</button>
+</a>
+<a href="product">
+	
+<button class="btn btn-outline-primary  " >Continue Shoping</button>
+
+</a>
+</center>
+			  
+			</div>
+	  </div>
+	</div>
+   </div>
+
+   <!-- ----------------end of the payment successs---------------- -->
+
+	
+<!-- paypal sdk  -->
+
+<script src="https://www.paypal.com/sdk/js?client-id=AfyXyQoNyGPiYtUJFHsdTm9b3ne-59ZwTdchLov5LDHyTrQocNgusx943ULYw_rZVw6nDmQAQ_CL94nD&components=buttons"></script>
+
+<!-- end of the paypal sdk  -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script src="/javascripts//user/userCheckout.js"></script>
+<script>
+
+
+
+var loading = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  loading..`
+
+
+
+
+
+
+var amount;
+var totalAmount ;
+
+
+function allplyCoupone(){
+		
+	var couponeCode = $('#coupone').val();
+
+	if(couponeCode.length < 5)return;
+	const err = document.getElementById('couponeErr');
+
+	if(couponeCode.length < 5){
+		err.innerHTML = "please Enter a valid coupone code "
+		return;
+	}
+	$.ajax({
+		url:'/admin/offers/applyCoupone',
+		data : {couponeCode : couponeCode.trim()},
+		method : 'post',
+		success : (result)=>{
+			if(result.status == true){
+
+				swal.fire('Congratulations' , result.message , "success").then(()=>{
+					swal.fire('Warning ' , 'Dont refresh the page while complete the process  you may loss the coupone ' )
+				})
+				var oldTotal =  document.getElementById('grandTotal').innerHTML ;
+					var newHtml = `<strike style="color:gray">${oldTotal}</strike>    <b><span style="color : green "> &#8377;${result.amount} .00<span></b>` 
+					document.getElementById("grandTotal").innerHTML = newHtml;
+					amount = parseInt(result.amount);
+					totalAmount = amount;
+			}else{
+				swal.fire("Sorry" , result.message , 'error');
+			}
+		}
+	})
+
+
+}
+
+
+
+
+$( document ).ready(function() {
+	$.ajax({
+		  url : '/checkout/getTotalAmount',
+		  method:'post',
+		  success :(result)=>{
+
+			 totalAmount = result.amount;
+			 amount = result.amount;
+		  } 
+	  })
+});
+
+
+
+paypal.Buttons({
+  createOrder: function(data, actions) {
+	
+    // This function sets up the details of the transaction, including the amount and line item details.
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: totalAmount
+        }
+      }]
+    });
+  },
+  onApprove: function(data, actions) {
+    // This function captures the funds from the transaction.
+    return actions.order.capture().then(function(details) {
+      // This function shows a transaction success message to your buyer.
+	
+	 var ordeingAddressType = addressId == undefined ? true : false;
+	 	// place oreder function;
+		placeOrder('Paypal' , ordeingAddressType);
+    });
+  }
+}).render('#paypal-button-container');
+
+
+		// ---------------end of the paypal----------------
+   var addressId ;
+	var addressType ;
+
+function packAddress (paymentMethod , address){
+	
+	return new Promise((resolve,reject)=>{
+		
+	if(address){
+		var saveAddressOrNot = document.getElementById('checkBoxSave').checked;
+		// new address 
+		var pack = {
+          firstName : document.getElementById("input0").value,
+          secondeName : document.getElementById("input1").value,
+          phone : document.getElementById("input2").value,
+          email : document.getElementById("input3").value,
+          address : document.getElementById("input4").value,
+          landMark : document.getElementById("input5").value,
+          city : document.getElementById("input6").value,
+          poatalCode : document.getElementById("input7").value,
+          state : document.getElementById("input8").value,
+          country : document.getElementById("input9").value,
+          paymentMethod : paymentMethod,
+          saveAddress : saveAddressOrNot,
+		amount : amount
+     }
+	resolve(pack)
+	}else{
+		// previous address of the user 
+	
+	  $.ajax({
+       url:'/checkout/getAddress',
+       data:{id : addressId},
+       method:'post',
+       success:async (result)=>{
+          var   pack = await {
+            firstName :result.address.firstName,
+            secondeName :result.address.secondeName ,
+            phone :result.address.phone,
+            email : result.address.email,
+            address :result.address.address,
+            landMark : result.address.landMark,
+            city : result.address.city,
+            poatalCode : result.address.poatalCode,
+            state : result.address.state,
+            country : result.address.country,
+            paymentMethod : paymentMethod,
+            saveAddress : false,
+		  amount : amount
+       }
+	  resolve(pack)
+
+	  
+       }
+	  
+   })
+
+   
+	}
+	})
+}
+
+function submitOrder(paypal){
+		if(paypal == false){
+			var err = document.getElementById("errLast");
+		var paymentMethod = $("input[type='radio'][name='inputMethod']:checked").val();
+		if(paymentMethod == undefined){err.innerHTML = "Please Select One PaymentMethod" ; return};
+		err.innerHTML = "";
+		}
+		// user is ordering through the new address 
+		var ordeingAddressType = addressId == undefined ? true : false;
+	 	// place oreder function;
+		placeOrder(paymentMethod , ordeingAddressType);
+}
+
+
+async function placeOrder(paymentMethod , address){
+
+	console.log("in side the function")
+	
+	var address = await packAddress(paymentMethod , address);
+
+	
+
+	if(paymentMethod == 'cod'  || paymentMethod == 'Paypal'  || paymentMethod == 'wallet(payed ✔️)'  ){
+		
+	$.ajax({
+        url:"/checkout/placeOrder",
+        data : address,
+	method:"post",
+        success : (result)=>{
+			$("#id02").hide()
+			if(result.status  != false){
+            var detailContainer = document.getElementById('tableBodyPaymentSuccess');     
+              var details = `				
+              <tr >
+	    <td>Order ID </td>
+	    <td>@${result.status}</td>
+	  </tr>
+	  <tr>
+	    
+	  
+	    <td>Total Amount</td>
+	    <td> ₹ ${result.totalPrice}. 00</td>
+	  </tr>
+
+
+	 
+	  <td>Payment Method </td>
+	  <td> ${result.paymentMethod}</td>
+	</tr>
+	 
+                 ` ;
+			  if(paymentMethod == 'wallet(payed ✔️)' ){
+				$.ajax({
+					url : '/checkout/updateWallet',
+					method :'post',
+					data : {amount  :result.totalPrice}
+				})
+	}
+
+                 detailContainer.innerHTML += details;
+                 document.getElementById('id03').style.display='block'
+
+			 
+	   }else{
+		swal.fire("Sorry" , 'You dont have anyProducts' , "info").then(()=>{
+			location.reload()
+		})
+	   }
+        }
+   })
+	
+  }else if(paymentMethod == 'razorpay'){
+	  // make a order first;
+	  var settings = {
+		"url": "/checkout/razorPayCreateOrderId",
+		"method": "POST",
+		"timeout": 0,
+		"headers": {
+		"Content-Type": "application/json"
+		},
+		"data": JSON.stringify({
+		"amount": amount
+		}),
+		};
+
+		// creates new orderId everytime
+		$.ajax(settings).done(function (response) {
+			$("#id02").hide()
+		var orderId=response.orderId;
+		
+
+		// ajax cll
+		var options = {
+   "key": "rzp_test_6mHifv6KjuxHC2", // Enter the Key ID generated from the Dashboard
+   "amount": (response.amount*100) , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+   "currency": "INR",
+   "name": " abin M Anil",
+   "description": "Test Transaction",
+   "image": "https://bootdey.com/img/Content/avatar/avatar7.png",
+   "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the previous step
+   "handler": function (response){
+      // after the payment is succssfull chekc by hashed signutare
+     
+      $.ajax({
+       "url": "/checkout/finalVerify",
+       "method": "POST",
+       "timeout": 0,
+       "headers": {
+       "Content-Type": "application/json"
+       },
+       "data": JSON.stringify({response}),
+
+       success : (result)=>{
+           if(result.signatureIsValid == true){
+			$.ajax({
+        url:"/checkout/placeOrder",
+        data : address,
+	method:"post",
+        success : (result)=>{
+		var detailContainer = document.getElementById('tableBodyPaymentSuccess');     
+              var details = `				
+              <tr >
+	    <td>Order ID </td>
+	    <td>@${result.status}</td>
+	  </tr>
+	  <tr>
+	    
+	  
+	    <td>Total Amount</td>
+	    <td> ₹ ${result.totalPrice}. 00</td>
+	  </tr>
+
+
+	 
+	  <td>Payment Method </td>
+	  <td> ${result.paymentMethod}</td>
+	</tr>
+	 
+                 ` ;
+                 detailContainer.innerHTML += details;
+                 document.getElementById('id03').style.display='block'
+        }
+   })
+	
+           }else{
+               swal.fire("payment status ", "payment failed " , "error");
+           }
+       }
+       })
+		},
+		
+
+		"theme": {
+			"color": "#3399cc"
+		}
+		};
+		var rzp1 = new Razorpay(options);
+		rzp1.on('payment.failed', function (response){
+			swal.fire("Payment Status " , "payment Failed" , 'error');
+		});
+
+
+		rzp1.open();
+		e.preventDefault();
+				
+				});
+   }
+			
+}
+
+
+
+
+function ordereByPreviousAddress(paymentMethod){
+     var err = document.getElementById('oldAddressErr');
+
+  if(addressId == undefined){err.innerHTML = "please Select One Address " ; return }
+	err.innerHTML = ""
+   $.ajax({
+       url:'/checkout/getAddress',
+       data:{id : addressId},
+       method:'post',
+       success:(result)=>{
+        var pack = {
+            firstName :result.address.firstName,
+            secondeName :result.address.secondName ,
+            phone :result.address.phone,
+            email : result.address.email,
+            address :result.address.address,
+            landMark : result.address.landMark,
+            city : result.address.city,
+            poatalCode : result.address.poatalCode,
+            state : result.address.state,
+            country : result.address.country,
+            paymentMethod : paymentMethod,
+            saveAddress : false
+       }
+
+
+	  $.ajax({
+		url : '/checkout/getWallet',
+		method : "post",
+		success : (result)=>{
+			if(!result.status){
+				$('#walletDiv').hide()
+			}
+			
+			
+		}
+	})
+
+      $('#id02').show()
+      
+
+
+       }
+   })
+  
+ }
+
+// -------------------------------
+
+
+function addAddressAndProced(id , product){
+     var err = document.getElementById('err')
+     // empty validation 
+     for(var i = 0 ;i<= 9; i++ ){
+          if(document.getElementById("input"+i).value == ""){
+              err.innerHTML = "Plese Fill The all field";
+              return ;
+          }
+     }
+     
+
+      err.innerHTML = ""
+     //  number validateion
+     var phone = document.getElementById("input2").value;
+      if(phone.length < 10 ){
+           err.innerHTML = "please Enter 10 digits In phone Number field";
+           return;
+      }
+      
+    err.innerHTML = ""
+
+      // emil validation
+      var email = document.getElementById("input3").value
+    var result =  String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    if(result == null){err.innerHTML = "please Enter a Valid Email " ; return ;}
+    err.innerHTML = ""
+
+//   validateion postal code 
+
+     var postal = document.getElementById("input7").value;
+     if(postal.length < 6 ){err.innerHTML = "please Enter a Valid Postal Code" ; return ;}
+    err.innerHTML = ""
+     var saveAddress ;
+     if(document.getElementById("checkBoxSave").checked)saveAddress = true
+     else{saveAddress = false}
+
+    
+    err.innerHTML = ""
+//     document.querySelector('.paypal-button.paypal-button-text-color-white').style.display = "none"
+    $('#id02').show()
+
+    
+    
+ };
+
+
+function hideAddressBtn(){
+	$('#makePayment').fadeIn();
+	// var err = document.getElementById('errPayMent')
+	// err.innerHTML = ""
+	$('#address').trigger("reset");
+
+	 addressId =  document.querySelector('input[name="chose"]:checked').value;
+	$('#addressCancel').show()
+
+	$('#addressForm').fadeOut()
+	$('#cancelbutton').fadeOut()
+	$('#addAddressBtn').fadeOut()
+
+	document.getElementById('addAddressBtn').style.display = "none"
+}
+
+
+function clearCheckOut(){
+	$('#makePayment').fadeOut();
+	$("makePayment").fadeOut()
+	$('#addressCancel').fadeOut()
+	addressId = undefined;
+   var ele = document.getElementsByName("chose");
+  for(var i=0;i<ele.length;i++)
+     ele[i].checked = false;
+	$('#addressForm').fadeIn()
+//    document.getElementById('addressForm').style.display = "block"
+}
+
+
+
+
+
+// window.onbeforeunload = function(){
+	
+// 	return "helll fucker"
+// }
+
+
+
+
+</script>
+</body>
+</html>

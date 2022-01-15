@@ -1,0 +1,313 @@
+<%- include('./partials/headers')%> 
+
+<style>
+     .green{
+          background-color: seagreen;
+     }
+
+     .productName {
+    letter-spacing: 0px;
+  white-space: nowrap; 
+  width: 180px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+ 
+}
+     
+</style>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="/stylesheets/user/orderHistory.css">
+<% if(orders == null || orders.length <= 0){ %> 
+     <div class="container-fluid " >
+          <div class="row">
+               <div class="col-md-3"></div>
+              <div class="col-md-7 ">
+                  <div class="card shadow ">
+                      <div class="card-body cart">
+                          <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                              <h3><strong>Your Order  History is Empty</strong></h3>
+                              <h4>Add something to make me happy :)</h4> <a href="/product" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+     <% }else{ %> 
+<div class="container"  style="margin-top: 50px; margin-bottom: 50px" onload="truncate()">
+     <h3>Order History</h3>
+     
+     <% for(var m = 0 ; m  < orders.length ;m++){ %> 
+     <article class="card" id="infoSatatus<%=orders[m]._id%>">
+          <% var x  , y = false; %> 
+          <% if(orders[m].status.includes("Cancel"))  y = true %> 
+          <% if(y){ %> 
+          <div class="cnacelDiv" id="cnacelDiv"> <h3 class="p-2">CanCeled</h1></div>
+          <% } %> 
+               <% if(orders[m].status.includes("Completed")){ %> 
+          <div class="successDiv" id="successDiv"> <h3 class="p-2">Delevered</h1></div>
+          <% } %> 
+
+         <div class="card-body">
+         
+             <div class="statusBar" >
+                 
+                  <!-- // status conditio  -->
+             <h3></h3>
+           
+             <div class="track" id="statusBar<%=orders[m]._id%>" >
+                 
+                  <% if( orders[m].status.includes("placed") ||  orders[m].status.includes("Shipped") || orders[m].status.includes("on The Way") || orders[m].status.includes("Completed")    ){  x = true}else{ x = false} %>
+               <div  class="step <%= x== true ?'active ' : ""  %>   <%= y == true ? "cancel" : "" %>  " > <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+
+               <% var x ; %> 
+               <% if( orders[m].status.includes("Shipped") || orders[m].status.includes("on The Way") || orders[m].status.includes("Completed") ){  x = true}else{ x = false} %>
+               <div class="step <%= x== true ?'active1 ' : ""  %>   <%= y == true ? "cancel" : "" %>"  > <span class="icon"> <i class="fa  fa-anchor"></i> </span> <span class="text"> Shipped</span> </div>
+
+               <% var x ; %> 
+               <% if(orders[m].status.includes("on The Way") || orders[m].status.includes("Completed")  ){  x = true}else{ x = false} %>
+               <div  class="step <%= x== true ?'active2 ' : ""  %>   <%= y == true ? "cancel" : "" %> " > <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+
+               <% var x ; %> 
+               <% if(   orders[m].status.includes("Completed")  ){  x = true}else{ x = false} %>
+               <div class="step <%= x == true ?'active3 ' : ""  %>   <%= y == true ? "cancel" : "" %> " > <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Deleverd</span> </div>
+               
+               <% var x ; %> 
+               <% if(orders[m].status[orders[m].status.length -1] == 'Cancel' ){  x = true ; %>
+               <div class="step <%= x == true ?'cancel' : ""  %> " > <span class="icon"><i class="fas fa-skull"></i></span> <span class="text">Cancellend</span> </div>
+               <% } %> 
+                    
+           </div>
+
+          
+          </div>
+             <hr>
+             <div class="bottom">
+             <div class="col-md-8 col-12" >
+             <div class="scrollmenu">
+               <% for(var i = 0 ; i< orders[m].product.length ;i++){ %> 
+                    <a class="shadow">
+                         <li class="col-md-4" style="list-style: none;">
+                              <figure class="itemside mb-3">
+                                  <div class="aside"><img src="<%=orders[m].product[i].productArray[0].image[0].imageUrl%>" class="img-sm border"></div>
+                                  <figcaption class="info " style="text-align: start;">
+                                      <p class="title productName"><b> <%=orders[m].product[i].productArray[0].productName %> </b>   <br> <span class="text-info"> ( <%=orders[m].product[i].color %> ) </p> 
+                                      <span class="text-muted"><%=orders[m].product[i].size %> </span>
+                                      <span class="text-danger" style="margin-left: 10%;">Q : <%=orders[m].product[i].quantity %> </span>
+                                      <br>
+                                      <span class="text-success"> ₹ <%=orders[m].product[i].totalPrice %> .00 </span>
+                                  </figcaption>
+                              </figure>
+                          </li>
+                    </a>
+                   <% } %> 
+                
+             </div>
+
+          </div>
+          <div class="col-md-4 col-12 allDetails" >
+               <div class="">
+               <div class="allDetails shadow d-flex " style="justify-content: space-evenly;  ">
+                  
+                    <div class="d-flex p-2" style="flex-direction: column; " >
+                         <p>Total Price</p>
+                        
+                         <p> address and Details</p>
+                    </div>
+                    <div class="d-flex p-2" style="flex-direction: column;">
+                         <p data-toggle="tooltip" title=" <%=orders[m]._id  %> " id="" class="text-success longString" >  ₹ <%=orders[m].totalPrice  %>  .00</p>
+                         <p style="color: rgb(0, 255, 72); cursor: pointer ;" onclick="showOrderHistory('<%=orders[m]._id%>')" > <button class="btn btn-outline-warning">show</button> <p>
+                    </div>
+               </div>
+               <% var succ  = false  %> 
+               <% if (orders[m].status.includes("Completed")  )succ = true; %> 
+               <button   <%= y == true ? "disabled" : "" %> <%= succ ? "disabled" : "" %>   onclick="cancelOrder('<%=orders[m]._id  %>')" id="cancelBtn<%=orders[m]._id%>" class="btn  cancel-btn <%= succ ? "btn-success   " : "btn-warning" %>  <%= y == true ? "btn-danger" : "" %> " data-abc="true"> <i class="fa fa-chevron-left"></i>  <%= y == true ? "Order Cancelled" : "" %>     <%= succ ? "SuccessFull" : "" %>  <%= succ== false && y == false? 'Cancel Order' : ""  %>     </button>
+               </div>
+
+
+          </div>
+  </div>
+         </div>
+
+         
+
+         
+     </article>
+     <% } %> 
+ </div>
+ <% } %> 
+
+
+
+
+<div class="w3-container">
+   
+     <div id="id01" class="w3-modal" style="z-index: 9999;">
+       <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+          <center class="p-3"><h4>Orderd Address</h4></center>
+          <table class="table table-borderless">
+              
+               <tbody id="tableBodyAddress">
+                
+                
+               </tbody>
+             </table>
+       
+         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+           <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Back</button>
+     </div>
+   
+       </div>
+     </div>
+   </div>
+           
+
+<script>
+
+$( document ).ready(function() {
+    
+// var name = document.getElementsByClassName('longString');
+// for(var i = 0 ;i< name.length ;i++){
+//      var shortname =   name[i].innerHTML.substring(0, 8) + " ...";
+//      name[i].innerHTML = shortname;
+// }
+  
+    
+     $('[data-toggle="tooltip"]').tooltip();   
+
+});
+
+function cancelOrder(id){
+     Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, cancel the Order!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+         url:'/checkOut/cancelOreder',
+         data:{orderId : id},
+         method:"patch",
+         success:(result)=>{
+              if(result.status){
+               var statusBar = document.getElementById('statusBar'+id);
+               statusBar.innerHTML = ""
+                    var newStatus = `
+               <div  class="step cancel"  > <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+
+               <div class="step cancel" > <span class="icon"> <i class="fa  fa-anchor"></i> </span> <span class="text"> Shipped</span> </div>
+
+               <div  class="step cancel"  > <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+
+               <div class="step cancel" > <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Deleverd</span> </div>
+               
+               <div class="step cancel" > <span class="icon"><i class="fas fa-skull"></i></span> <span class="text">Cancellend</span> </div>
+                    `
+              };
+              document.getElementById("cancelBtn"+id).disabled = true;
+              statusBar.innerHTML = newStatus;
+              var cancelInfoDiv = document.getElementById("infoSatatus"+id);
+              cancelInfoDiv.innerHTML += `<div class="cnacelDiv" id="cnacelDiv"> <h3 class="p-2">CanCeled</h1></div>`
+               Swal.fire(
+                    'Cancelled!',
+                    'Your  Orders Has Been Caneled',
+                    'success'
+               )
+              
+         }
+    })
+  }
+})
+}
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+function showOrderHistory(id){
+   
+     $.ajax({
+     url: '/admin/orders/getOrder',
+    data :{id : id},
+    method : "post",
+    success :(result)=>{
+
+         var tableBody = `
+         <tr>
+                   <th scope="row"></th>
+                   <td colspan="2">First Name</td>
+                   <td>${result.result.firstName}</td>
+                 </tr>
+
+                 <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Second Name</td>
+                    <td>${result.result.secondeName}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Phone number</td>
+                    <td>${result.result.phone}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Email</td>
+                    <td>${result.result.email}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Address</td>
+                    <td>${result.result.address}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Land Mark</td>
+                    <td>${result.result.landMark}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Postal Code</td>
+                    <td>${result.result.poatalCode}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">city</td>
+                    <td>poatalCode</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"></th>
+                    <td colspan="2">Order Id</td>
+                    <td>${id}</td>
+                  </tr>
+         `
+         document.getElementById('tableBodyAddress').innerHTML = tableBody ;
+         document.getElementById("id01").style.display = 'block';
+    }
+
+
+     })
+}
+
+
+</script>
+</body>
+</html>

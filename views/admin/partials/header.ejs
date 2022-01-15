@@ -1,0 +1,325 @@
+
+<%-include('./!docType')%>
+<link rel="stylesheet" href="/stylesheets/admin/admin-layout.css">
+<style>
+  .display-none{
+    display: none;
+  }
+ .dropdown-content {
+  display: none;
+  width: 100%;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+::selection{
+  color: #fff;
+  background: #664AFF;
+}
+.wrapper{
+  max-width: 450px;
+  margin: 150px auto;
+}
+.wrapper .search-input{
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+.search-input input{
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+ padding: 1rem;margin-top: -3%;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+.search-input.active input{
+  border-radius: 5px 5px 0 0;
+}
+.search-input .autocom-box{
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.search-input.active .autocom-box{
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.autocom-box li{
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+.search-input.active .autocom-box li{
+  display: block;
+}
+.autocom-box li:hover{
+  background: #efefef;
+}
+.search-input .icon{
+  position: absolute;
+  right: 0px;
+  top: -15px;
+  height: 55px;
+  width: 55px;
+  text-align: center;
+  line-height: 55px;
+  font-size: 20px;
+  color: #644bff;
+  cursor: pointer;
+}
+.searchTag{
+  font-size: 21px; padding-bottom: 1%;   margin-left: 10%; text-decoration: none !important;
+  color: black; 
+    margin: 1rem;
+}
+#searchOpt{
+  background-color: white;
+  border-radius: 10px;
+
+}
+</style>
+<body>
+     <div class="sidebar">
+       <div class="logo-details">
+        <img src="https://res.cloudinary.com/da0gasflc/image/upload/v1641837120/new_logo_bzjcwp.jpg" alt="Logo" style="margin: 1rem;  width: 48px; height: 45px; object-fit: contain; border-radius: 50px;" />
+           <span style=" font-size: 2.2rem; margin-left : 3% ; color : #e9762b">T<span style="color: #ffffff; ">rends</span></span>
+       </div>
+         <ul class="nav-links" id="nav-links">
+           <li>
+             <a href="/admin" class="active">
+               <i class='bx bx-grid-alt' ></i>
+               <span class="links_name">Dashboard</span>
+             </a>
+           </li>
+           <li>
+             <a href="/admin/userManage">
+               <i class=" fas fa-user-cog"></i>
+               <span class="links_name">Users</span>
+             </a>
+           </li >
+           
+           <li>
+            <a href="/admin/products">
+              <i  class='bx bx-list-ul' ></i> 
+              <span class="links_name">Products </span>
+            </a>
+          </li>
+
+
+           <li>
+             <a href="/admin/catagory">
+               <i class='bx bx-pie-chart-alt-2' ></i>
+               <span class="links_name">Catagory </span>
+             </a>
+           </li>
+          
+           <li> 
+             <a href="/admin/orders">
+               <i class='bx bx-book-alt' ></i>
+               <span class="links_name">Total order</span>
+             </a>
+           </li>
+           <li>
+             <a href="/admin/offers">
+               <i class="fas fa-gift"></i>
+               <span class="links_name"> Offers & Coupons</span>
+             </a>
+           </li>
+
+            <li>
+             <a href="/admin/sales">
+               <i class='bx bx-coin-stack' ></i>
+               <span class="links_name">Sales Report</span>
+             </a>
+           </li> 
+
+           <li>
+            <a href="/admin/banner">
+              <i class="fas fa-pennant"></i>   
+               <span class="links_name">Add Banner</span>
+            </a>
+          </li> 
+
+
+           <li>
+             <a href="/admin/adminProfile">
+               <i class='bx bx-cog' ></i>
+               <span class="links_name">Setting</span>
+             </a>
+           </li >
+           <li class="log_out"  onclick="logout()">
+             <a href="#" >
+               <i class='bx bx-log-out'></i>
+               <span class="links_name" >Log out</span>
+             </a>
+           </li>
+         </ul>
+     </div>
+     <section class="home-section">
+       <nav>
+         <div class="sidebar-button">
+           <i class='bx bx-menu sidebarBtn'></i>
+           <span class="dashboard">Dashboard</span>
+         </div>
+
+
+
+
+         <div class="wrapper">
+          <div class="search-input" style="height: 0px;">
+            <input  onkeyup="searchBar(event)"  style="margin-top: -12%;" type="text" class="shadow" placeholder="Type to search..">
+            <div  id="searchOpt" class=" d-flex  shadow" style="flex-direction: column;">
+
+              <!-- <a href="/"  class="searchTag">fuck</a> -->
+              
+              <!-- here list are inserted from javascript -->
+            </div>
+            <div class="icon"><i class="fas fa-search"></i></div>
+          </div>
+        </div>
+         <!-- <script src="js/suggestions.js"></script>  -->
+         <!-- <script src="js/script.js"></script>  -->
+      </body>
+
+
+
+         <!-- <div class="search-box">
+           <input type="text" placeholder="Search...">
+           <i class='bx bx-search' ></i>
+         </div> -->
+         <div class="profile-details "  style="text-align: center;">
+           <img src="https://res.cloudinary.com/da0gasflc/image/upload/v1640512685/hcljneivr5tj2tpmspkl.png" alt="">
+           <span style="text-align: center;" class="admin_name">Admin</span>
+           <!-- <i class='bx bx-chevron-down' ></i> -->
+         </div>
+       </nav>
+
+<script>
+
+let suggestions = [
+    {searchUrl : "/admin"  , name : "home"},
+    {searchUrl : "/admin"  , name : "dashbord"},
+    {searchUrl : "/admin/products"  , name : "product"},
+    {searchUrl : "/admin/products/addproucts"  , name : "add product"},
+    {searchUrl : "/admin/userManage"  , name : "users"},
+    {searchUrl : "/admin/catagory"  , name : "catagory"},
+    {searchUrl : "/admin/catagory"  , name : "sub catagory"},
+    {searchUrl : "/admin/catagory"  , name : "add catagory"},
+    {searchUrl : "/admin/catagory"  , name : "add sub catagory"},
+    {searchUrl : "/admin/orders"  , name : "orders"},
+
+    {searchUrl : "/admin/offers"  , name : "offers"},
+    {searchUrl : "/admin/offers"  , name : "coupones"}
+    ,
+    {searchUrl : "/admin/sales"  , name : "sales"},
+    {searchUrl : "/admin/banner"  , name : "banner"},
+    {searchUrl : "/admin/banner"  , name : "add banner"},
+
+    {searchUrl : "/admin/userManage"  , name : "block user"},
+    {searchUrl : "/admin/userManage"  , name : "unblock user"},
+];  
+
+
+function searchBar (e){
+      let regExp=new RegExp(e.target.value, "i");
+     var opt = document.getElementById('searchOpt');
+       opt.innerHTML = ""
+        if(e.target.value == ""){
+          opt.innerHTML = ""
+          return;
+        }
+      for(var i = 0 ; i< suggestions.length ;i++){
+            if(  suggestions[i].name.match(regExp)  != null){
+              console.log(i)
+              var appentData = `<a href="${suggestions[i].searchUrl}"  class="searchTag">${suggestions[i].name}</a>`;
+              opt.innerHTML += appentData;
+            }else{
+              // opt.innerHTML = "";
+            }
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      let sidebar = document.querySelector(".sidebar");
+   let sidebarBtn = document.querySelector(".sidebarBtn");
+   sidebarBtn.onclick = function() {
+    document.getElementById("hide-pro").classList.toggle("hider")
+    document.getElementsByTagName("body")[0].style.overflow = "hidden"
+     sidebar.classList.toggle("active");
+     if(sidebar.classList.contains("active")){
+     sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+   }else
+     sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+   }
+
+   function logout(){
+     swal.fire({
+  title: "Really?",
+  text: "Poyettu pinne va",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $.ajax({
+         url:"/admin/logout",
+         method:"get",
+         success:(result)=>{
+              location.href = "/admin"
+         }
+    })
+  } else {
+    
+  }
+});
+   }
+
+
+function hideProudctOptions(){
+  document.getElementById("myDropdown").style.display = "none"
+  document.getElementById('closeProudcts').style.display = "none";
+
+}
+function myFunction() {
+  document.getElementById("closeProudcts").style.display = "block"
+  document.getElementById("myDropdown").style.display = "block"
+}
+
+
+
+
+    </script>
+   
+   </body>
+

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+</style>
+
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+  <!-- Mirrored from demo.graygrids.com/themes/shopgrids/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 06 Nov 2021 18:21:50 GMT -->
+  <head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>🆃🆁🅴🅳🅽🆂 .com</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://res.cloudinary.com/da0gasflc/image/upload/v1641837120/new_logo_bzjcwp.jpg"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="/stylesheets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="/stylesheets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="/stylesheets/css/main.css" />
+
+
+
+  </head>
+  <body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+
+    <style>
+
+      i{
+        line-height: 2rem !important;
+      }  
+      input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+      a{
+        list-style: none;
+        text-decoration: none !important;
+      }
+    </style>
+    <div class="preloader">
+      <div class="preloader-inner">
+        <div class="preloader-icon">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <header class="header navbar-area">
+      <div class="topbar">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-4 col-md-4 col-12">
+              <div class="top-left">
+                <ul class="menu-top-link">
+                  <li>
+                    <div class="select-position">
+                      <select id="select4">
+                        <option value="0" selected>$ USD</option>
+                        <option value="1">€ EURO</option>
+                        <option value="2">$ CAD</option>
+                        <option value="3">₹ INR</option>
+                        <option value="4">¥ CNY</option>
+                        <option value="5">৳ BDT</option>
+                      </select>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="select-position">
+                      <select id="select5">
+                        <option value="0" selected>English</option>
+                        <option value="1">Español</option>
+                        <option value="2">Filipino</option>
+                        <option value="3">Français</option>
+                        <option value="4">العربية</option>
+                        <option value="5">हिन्दी</option>
+                        <option value="6">বাংলা</option>
+                      </select>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+              <div class="top-middle">
+                <ul class="useful-links">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+              <div class="top-end">
+
+                <% if(logStatus){ %> 
+                <div class="user">
+                  <a style="text-decoration: none;"   href="/userProfile">
+                  <i class="far fa-user"></i>
+                  Hello
+                </a>
+                </div>
+                <ul class="user-login">
+                  <li>
+                    <a href=""></a>
+                  </li>
+                  <li>
+                    <a href="/logout">log out</a>
+                  </li>
+                </ul>
+                <% }else{ %> 
+                
+                <ul class="user-login">
+                  <li>
+                    <a href="/signup">Sign In</a>
+                  </li>
+                  <li>
+                    <a href="/createAccount">Register</a>
+                  </li>
+                </ul>
+
+                <% } %> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-middle">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-3 col-md-3 col-7">
+              <a class="navbar-brand" href="/" style="display: flex; align-items: center;">
+                <img src="https://res.cloudinary.com/da0gasflc/image/upload/v1641837120/new_logo_bzjcwp.jpg" alt="Logo" style="width: 70px; height: 65px; object-fit: contain; border-radius: 50px;" />
+                <h4 style="margin-left : 3% ; color : #e9762b">T<span style="color: #174774; ">rends</span></h4>
+              </a>
+            </div>
+            <div class="col-lg-5 col-md-7 d-xs-none">
+              <div class="main-menu-search">
+                <div class="navbar-search search-style-5">
+                  <div class="search-select">
+                    <div class="select-position">
+                      <select id="select1">
+                        <option selected>All</option>
+                        <option value="1">option 01</option>
+                        <option value="2">option 02</option>
+                        <option value="3">option 03</option>
+                        <option value="4">option 04</option>
+                        <option value="5">option 05</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="search-input">
+                    <form action="/product/searchProduct"  method="get">
+                    <input type="text" placeholder="Search"  name="productName" />
+                  
+                  </div>
+                  <div class="search-btn">
+                    <button><i class="fas fa-search"></i></button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-2 col-5">
+              <div class="middle-right-area">
+                <div class="nav-hotline">
+                  <i class="fas fa-phone-volume"></i>
+                  <h3>
+                    Hotline:
+                    <span>(+100) 123 456 7890</span>
+                  </h3>
+                </div>
+                <div class="navbar-cart">
+                  <div class="wishlist">
+                    <a href="/wishlist">
+                      <i class="fas fa-heart"></i>
+                      <span class="total-items"  id="badgeWishlist">0</span>
+                    </a>
+                  </div>
+                  <div class="cart-items">
+                    <a  id="cartLink"  class="main-btn">
+                      <i class="fas fa-shopping-bag"></i>
+                      <span id="badge" class="total-items">0</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 col-md-6 col-12">
+            <div class="nav-inner">
+              <div class="mega-category-menu">
+                <span class="cat-button"
+                  ><i class="lni lni-menu"></i>All Categories</span
+                >
+                <ul class="sub-category">
+                  <li>
+                    <a href="product-grids.html">Mens <i class="lni lni-chevron-right"></i></a>
+                    <a href="product-grids.html">Womens <i class="lni lni-chevron-right"></i></a>
+                    <a href="product-grids.html">Kids <i class="lni lni-chevron-right"></i></a>
+                    <a href="product-grids.html">All <i class="lni lni-chevron-right"></i></a>
+                   
+                  </li>
+                  
+              </div>
+
+              <nav class="navbar navbar-expand-lg">
+                <button
+                  class="navbar-toggler mobile-menu-btn"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                </button>
+                <div
+                  class="collapse navbar-collapse sub-menu-bar"
+                  id="navbarSupportedContent"
+                >
+                  <ul id="nav" class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a
+                        href="/product"
+                        class="active"
+                        aria-label="Toggle navigation"
+                        >All Products</a
+                      >
+                    </li>
+
+                    <!-- -------------catagory--------------- -->
+                    <% for(var i = 0 ; i < catagory.length ; i++){ %> 
+
+                    <li class="nav-item">
+                      <a
+                        class="dd-menu collapsed"
+                        href="javascript:void(0)"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#submenu-1-2"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        ><%= catagory[i].catagory %> </a
+                      >
+                      <ul class="sub-menu collapse" id="submenu-1-2">
+                        <li class="nav-item">
+                          <a href="/product/CatagoryWiseShow?id=<%=catagory[i].catagory%>">All </a>
+                        </li>
+                       
+                        <% for(var j = 0 ;j < catagory[i].subCatagory.length ;j++){ %> 
+                        <li class="nav-item">
+                          <a href="/product/catWise?id=<%=catagory[i].subCatagory[j]%>"><%=catagory[i].subCatagory[j] %> </a>
+                        </li>
+                        <% } %> 
+                      </ul>
+                    </li>
+
+                    <% } %> 
+                    <!-- ----------end of  the  catagory -------------- -->
+                    
+                    
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="nav-social">
+              <h5 class="title">Follow Us:</h5>
+              <ul>
+                <li>
+                  <a href="javascript:void(0)"
+                    ><i class="fab fa-twitter-square"></i></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)"
+                    ><i class="fab fa-facebook-square"></i></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)"
+                    ><i class="fab fa-whatsapp-square"></i></a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)"><i class="fab fa-instagram-square"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+
+
+
+    <script
+    data-cfasync="false"
+    src="https://demo.graygrids.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+  ></script>
+  <script src="/javascripts/js/bootstrap.min.js"></script>
+  <script src="/javascripts/js/tiny-slider.js"></script>
+  <script src="/javascripts/js/glightbox.min.js"></script>
+  <script src="/javascripts/js/main.js"></script>
+  <script type="text/javascript">
+    //========= Hero Slider
+    tns({
+      container: ".hero-slider",
+      slideBy: "page",
+      autoplay: true,
+      autoplayButtonOutput: false,
+      mouseDrag: true,
+      gutter: 0,
+      items: 1,
+      nav: false,
+      controls: true,
+      controlsText: [
+        '<i class="lni lni-chevron-left"></i>',
+        '<i class="lni lni-chevron-right"></i>',
+      ],
+    });
+
+    //======== Brand Slider
+    tns({
+      container: ".brands-logo-carousel",
+      autoplay: true,
+      autoplayButtonOutput: false,
+      mouseDrag: true,
+      gutter: 15,
+      nav: false,
+      controls: false,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        540: {
+          items: 3,
+        },
+        768: {
+          items: 5,
+        },
+        992: {
+          items: 6,
+        },
+      },
+    });
+  </script>
+  <script>
+    const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
+
+    const timer = () => {
+      const now = new Date().getTime();
+      let diff = finaleDate - now;
+      if (diff < 0) {
+        document.querySelector(".alert").style.display = "block";
+        document.querySelector(".container").style.display = "none";
+      }
+
+      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      days <= 99 ? (days = `0${days}`) : days;
+      days <= 9 ? (days = `00${days}`) : days;
+      hours <= 9 ? (hours = `0${hours}`) : hours;
+      minutes <= 9 ? (minutes = `0${minutes}`) : minutes;
+      seconds <= 9 ? (seconds = `0${seconds}`) : seconds;
+
+      document.querySelector("#days").textContent = days;
+      document.querySelector("#hours").textContent = hours;
+      document.querySelector("#minutes").textContent = minutes;
+      document.querySelector("#seconds").textContent = seconds;
+    };
+    timer();
+    setInterval(timer, 1000);
+  </script>
+
+
+<script>
+
+  $( document ).ready(function() {
+
+   
+  var gustUserId = localStorage.getItem('userId');
+  var linkStr = '/cart?userId='+gustUserId;
+ 
+    document.getElementById("cartLink").href =linkStr; 
+
+
+
+    var  userId = localStorage.getItem('userId');
+    
+    $.ajax({
+            url:"/getCartCount",
+            data :{id : userId},
+            method : "post",
+            success :(result)=>{
+             
+             
+              document.getElementById('badge').innerHTML = result.count;
+            }
+          })
+
+          $.ajax({
+            url :'/getWishListCount',
+            method : "post",
+            success:(result)=>{
+              document.getElementById("badgeWishlist").innerHTML = result.status;
+            }
+          })
+
+
+
+    if(userId == null){
+      document.getElementById('badge').innerHTML = 0;
+      document.getElementById("badgeWishlist").innerHTML = 0;
+      return;
+    }
+
+
+     
+  });
+
+    </script>

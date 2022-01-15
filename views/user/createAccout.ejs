@@ -1,0 +1,344 @@
+
+<%- include('./partials/headers')%> 
+
+
+<style>
+    #partitioned {
+  padding-left: 15px;
+  letter-spacing: 42px;
+  border: 0;
+  background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 50px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 35px;
+  width: 220px;
+  min-width: 220px;
+}
+
+#divInner{
+  left: 0;
+  position: sticky;
+}
+
+#divOuter{
+  width: 190px; 
+  overflow: hidden;
+}
+</style>
+<input hidden type="text" value="<%=refId%>" id="refId">
+
+    <div class="breadcrumbs">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="breadcrumbs-content">
+                <h1 class="page-title">Registration</h1>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <ul class="breadcrumb-nav">
+                <li>
+                  <a href="index.html"><i class="lni lni-home"></i> Home</a>
+                </li>
+                <li>Registration</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="account-login section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+              <div class="register-form">
+                <div class="title">
+                  <h3>No Account? Register</h3>
+                  <p>
+                    Registration takes less than a minute but gives you full
+                    control over your orders.
+                  </p>
+                </div>
+                <form class="row" method="post">
+
+                        <!-- timer to limit user time -->
+                  <center style="display: none;" id="createAccountHide" class="mt-4">
+                    <div id='progressbar4'></div>
+                        <div style="margin-top: -5%;" class="timer" id="timer">
+                            <h4 class="timing" id="safeTimerDisplay">02 : 60</h4>
+                        </div>
+                        <p id="chanceIndicator" >your have<b id="limitIndicator" class="text-danger"> 4 </b>chances left</p>
+                    </center> 
+
+                    <!-- end of the timer -->
+
+
+                  <div id="nameDiv" class="col-sm-12">
+                    <div class="form-group">
+                      <label for="reg-fn">First Name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        id="username"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                                    <!-- ----------for otp------------------ -->
+                                    <div  style="display: none;"  id="otpDiv" class="form-group mb-4 mt-4">
+                                        <center>
+                                         <div id="divOuter">
+                                         <div id="divInner">
+                                       <input style="outline: none; border: none;" id="partitioned" type="text" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  onKeyPress="if(this.value.length==4) return false;"/>
+                                         </div>
+                                       </div> </center>
+                     
+                                     </div>
+                     
+                                       <!-- -----------end of top============== -->
+
+
+
+                  
+                  <div id="emailDiv" class="col-sm-6">
+                    <div class="form-group">
+                      <label for="reg-email">E-mail Address</label>
+                      <input
+                        class="form-control"
+                        type="email"
+                        id="email"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div id="phoneDiv" class="col-sm-6">
+                    <div class="form-group">
+                      <label for="reg-phone">Phone Number</label>
+                      <input
+                      style="letter-spacing: 8px;"
+                        class="form-control"
+                        type="number"
+                        id="phone"
+                        pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;"   
+                      />
+                    </div>
+                  </div>
+
+                  <div id="passwordDiv" class="col-sm-12">
+                    <div class="form-group">
+                      <label for="reg-pass">Password</label>
+                      <input
+                        class="form-control"
+                        type="password"
+                        id="password"
+                        required
+                      />
+                    </div>
+                  </div>
+                 
+                  <div class="button">
+                    <center>
+                      <p class="text-danger mt-4 mb-4" id="err" ></p>
+                      </center>
+                    <button id="continueBtn" class="btn" type="button" onclick="sendOtp()">Continue</button>
+                    <button id="submitOtpBtn" class="btn" type="button" onclick="submitOtp()">Submit</button>
+                  </div>
+                  <p class="outer-link">
+                    Already have an account? <a href="/signup">Login Now</a>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<%- include('./partials/footer')%> 
+  
+<script>
+
+
+const loading = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+
+$(document).ready(()=>{
+    $('#submitOtpBtn').hide()
+})
+
+      // fuction to clear erro ;
+      document.querySelectorAll('.form-control').forEach(iter=>{
+    iter.addEventListener('click' ,()=>{
+        document.getElementById('err').innerHTML = ""
+    })
+})
+
+
+
+
+function sendOtp(){
+        var err = document.getElementById("err");
+
+        var userName = $('#username').val()
+        var email = $('#email').val()
+        var phone = $('#phone').val()
+        var password = $('#password').val()
+       
+        var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        if( userName == "" || email == "" || phone == "" || password == "" ){
+            err.innerHTML = "please fill up all the fields" 
+            return;
+        }
+        if(email.match(pattern) === null ){
+            err.innerHTML = "please Enter a valid email";
+            return ;
+        }
+        if(phone.length < 10){
+            err.innerHTML = "please Check your phone number";
+            return ; 
+        }
+        if(password.length < 6 ){
+            err.innerHTML = "password must  consist of 6 characters ";
+            return ;
+        }
+        err.innerHTML = "";
+
+        // {{ end of  the validateion }}
+        // send the OTP  to the nuber and show the field;
+       var btn =  document.getElementById("continueBtn")
+        btn.innerHTML = loading;
+        btn.disabled =true;
+        $.ajax({
+            url: "/isValidPhone",
+            method :'post',
+            data : {phone : $('#phone').val()},
+            success  : (result)=>{
+                btn.innerHTML = 'Continue';
+                btn.disabled =false;
+                if(result.status  == true){
+                    $('#nameDiv').hide();
+                    $('#emailDiv').hide();
+                    $('#phoneDiv').hide();
+                    $('#passwordDiv').hide();
+                    btn.style.display = "none";
+
+                    $('#otpDiv').show();
+                    $('#submitOtpBtn').show()
+                    $('#createAccountHide').show();
+                    startTimer()
+                }else{
+                    err.innerHTML = result.status ; 
+                }
+            }
+        })
+     }
+
+
+var timerChecker = true;
+
+
+// functon to stop timer
+function stopTimer() {
+    clearInterval(interevel);
+    swal.fire("Sorry !", "Try again ", "error").then(() => {
+        location.reload();
+    })
+    timerChecker = false;
+}
+// function to start timer;
+function startTimer() {
+    var timer = document.getElementById("safeTimerDisplay");
+    var minute = 2;
+    var second = 1;
+
+    interevel = setInterval(() => {
+        second--;
+        if (second == 0) {
+            minute--;
+            second = 60;
+            if (minute == 0) {
+               
+                second = "00";
+                minute = "00";
+                stopTimer();
+            }
+        }
+        timer.innerHTML = "0" + minute + ":" + second;
+    }, 1000);
+}
+
+var checker = 4;
+
+
+
+function submitOtp() {
+
+if (checker > 0 && timerChecker) {
+   
+    document.getElementById("limitIndicator").innerHTML = checker;
+    var phone = document.getElementById('phone').value
+    var otp = document.getElementById("partitioned").value;
+    var btn = document.getElementById('submitOtpBtn');
+   
+    if (otp.length == 4) {
+      btn.innerHTML = loading;
+     btn.disabled = true;
+     checker--;
+        $.ajax({
+            url: "/otp",
+            data: {
+                otp: otp,
+                phone: phone
+            },
+            method: "post",
+            success: (result) => {
+                  btn.innerHTML = 'Submit';
+                 btn.disabled = false;
+                var pack = {
+                     refId : $('#refId').val(),
+                     name : $('#username').val(),
+                     email : $('#email').val(),
+                     phone : $('#phone').val(),
+                     password : $('#password').val(),
+                     gustUserId : localStorage.getItem('userId')
+                }
+                if (result.status == true) {
+                    $.ajax({
+                        url : '/createAccountPost',
+                        data :  pack,
+                        method :'post',
+                        success : (createAccoutStatus)=>{
+                            if(createAccoutStatus.status == true){
+                            location.href = '/';
+                            }else{
+                                document.getElementById('err').innerHTML = result.status; 
+                            }
+
+                        }
+                    })
+                   
+                }else{
+                    document.getElementById('err').innerHTML = result.status;
+                }
+            }
+        })
+    }
+    else {
+        document.getElementById("err").innerHTML = "otp requres 4 numbers";
+    }
+}
+else {
+    clearInterval(interevel);
+    swal.fire("Sorry !", "Try again ", "error").then(() => {
+        location.reload();
+    })
+
+}
+
+}
+
+
+
+
+</script>

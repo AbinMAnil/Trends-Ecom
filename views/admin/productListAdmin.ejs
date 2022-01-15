@@ -1,0 +1,1190 @@
+
+<%-include('./partials/!docType')%>
+<%-include('./partials/header')%>
+<%-include('./partials/spinner') %> 
+<style>
+     tr{
+          border-bottom: .5px solid rgb(237, 237, 237);
+     }
+     .vis{
+        visibility: hidden;
+     }
+     #sortBtn{
+          border: 1px solid gold ;
+          border-radius: 5px;
+          background-color: rgb(2, 2, 48) !important;
+          color: gold !important;
+     }
+     .displayNone{
+          margin-top: 5%;
+          display: none !important;
+     }
+     .shadow  {
+         box-shadow: 0 3px 10px rgb(0 0 0 / 0.2) !important;
+}
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="/stylesheets/admin/admin-prouctlist.css">
+<div class="container mb-4">
+     <div class="row">
+         
+          <div class="home-content loader">
+
+               <div class="mb-3">
+                    <div class="input-group" id="input-group">
+                         <div class="form-outline">
+                           <input  onkeypress="searchProduct()" type="search" id="searchBar" class="form-control"  placeholder="Search"/>
+                           
+                         </div>
+                         <button style="height: 10%;" type="button" class="btn btn-primary">
+                           <i class="fas fa-search"></i>
+                         </button>
+                       </div>
+
+               </div>
+
+
+               <!-- _____________add product btn______________-- -->
+
+              <a href="/admin/products/addproucts"> <button style="position: absolute;left: 84%;" class="btn btn-primary">Add Product</button></a>
+               <!-- __________ end  fo the add productbtn ___________________ -->
+
+
+
+               <div class="w3-dropdown mb-2"  style="width: 100%;display: flex;justify-content: flex-end;">
+                    <button id="" onclick="showOpt()" class="btn btn-outline-primary " type="button"> sort <i class="fas fa-sort-down"></i> </button>
+                    <div onkeypress="hideopt()"   id="Demo" class="w3-dropdown-content w3-bar-block w3-border vis" style="  display:flex;flex-direction: column;  top: 11%; left: 91%;">
+                      <a onclick="hideopt()"  class="w3-bar-item w3-button">All</a>
+                      <a onclick="hideopt() , sortByDate(1)"  class="w3-bar-item w3-button">Recent Product</a>
+                      <a onclick="hideopt() , sortByDate(-1)"  class="w3-bar-item w3-button">First Product</a>
+                    </div>
+                  </div>
+               <div class="tableContol" >
+          <table class="table table-borderless shadow" id="table" >
+               <thead style="background-color: #030848; color: white;">
+                 <tr style="text-align: center;">
+                   <th scope="col">#</th>
+                   <th scope="col">Product-Image</th>
+                   <th scope="col">Details</th>
+                   <th scope="col">Offer Details</th>
+                   <th scope="col">Price </th>
+                   <th scope="col">Stock</th>
+                   <th scope="col">Color And Size </th>
+                   <th scope="col">Actions</th>
+
+
+                 </tr>
+               </thead>
+               <tbody id="tabelBody">
+                    <% for(var i = 0 ;i< data.product.length;i++){%> 
+
+                 <tr  id="tableRow<%=data.product[i]._id%>" style="background-color: white;" class="table-white">
+                   <th scope="row" class="align-middle"><%=i+1 %> </th>
+                   <td class="align-middle" >
+                         <div class="image-div" style="width: 150px; height: 100px;">
+                              <img  src="<%=data.product[i].image[0].imageUrl%>" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                         </div> 
+
+                   </td>
+                   <td class="align-middle">
+                       <h5  class="productName" style="letter-spacing: 2px;"> <%=data.product[i].productName%> </h5>
+                       
+
+                    </td>   
+                   <td class="aling-middle text-warning " style="text-align: start; display: flex; justify-content: flex-start;">
+                       <% if(data.product[i].offerName !== null){ %> 
+                    <span class="mt-5 " title=" Discout Percentage <%=data.product[i].offerPercentage %> %" ><code style="background-color: rgb(238, 238, 238); color: rgb(3, 17, 99); " class="shadow"><%= data.product[i].offerName%></code></span>
+                    <% }else{ %> 
+                       <span class="mt-5" style= "margin-top: 1%;"><code style="background-color: rgb(232, 232, 232); padding: 2px; color: pink;">NO Offer😞 </code></span>
+                        <% } %> 
+
+                    
+                    </td>
+                    <td class="align-middle">
+                         <h5 style="color: red;">
+                            <% if( data.product[i].offerPrice !== null ){ %> 
+                             <strike class='text-secondary'>  ₹  <%=data.product[i].price%> .00</strike>
+                              <br>
+                              ₹  <%=data.product[i].offerPrice%> .00
+                              <% }else{ %> 
+                                ₹ <%=data.product[i].price%> .00
+                                <% } %> 
+
+                         </h5>
+                    </td>
+                    <td  class="align-middle" >
+                         <h5 style="color: rgb(0, 179, 45);">
+                              <%=data.product[i].quantity%> /ps
+                         </h5>
+                    </td>
+
+
+                    <td class="align-middle"  >
+                        <div style="display: flex; flex-direction: column; justify-content: center;  margin-left: 10%; width: 15vw;"   >
+                              
+                         <div class="scrollmenu shadow-sm mb-3"  id="colorPreview"  style="width:15vw  ; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2) !important;">
+                              <% for(var j = 0 ;j<data.product[i].color.length ;j++){ %> 
+                              <a style="padding: 6px;" id="preColor"> <%=data.product[i].color[j]%> </a>
+                              <% } %> 
+                             
+                             
+                            </div>
+                            <div class="scrollmenu shadow-sm mb-3"  id="sizePreview" style="width:15vw ;  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2) !important;" >
+                              <% for(var j = 0 ;j<data.product[i].size.length ;j++){ %> 
+                                   <a style="padding: 6px;" id="sizePreA"> <%=data.product[i].size[j]%> </a>
+                                   <% } %> 
+                            </div>
+                        </div>
+                        
+                  
+                    </td>
+
+                    
+
+                      <td style="border-left: 1px solid rgb(230, 227, 227); padding-left: 1%;" class="align-middle">
+                         <button type="button" class="btn btn-outline-success"  onclick="editProudct('<%=data.product[i]._id%>')" ><i class="fas fa-edit"></i> </button>
+                         <button onclick="deleteProduct('<%=data.product[i]._id%>')"   type="button" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button>
+                         <button  onclick="showOfferForm('<%=data.product[i]._id%>')" class="btn btn-outline-warning"><i class="fas fa-tags"></i></button>
+        
+                      </td>
+                 
+
+                      </tr>
+                      
+                      <% } %> 
+               </tbody>
+             </table>
+             
+          </div>
+          </div>
+     </div>
+<center><h1 id="notFount"></h1></center>
+
+</div>
+<div id="tableSpinner"    class=" displayNone d-flex justify-content-center">
+     <div class="spinner-border" role="status">
+       <span class="sr-only">Loading...</span>
+      
+     </div>
+     <br>
+     <h5>Loading..</h5>
+   </div>
+
+<div style="width: 100%; display: flex; justify-content: flex-end;" >
+<div class="pagination">
+     <a href="#">&laquo;</a>
+     <% for(var i = 0 ;i< data.totalLength/10 ; i++){ %> 
+     <a  class="active" onclick="morePage('<%=i+11%>')"><%=i+1 %> </a>
+     <% } %> 
+   
+     <a href="#">&raquo;</a>
+   </div>
+</div>
+
+
+<div class="w3-container" >
+     <div id="productEdit" class="w3-modal" style="z-index: 124;">
+       <div class="w3-modal-content">
+         <div class="w3-container">
+           <span onclick="document.getElementById('productEdit').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+           <html style="overflow-x: hidden; scroll-behavior: smooth; z-index: 1400;" class="supernova" >
+               <style>
+              
+              code{
+             border-radius: 50px !important;
+
+         }
+               .preview {
+                  overflow: hidden;
+                  width: 160px;
+                  height: 160px;
+                  margin: 10px;
+                  border: 1px solid red;
+              }
+          
+              .modal-lg {
+                  max-width: 1000px !important;
+              }
+          
+              div.scrollmenu {
+           color: rgb(6, 5, 68);
+           cursor: pointer;
+            overflow: auto;
+            white-space: nowrap;
+          }
+          
+          div.scrollmenu a {
+               border-right: 1px solid gold;
+            display: inline-block;
+            color: rgb(0, 0, 0);
+          
+            text-align: center;
+            padding: 14px;
+          
+          }
+          
+          div.scrollmenu a:hover {
+               color: rgb(0, 0, 0);
+            background-color: rgb(232, 229, 243);
+          }
+          
+          .scrollmenu::-webkit-scrollbar{
+               display: none;
+          }
+.productName {
+    letter-spacing: 0px;
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+ 
+}
+          
+               </style>
+          <%-include('./partials/spinner') %> 
+          
+    
+           
+          <!-- Material Dashboard CSS -->
+                 <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+               <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+          
+          <script src="https://unpkg.com/dropzone"></script>
+               <script src="https://unpkg.com/cropperjs"></script>
+          
+                   <meta name="robots" content="noindex,follow" />
+                   <style type="text/css">@media print{.form-section{display:inline!important}.form-pagebreak{display:none!important}.form-section-closed{height:auto!important}.page-section{position:initial!important}}</style>
+                   <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?themeRevisionID=5eb3b4ae85bd2e1e2966db96"/>
+                   <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3" />
+                   <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3" />
+                   <style type="text/css" id="tempThumbnail">@media only screen and (max-width: 800px) { body, .supernova { background-color: #fff !important; }
+                       .form-all { box-shadow: none !important}
+                       }
+                   </style>
+                   <style>
+                        .modal-backdrop{
+                             z-index: 0;
+
+                        }
+                   html { -webkit-overflow-scrolling: touch; overflow: scroll; }body { height: 100%; overflow: scroll; }</style>
+               </head>
+          
+          
+          <!-- ------------------------------------------------------------------------------------------------------------------start of the crop   modal---------------------------------------------------------------------------- -->
+          <% for(var i = 1;i<=6 ; i++){%> 
+          
+               <div class="modal fade" id="modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelaria-hidden="true style="z-index: 1055;">
+                    <div class="modal-dialog" role="document" style="z-index:1055 ;" >
+                         <div class="modal-content">
+                              <div class="modal-header">
+                                   <h5 class="modal-title" id="exampleModalLabel">Crop Image Here</h5>
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                   </button>
+                              </div>
+                              <div class="modal-body">
+                                   <div class="img-container">
+                                        <div class="row">
+                                        <div class="col-md-8">
+                                             <img src="" id="sampleImage<%=i%>" />
+                                        </div>
+                                        <div class="col-md-4">
+                                             <div class="preview" id="preview<%=i%>"></div>
+                                        </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="modal-footer">
+          
+                                   <button type="button" id="crop<%=i%>" class="btn btn-primary">Crop</button>
+                                   <button type="button" class="btn btn-secondary" data-dismiss="modal"  onclick="closeModal1('<%=i%>')"  >Cancel</button>
+          
+                              </div>
+                         </div>
+                    </div>
+                    </div>
+          
+                    <% } %> 
+          <!-- --------------------------------------------------------------------------------------------------------------------------end of the crop  modal-------------------------------------------------------------- -->
+          
+          
+          <!-- --------------------------------------------------------------------------------------------------------------------------start of the public id -------------------------------------------------------------- -->
+          
+          
+          
+          <% for(var i = 1 ;i<= 6 ; i++) {%> 
+              <input style="display: none;" type="text" id="publicId<%=i%>">
+              <% } %> 
+          
+          <!-- --------------------------------------------------------------------------------------------------------------------------end of the public id ------------------------------------------------------------- -->
+          
+          
+          
+          
+               <body style="overflow-x:hidden;">
+                    <div class="home-content loader">
+                   <div class="jotform-form">
+                       <div role="main" class="form-all" style="margin:0 auto;">
+                           <style>.form-all:before { background: none;}</style>
+                           <ul class="form-section page-section shadow-lg">
+                           <li id="cid_1" class="form-input-wide" data-type="control_head">
+                               <div class="form-header-group header-large">
+                                   <div class="header-text httal htvam">
+                                       <h2 id="header_1" class="form-header" data-component="header">Increase Your Inventroy</h2>
+                                   </div>
+                               </div>
+                           </li>
+                           <!-- name and barnd  -->
+                           <li class="form-line" data-type="control_fullname" id="id_2">
+                              <div id="cid_2" class="form-input-wide" data-layout="full">
+                                  <div data-wrapper-react="true"><span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
+                                      <input  onkeyup="clearMainErr()" type="text" id="productName" class="form-textbox"  data-component="first"  name=""     />
+                                      <label class="form-sub-label" for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false"> Product Name </label>
+                                       </span><span class="form-sub-label-container" style="vertical-align:top" data-input-type="last"><input  onkeyup="clearMainErr()" type="text" id="brandName" name="brand" class="form-textbox" data-defaultvalue="" size="15" value="" data-component="last" aria-labelledby="label_2 sublabel_2_last" />
+                                      <label class="form-sub-label" for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false"> Brand Name  </label></span>
+                                  </div>
+                              </div>
+                          </li>
+                          <!-- {{ end of the name and bradn}} -->
+          
+                          <!-- {{ catagory and subcatagory}} -->
+                          
+                          <li class="form-line" data-type="control_address" id="id_4">
+                               <div id="cid_4" class="form-input-wide" data-layout="full">
+                                   <div summary="" class="form-address-table jsTest-addressField">
+                                       <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                                       <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+           
+                                           <!-- catagory  -->
+                                           <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                               <span class="form-sub-label-container" style="vertical-align:top">
+                                                   <!-- subcatagory -->
+                                                   <select class="form-dropdown form-address-country noTranslate"name="catagory" id="mainCat" data-component="country" required="" aria-labelledby="label_4 sublabel_4_country" onchange="getSub()" onkeyup="clearMainErr()">
+                                                      
+                                                         
+                                                   </select>
+                                                   <label class="form-sub-label" for="input_4_country" id="sublabel_4_country" style="min-height:13px" aria-hidden="false"> Select a Catagory </label>
+                                               </span>
+                                           </span>
+           
+                                       <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                           <span class="form-sub-label-container" style="vertical-align:top">
+                                               <!-- subcatagory -->
+                                               <span id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                               <select class="   form-dropdown form-address-country noTranslate" name="subCatagory" id="subCatSel" data-component="country" required="" aria-labelledby="label_4 sublabel_4_country"  onkeyup="clearMainErr()">
+                                                 
+                                               </select>
+                                               <label class="form-sub-label" for="input_4_country" id="sublabel_4_country" style="min-height:13px" aria-hidden="false"> Select a sub Catagory </label>
+                                           </span>
+                                       </span>
+                                       </div>
+                                   </div>
+                               </div>
+                           </li>
+          
+                          <!-- end of the catagory and subcatagory -->
+                          <hr width="100%">
+          
+          
+          
+          
+                          <!-- ------------------------------------------------------------------------------------------- -->
+          
+          
+                          <li class="form-line card-3col" data-type="control_paypalcomplete" id="id_19" data-payment="true">
+                              <label class="form-label form-label-top" id="label_19" for="input_19"> Products Image </label>
+                              <div id="cid_19" class="form-input-wide" data-layout="full">
+                                  <div data-wrapper-react="true">
+                                      <div data-wrapper-react="true" class="product-container-wrapper">
+                                      <div class="filter-container"></div>
+                                          <!-- image is here -->
+                                      <div data-wrapper-react="true">
+                                          <span class="form-product-item hover-product-item on_col1 show_image show_option full_img new_ui" categories="non-categorized" pid="1001" aria-labelledby="label_19" style="height: 200px;">
+                                              <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                                  <div class="p_col">
+                                                  </div>
+                                                  <div class="p_image">
+                                                      
+                                                      <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                          <!-- loading  -->
+                                                          <div  id="imageSpinner1" style=" display: none; position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                              <span class="visually-hidden">Loading...</span>
+                                                            </div>
+                                                      <img src="" alt="products" id="chekPreview1" >
+                                                  </div>
+                                                  </div>
+                                              <p style="position: absolute; text-align: center; cursor: pointer; color: white; font-size: 20px;"  id="chekPreview1" accept="image/gif, image/jpeg, image/png" >Add Products</p>
+                                                  <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file" accept=".jpg"  name="img1" id="image1" style="opacity: 0;"  ></button>
+                                            <textarea name="image1_b64" id="imageValue1" cols="30" rows="10"  hidden></textarea>
+          
+                                              </div>
+                                          </span> 
+          
+                                          <div class="p_item_separator "></div>
+                                          <span class="form-product-item hover-product-item on_col2 show_image show_option full_img new_ui" categories="non-categorized" pid="1002" aria-labelledby="label_19">
+                                              <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                                  <div class="p_col">
+                                                  
+                                                  </div>
+                                                  <div class="p_image">
+                                                      <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                          <div  id="imageSpinner2" style=" display: none;position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                              <span class="visually-hidden">Loading...</span>
+                                                            </div>
+                                                      <img src="" alt="produts" id="chekPreview2" >
+                                                  </div>
+                                                  <p style="position: absolute; text-align: center; cursor: pointer; color: white; font-size: 20px;" >Add Products</p>
+                                                  <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file"  accept=".jpg" name="img2" id="image2" onchange="addImg(2)"  style="opacity: 0;"></button>
+                                                  <textarea name="image1_b64" id="imageValue2" cols="30" rows="10"  hidden></textarea>
+                                                  </div>
+                                              
+                                              </div>
+                                          </span>
+                                          <div class="p_item_separator "></div>
+                                          <span class="form-product-item hover-product-item on_col3 show_image show_option new_ui" categories="non-categorized" pid="1003" aria-labelledby="label_19">
+                                              <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                                  <div class="p_col">
+                                                  
+                                                  </div>
+                                                  <div class="p_image">
+                                                      <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                          <div  id="imageSpinner3" style="  display: none; position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                              <span class="visually-hidden">Loading...</span>
+                                                            </div> 
+                                                      <img src="" alt="products" id="chekPreview3" >
+                                                  </div>
+                                                  <p style="position: absolute; text-align: center; cursor: pointer; color: rgb(255, 255, 255); font-size: 20px;" >Add Products</p>
+                                                  <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file" name="img3" id="image3"  style="opacity: 0;" accept=".jpg"></button>
+                                                  <textarea name="image1_b64" id="imageValue3" cols="30" rows="10"  hidden></textarea>
+          
+                                                  </div>
+                                                  
+                                              </div>
+                                          </span>
+                                          
+                                      </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr>
+                          </li>
+          
+                          <!-- -------------------------------------end of  the image sesseion ------------------------------------------------------ -->
+          
+          
+          
+          
+          
+                          <!-- -------------------------------------start of the  varient session  sesseion ------------------------------------------------------ -->
+          
+                          <!-- {{ color and size session }} -->
+          
+                          <li class="form-line" data-type="control_address" id="id_4">
+                              <h5>Edit  Varients </h5>
+                              <div id="cid_4" class="form-input-wide" data-layout="full">
+                                  <div summary="" class="form-address-table jsTest-addressField">
+                                      <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                                      <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+                                        <!-- {{ catagory}} -->
+                                      </div>
+                                  </div>
+                              </div>
+          
+                          </li>
+          
+                          <!-- {{ end of the size and color sesseion}} -->
+          
+                          <!-- {{ start of the quanitity and price sesseion }} -->
+          
+                           <li class="form-line" data-type="control_address" id="id_4">
+                    <h5>Add  The Avaliable  Color Varient </h5>
+                        <div id="cid_4" class="form-input-wide" data-layout="full">
+                        <div summary="" class="form-address-table jsTest-addressField">
+                            <div class="scrollmenu shadow mb-3"  id="funcPreColr" >
+                                <a id="preColor">Preview</a>
+                               
+                              </div>
+
+                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                            <div  style="margin-left: 15%; width: 70%;"class="form-address-line-wrapper jsTest-address-line-wrapperField">
+
+                        
+                            <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                <span  class="form-sub-label-container" style="vertical-align:top ">
+                                    <!-- subcatagory -->
+                                    <span  id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                    <select class="   form-dropdown form-address-country noTranslate" name="" id="ProductColor"  onkeyup="clearMainError()">
+                                        <option ></option>
+                                        <option >red</option>
+                                        <option >black</option>
+                                        <option >blue</option>
+                                        <option >green</option>
+                                        <option >violet</option>
+                                        <option >yellow</option>
+                                        <option >brown</option>
+
+                                    </select>
+                                    
+                                </span>
+                                <button onclick="addColorVarient()" class="btn btn-danger">ADd</button>
+
+                            </span>
+                            </div>
+                            <p style="color: red;" id="colorErr"></p>
+
+                        </div>
+                    </div>
+
+                </li>
+                <!-- end of the color sessionn  -->
+
+
+                <!-- {{ color and size session }} -->
+
+                <li class="form-line" data-type="control_address" id="id_4">
+                    <h5>Add  The Avaliable  Size Varient </h5>
+                        <div id="cid_4" class="form-input-wide" data-layout="full">
+                        <div summary="" class="form-address-table jsTest-addressField">
+                            <div class="scrollmenu shadow mb-3"  id="sizePreview2" >
+                                <a id="preColor">Preview</a>
+                               
+                              </div>
+
+                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                            <div  style="margin-left: 15%; width: 70%;"class="form-address-line-wrapper jsTest-address-line-wrapperField">
+
+                        
+                            <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                <span  class="form-sub-label-container" style="vertical-align:top ">
+                                    <!-- subcatagory -->
+                                    <span  id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                    <select class="   form-dropdown form-address-country noTranslate" name="" id="productSize"  onkeyup="clearMainError()">
+                                        <option ></option>
+                                        <option >SM</option>
+                                        <option >L</option>
+                                        <option >XL</option>
+                                        <option >XXL</option>
+                                        <option >M</option>
+                                        <option >EX</option>
+
+                                    </select>
+                                    
+                                </span>
+                                <button onclick="addSizeVarient()" class="btn btn-danger">ADd</button>
+
+                            </span>
+                            </div>
+                            <p style="color: red;" id="sizeErr"></p>
+
+                        </div>
+                    </div>
+                    <hr>
+
+                </li>
+<!-- ----------------------------price--------------------------------- -->
+                <li class="form-line" data-type="control_fullname" id="id_2">
+                    <div id="cid_2" class="form-input-wide" data-layout="full">
+                        <div data-wrapper-react="true"><span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
+                            <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" autocomplete="" onkeypress="return event.charCode != 32" type="number" min="1" class="form-textbox"  data-component="first"  name=""   onkeyup="cleaerColorErr()"   id="productPrice" />
+                            <label class="form-sub-label" for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false"> Price </label>
+                             </span><span class="form-sub-label-container" style="vertical-align:top" data-input-type="last">
+                                
+                                <input  oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" autocomplete="" onkeypress="return event.charCode != 32" type="number" min="1"    onkeyup="cleaerColorErr()" class="form-textbox" data-defaultvalue="" size="15" value="" data-component="last" aria-labelledby="label_2 sublabel_2_last" id="quanitity" />
+                            <label class="form-sub-label" for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false"> Quanity  </label></span>
+                        </div>
+                    </div>
+                </li>
+               
+               <p id="varientErr" style="color: red; margin-left: 1%;margin-top: 1%;"></p>
+
+<!-- ------------------------------end of the product and quantity-------------------- -->
+
+          
+                          <!-- {{ end of the quanity of the price session }} -->
+                           <!-- text area of Discription -->
+                           <li class="form-line" data-type="control_textarea" id="id_14">
+                               <label class="form-label form-label-top" id="label_14" for="input_14"> More  in  Discription </label>
+                               <div class="form-input-wide" data-layout="full"><textarea id="discription" class="form-textarea" name="discription" style="width:648px;height:163px" data-component="textarea" aria-labelledby="label_14" onkeyup="clearMainErr()"></textarea></div>
+                           </li>
+                           
+                           <li class="form-line" data-type="control_button" id="id_13">
+                               <div id="cid_13" class="form-input-wide" data-layout="full">
+                                  
+                                   <div data-align="center" class="form-buttons-wrapper form-buttons-center jsTest-button-wrapperField">
+                                      <button id="input_13" type="button" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="" onclick="submitEditForm()"  >Add Product</button></div>
+                                      <center> <p id="mainErr" style="color: red;"></p></center>
+          
+                               </div>
+                           </li>
+                           </ul>
+                       </div>
+                      </div>
+               </div>
+                </body>
+           </html>
+         </div>     
+       </div>
+     </div>
+   </div>
+
+
+
+   <!-- ------------add offer --------------- -->
+
+<style>
+
+.form-group{
+    padding-top: 1%;
+}
+#username , #dob,  #email , #phone , #oldPassword  , #newPassword{
+  border: 1px solid #0c004c;
+}
+.registration-form{
+  padding: 1rem 3rem 2rem 3rem;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color:#133685;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 6px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    border-top: 1px solid #dee9ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+  .registration-form{
+    padding:  1rem;
+  }
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
+
+
+</style>
+
+<div class="w3-container">
+
+    <div id="id03" class="w3-modal" style="z-index: 999;">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+        <div class="w3-container" id="editProfile">
+          <div class="w3-section">
+            <div class="registration-form">
+              <form id="changePassword">
+                  <div class="form-icon">
+                      <span><img src="data:image/jpeg;base64,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" style="width: 100%; height: 100%; object-fit: contain;" alt=""></i></span>
+                  </div>
+               <% for(var i = 0 ;i< offer.length ; i++){ %> 
+
+                  <div class="form-group" style="position: relative;">
+                  
+                    <div class="form-check">
+                        <input  value="<%=offer[i]._id%>" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1<%=i%>">
+                        <label class="form-check-label" for="flexRadioDefault1<%=i%>">
+                         <%=offer[i].offerName  %>&#160; &#160; &#160; &#160;  <b style="color: green;"><%=offer[i].offerPercentage  %>% </b>
+                        </label>
+                      </div>
+                  </div>
+
+                  <% } %> 
+                 
+
+
+  
+                  <div class="form-group mt-3">
+  
+                      <button  id="createOfferBtn" type="button" class="btn btn-success " onclick="applyOffer()"> Apply Offer</button>
+                      <button  onclick='document.getElementById("id03").style.display = "none" ; document.getElementById("changePassword").reset()  ; document.getElementById("changePawordErr").innerHTML = ""'  type="button" class="btn btn-danger ">Cancel</button>
+                  </div>
+
+
+                  <center id="previousOffer">
+                  
+                  </center>
+
+                 <center> <p  id="changePawordErr" style="color: red; margin-top: 2%;"></p></center>
+              </form>
+              </div>
+          </div>
+      
+  
+        </div>
+        </div>
+        </div>
+
+
+   <!-- --------------------end  of the add offer------------ -->
+   <script src="/javascripts/admin/adminProductEdit.js"></script>
+
+   <script>
+
+
+$(function () {
+  
+  $('[data-toggle="popover"]').popover()
+})
+
+
+
+// $(function () {
+//   $('.example-popover').popover({
+//     container: 'body'
+//   })
+// })  
+
+
+// {{ to sort by data }}loader
+var  productId ;
+
+function showOfferForm(id){
+
+ productId = id;
+
+$.ajax({
+    url : '/admin/products/getOfferOfProduct',
+    method : 'post',
+    data : {pid : id},
+    success  : (result)=>{
+        console.log(result)
+        if(result.status == false){
+            document.getElementById("id03").style.display = "block";
+            return;
+        }
+        console.log(result.offerName )
+
+       const odlOffer = document.getElementById('previousOffer');
+       const  offerDiv = `<code style="position: absolute; top: 67%; left: 24%; background-color: white;">Current Offer</code>
+                    <div class="">
+                        <p style="border-radius: 7px;  padding: 1rem; border: 1px solid darkslateblue; text-align: start; margin-top: 7%;"> <b>${result.offerName}</b>
+                              <button type="button" onclick="clearOffer('${id}')" style="margin-left: 40%;" class="btn btn-outline-danger"><i class="fas fa-minus"></i></button></p>
+                    </div>`;
+
+                    odlOffer.innerHTML = offerDiv;
+            document.getElementById("id03").style.display = "block";
+
+
+
+    }
+})
+}
+
+function  clearOffer(id){
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "do you want to delete the offer from the product",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url : '/admin/products/removeOffer',
+        method : 'post',
+        data : {id : id},
+        success : (result)=>{
+            if(result.status){
+                swal.fire("Success" , 'offer removed successfully' , "success").then(()=>location.reload());
+            }else{
+                swal.fire('Error' , 'somthing went wrong ' , 'error').then(()=>location.reload());
+            }
+        }
+    })
+  }
+})
+
+}
+
+
+function applyOffer(){
+    var offerId
+    let err = document.getElementById('changePawordErr');
+     offerId = $('input[name="flexRadioDefault"]:checked').val();
+    if(offerId == undefined ){err.innerHTML = "please Select one Offer" ; return ;}
+    err.innerHTML = ""
+    $.ajax({
+        url:"/admin/offers/applyOffer",
+        data :{productId : productId , offerId : offerId},
+        method :'post',
+        success  :(result)=>{
+            $('#id03').hide()
+            if(result.status){
+                swal.fire('Success' , 'Offer Successfully applied' , 'success').then(()=>location.reload());
+            }else{
+                swal.fire('Error' , result.message , 'error').then(()=>location.reload())
+            }
+        }
+    })
+}
+
+
+
+
+function createTable(data){ 
+    var offer , price ; 
+     document.getElementById('tableSpinner').classList.remove("displayNone")
+     var tBody =  document.getElementById('tabelBody');
+     document.getElementById('notFount').innerHTML = ""
+      tBody.innerHTML = ""
+     for(var i = 0  ;i< data.length ;i++){
+
+        if(data[i].offerName  != null){
+       offer = `  <td class="aling-middle  " style="text-align: center; display: flex;">
+        <span class='mt-5'  title=" Discout Percentage ${data[i].offerPercentage} %"><code style="background-color: rgb(238, 238, 238); color: rgb(3, 17, 99); "  class="shadow">${data[i].offerName }</code></span>
+                    </td>
+                    `
+                }else{
+                     offer = ` <td class="aling-middle text-warning " style="text-align: center; display: flex;">
+                       <span class="mt-5" style= "margin-top: 1%;"> <code style="background-color: rgb(232, 232, 232); padding: 2px; color: pink">NO Offer😞 </code></span>
+                    </td>` 
+                }
+
+                if(data[i].offerPrice == null){
+                price = `  <td class="align-middle">
+                         <h5 style="color: red;">
+                              ₹ ${data[i].price}.00
+                         </h5>
+                    </td>
+                    `
+                }else{
+                  price = `  <td class="align-middle">
+                         <h5 style="color: red;">
+                           
+                             <strike class='text-secondary'>  ₹ ${data[i].price}.00</strike>
+                              <br>
+                              ₹ ${data[i].offerPrice} .00
+                           
+                         </h5>
+                    </td>
+                    `;
+                }
+                
+
+
+          //{{ adding color }}
+          var x= `<div class="scrollmenu shadow mb-3"  id="colorPreview"  style="width:15vw"> `
+                            
+                             
+                         
+             for(var j = 0 ;j<data[i].color.length ;j++){
+                           var colorADd = `<a style="padding: 6px;" id="preColor">${data[i].color[j]} </a> `;
+                           
+                           x += colorADd;
+                          } 
+
+                          
+
+              //{{ end of the adding color}}
+
+
+                    // {{add color }} 
+                          var y = `<div class="scrollmenu shadow mb-3"  id="sizePreview"  style="width:15vw"> `
+
+                              for( h = 0 ;h < data[i].size.length ;h++){
+                                var sizeP = `  <a style="padding: 6px;" id="sizePreA"> ${data[i].size[h]}</a>`
+                                   y+= sizeP;
+                              }
+
+               //{{ end of the adding size}}
+
+                             
+
+          var table = `
+     <tr  id="tableRow${data[i]._id}" style="background-color: white;" class="table-white shadow">
+                   <th scope="row" class="align-middle">${i+1}</th>
+                   <td class="align-middle" >
+                         <div class="image-div" style="width: 150px; height: 100px;">
+                              <img  src="${data[i].image[0].imageUrl}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                         </div> 
+
+                   </td>
+                   <td class="align-middle">
+                       <h5 style="letter-spacing: 2px;">${data[i].productName}</h5>
+                       
+               
+                        ${offer}
+
+                   ${price}
+                
+                    <td  class="align-middle" >
+                         <h5 style="color: rgb(0, 179, 45);">
+                              ${data[i].quantity} /ps
+                         </h5>
+                    </td>
+
+
+                    <td class="align-middle" >
+                        <div style="display: flex; flex-direction: column; width:15vw"  >
+                              
+                         ${x}
+                    </div>
+
+
+                    ${y}
+                            
+                             
+                            </div>
+                        </div>
+                        
+                  
+                    </td>
+
+                   
+
+                      <td style="border-left: 1px solid rgb(230, 227, 227); padding-left: 1%;" class="align-middle">
+                         <button type="button" class="btn btn-outline-info"  onclick="editProudct('${data[i]._id}')" >Edit </button>
+                         <button onclick="deleteProduct('${data[i]._id}')" type="button" class="btn btn-outline-danger">Delete</button>
+        
+                      </td>
+                 
+
+                      </tr>
+                      ` ;
+                    
+  
+
+                      setTimeout(()=>{
+                     document.getElementById('tableSpinner').classList.add("displayNone")
+                    },300);
+                    
+                    tBody.innerHTML += table
+               }
+}
+
+function sortByDate(date){
+     document.getElementById('tableSpinner').classList.remove("displayNone")
+     var tBody =  document.getElementById('tabelBody');
+     document.getElementById('notFount').innerHTML = ""
+         tBody.innerHTML = ""
+
+   var innerVar = document.getElementById('varients');
+ 
+     var searchKey =   document.getElementById("searchBar").value
+     $.ajax({
+          url:"/admin/products/sortDate",
+          data : {date:parseInt(date)},
+          method:'post',
+          success :(result)=>{
+              
+           createTable(result.status) 
+                        
+                      
+                    
+          }
+     })
+
+}
+
+
+
+
+
+
+     //    {{ to show sort opton }}
+
+     function showOpt() {
+     document.getElementById("Demo").classList.toggle('vis')
+}
+
+
+function hideopt(){
+     document.getElementById("Demo").classList.toggle('vis')
+}
+// {{ end of the sort option }}
+
+
+
+ function deleteProduct(id){
+     Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+          $.ajax({
+               url:"/admin/products/deleteProducts",
+               data:{id:id},
+               method:"post",
+               success :(result)=>{
+                if(result.status == true){
+                     document.getElementById('tableRow'+id).style.display = "none"
+                    Swal.fire(
+               'Success',
+               'Product Deleted Successfully',
+               'success'
+               )
+                }else{
+                    Swal.fire(
+               'OOps !',
+                result.status,
+               'Eroor'
+               )
+                }
+               }
+          })
+  }
+})
+ }
+
+
+
+function morePage(num){
+     var tBody =  document.getElementById('tabelBody');
+     document.getElementById('notFount').innerHTML = ""
+         tBody.innerHTML = ""
+
+   var innerVar = document.getElementById('varients');
+  innerVar.innerHTML = ""
+     var searchKey =   document.getElementById("searchBar").value
+    parseInt(num)
+    $.ajax({
+          url:"/admin/products/pagination",
+          data:{skip:parseInt(num)},
+          method:"post",
+          success :(result)=>{
+               createTable(result.status);
+          }
+    })
+}
+
+
+         var tBody =  document.getElementById('tabelBody');
+        function searchProduct(){
+           var searchKey =   document.getElementById("searchBar").value
+             if(searchKey == null){
+                 alert("hel")
+                    $.ajax({
+                         url:"/admin/products/pagination",
+                         method:"post",
+                         success :(result)=>{
+
+                              createTable(result.status);
+                           
+
+                         }
+                    })
+             }else{
+            
+             // {{ sending the requst to back end }}
+             $.ajax({
+                  url:'/admin/products/search',
+                  data:{key:searchKey},
+                  method:"post",
+                  success:(result)=>{
+
+                    tBody.innerHTML = ""
+
+                    if(result.status.length == 0 ){
+                                   document.getElementById('notFount').innerHTML = "No Result Fount"
+                                   return;
+                              }
+                              document.getElementById('notFount').innerHTML = ""
+
+                             createTable(result.status)
+                   
+
+                  }
+             })
+          }
+             
+        }
+   </script>

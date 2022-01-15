@@ -1,0 +1,1183 @@
+<%#-include('./partials/!docType') %> 
+<%-include('./partials/header') %> 
+
+<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+
+<script src="https://unpkg.com/dropzone"></script>
+<script src="https://unpkg.com/cropperjs"></script>
+
+    <meta name="robots" content="noindex,follow" />
+
+
+
+<style>
+
+#input1,
+#input2,
+#input3,
+#input4,
+#input5,
+#input6,
+#input7,
+#input8,
+#input9,
+#input0
+{
+  border: 1px solid rgb(0, 8, 67) ;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif
+}
+
+.search {
+    top: 6px;
+    left: 10px
+}
+
+.form-control {
+    border: none;
+    padding-left: 32px
+}
+
+.form-control:focus {
+    border: none;
+    box-shadow: none
+}
+
+.green {
+    color: green
+}
+.address{
+  width: 200%;
+}
+
+@media screen and (max-width : 500px){
+  .address{
+    width: 145%;
+  }
+  .table-responsive{
+  height: 30vh;
+}
+}
+i{
+  cursor: pointer;
+}
+
+/* -------------------------------- */
+body{
+ 
+}
+
+#username , #dob,  #email , #phone , #oldPassword  , #newPassword{
+  border: 1px solid #0c004c;
+}
+.registration-form{
+  padding: 1rem 3rem 2rem 3rem;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color:#133685;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 6px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    border-top: 1px solid #dee9ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+  .registration-form{
+    padding:  1rem;
+  }
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+
+<div class="home-content loader"></div>
+<%# for(var i = 1; i<=1 ; i++){%> 
+  <div  style="z-index: 99999;"   class="modal fade" id="modal<%#=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelaria-hidden="true>
+       <div class="modal-dialog" role="document">
+            <div class="modal-content"  style=" z-index: 9999 !important;">
+                 <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Crop Image Here</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                      </button>
+                 </div>
+                 <div class="modal-body">
+                      <div class="img-container">
+                           <div class="row">
+                           <div class="col-md-8" style="width: 500px;  height: 500px;">
+                                <img  style="width: 500px; height: 500px;" src="" id="sampleImage<%#=i%>" />
+                           </div>
+                           <div class="col-md-4">
+                                <div class="preview" id="preview<%#=i%>"></div>
+                           </div>
+                           </div>
+                      </div>
+                 </div>
+                 <div class="modal-footer">
+
+                      <button type="button" id="crop<%#=i%>" class="btn btn-primary">Crop</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"  onclick="closeModal1('<%#=i%>')"  >Cancel</button>
+
+                 </div>
+            </div>
+       </div>
+       </div>
+
+       <%# } %> 
+
+<div class="container">
+     <div class="main-body">
+     
+           <!-- Breadcrumb -->
+           
+           <!-- /Breadcrumb -->
+     
+           <div class="row gutters-sm mt-3">
+             <div class="col-md-4 mb-3">
+               <div class="card shadow">
+                 <div class="card-body">
+                   <div class="d-flex flex-column align-items-center text-center"  style="position: relative;">
+                     <img src=" <%#=user.image.imageUrl%>" alt="Admin" class="rounded-circle" width="150"  id="chekPreview1" >
+                     <input type="file"  id="image1"  style="margin-left:33%; margin-top: -7%; opacity: 0; z-index: 99;  width: 23%; " onchange="addImg(1)"  >
+                     <button  style="position: absolute; border-radius: 50px; top: 40%; left: 60%; " class="btn btn-outline-dark " ><i class="fas fa-user-edit"></i></button>
+                     <div class="mt-3">
+                       <h4 id="profileName"><%#= user.name %> </h4>
+                       <p class="text-secondary mb-1 " id="profileMail"><%#= user.email %> </p>
+                       <p class="text-muted font-size-sm">(+91)  <%#= user.phone %> </p>
+                       <a href="/logout"><button class="btn btn-primary">Log Out</button></a>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               
+             </div>
+             <div class="col-md-8 ">
+               
+ 
+               <div class="row gutters-sm">
+                 <div class="col-sm-6 mb-3">
+                   <div class="card h-100 shadow">
+                     <div class="card-body">
+
+                      <style>
+
+
+.list-group {
+    width: 400px !important
+}
+
+.list-group-item {
+    margin-top: 10px;
+    border-radius: none;
+   
+    cursor: pointer;
+    transition: all 0.3s ease-in-out
+}
+
+.list-group-item:hover {
+    transform: scaleX(1.1)
+}
+
+.check {
+    opacity: 0;
+    transition: all 0.6s ease-in-out
+}
+
+.list-group-item:hover .check {
+    opacity: 1
+}
+
+.about span {
+    font-size: 12px;
+    margin-right: 10px
+}
+
+input[type=checkbox] {
+    position: relative;
+    cursor: pointer
+}
+
+input[type=checkbox]:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    left: 0;
+    border: 1px solid #10a3f9;
+    border-radius: 3px;
+    background-color: white
+}
+
+input[type=checkbox]:checked:after {
+    content: "";
+    display: block;
+    width: 7px;
+    height: 12px;
+    border: solid #007bff;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 2px;
+    left: 6px
+}
+
+input[type="checkbox"]:checked+.check {
+    opacity: 1
+}
+                      </style>
+                       <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Make </i> Changes </h6>
+                       <div class="container d-flex justify-content-center">
+                        <ul class="list-group  text-white">
+                            <li class="list-group-item d-flex justify-content-between align-content-center">
+                                <div  onclick="editProdfile()" class="d-flex flex-row"> <img src="https://as2.ftcdn.net/v2/jpg/02/36/88/65/500_F_236886518_vBktOcZq7nxqKpS3MTJF8xYxuuUiscFd.jpg" width="40" />
+                                    <div class="ml-2">
+                                        <h6 class="mb-0">Edit Profile</h6>
+                                        <div class="about"> <span>Click</span> <span>Name , email</span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-content-center">
+                              <a href="/checkout/orderHistory"  style="text-decoration: none; color: black;">
+                                <div class="d-flex flex-row"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK1Zt5T2R1aOT2tGT6N-nF8mFMhOOXV1SeQQ&usqp=CAU" width="40" />
+                                    <div class="ml-2">
+                                        <h6 class="mb-0">Order History</h6>
+                                        <div class="about"> <span>Click</span> <span>show order history</span> </div>
+                                    </div>
+                                </div>
+                              </a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-content-center">
+                                <div  onclick="chagePassword()" class="d-flex flex-row"> <img src="https://en.pimg.jp/078/081/245/1/78081245.jpg" width="40" />
+                                    <div class="ml-2">
+                                        <h6 class="mb-0">Reset password</h6>
+                                        <div class="about"> <span>Click</span> <span>Change your password</span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-content-center">
+                                <div  onclick="showModal()"  class="d-flex flex-row"> <img src="https://img.freepik.com/free-vector/address-concept-illustration_114360-321.jpg?size=626&ext=jpg" width="40" />
+                                    <div class="ml-2">
+                                        <h6 class="mb-0">Add Address</h6>
+                                        <div class="about"> <span>Click</span> <span>Create New address</span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                     </div>
+                   </div>
+                 </div>
+
+
+                 <div class="col-sm-6 mb-3 "  style="height: fit-content;">
+                   <div class="card h-100">
+                    
+                     </div>
+                   </div>
+                 </div>
+               </div>
+ 
+ 
+ 
+             </div>
+           </div>
+ 
+         </div>
+     </div>
+
+
+
+     <!-- {{ modal for add addres also eidt addresss  }} -->
+
+
+<div class="w3-container">
+
+  <div id="id01" class="w3-modal" style="z-index: 999;">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+      
+
+      <form class="w3-container" id="formAddress">
+        <div class="w3-section">
+          <div id="addressForm" class=" mt-2 col-12" style=""  >
+            <div class="col-12">
+              <div class="card mb-4 col-12">
+                <div class="card-header py-3 bg-white" style="display: flex; justify-content: space-between;">
+                  <h5 class="mb-0">Add Address Details</h5>
+                  <i onclick="document.getElementById('formAddress').reset()" title="Reset Form" style="border: none;" class=" btn btn-white fas fa-sync-alt"></i>
+                </div>
+                <div class="card-body">
+                  <form id="address" class="col-12" style="padding: 0px;">
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row mb-4"  style="padding: 0px;">
+                      <div class="col">
+                        <div class="form-outline">
+                          <input  onkeydown="preventNumber(event); "  onkeyup="preventNumber(event);"  type="text" id="input0" class="form-control checkFrom" />
+                          <label class="form-label" for="form7Example1">First name</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <input onkeydown="preventNumber(event); "  onkeyup="preventNumber(event);"  type="text" id="input1" class="form-control checkFrom" />
+                          <label class="form-label" for="form7Example2">Last name</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- phone number an email id  -->
+                    <div class="row mb-4">
+                      <div class="col">
+                        <div class="form-outline">
+                          <input maxlength="10" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;"  type="number" id="input2" class="form-control checkFrom" />
+                          <label class="form-label" for="form7Example1">Phone Number</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <input type="email" id="input3" class="form-control checkFrom" />
+                          <label class="form-label" for="form7Example2">E mail </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of the email id and the phone number sission of  the user -->
+                    <!-- Text input -->
+                    <div class="form-outline mb-4">
+                      <input id="input4" type="text" id="form7Example3" class="form-control checkFrom" />
+                      <label class="form-label" for="form7Example3">Address </label>
+                    </div>
+                    <!-- Text input -->
+                    <div class="form-outline mb-4">
+                      <input type="text" id="input5" class="form-control checkFrom" />
+                      <label class="form-label" for="form7Example4">Land-Mark</label>
+                    </div>
+                    <!-- postal code and city -->
+                    <div class="row mb-4">
+                      <div class="col">
+                        <div class="form-outline">
+                          <input type="text"  id="input6" class="form-control checkFrom" />
+                          <label class="form-label" for="form7Example1">City</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <input type="number" id="input7" class="form-control checkFrom"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==6) return false;" />
+                          <label class="form-label" for="form7Example2" >Postal Code </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of the postal code and the city -->
+                    <!-- city and the countrt  -->
+                    <div class="row mb-4">
+                      <div class="col">
+                        <div class="form-outline">
+                          <select name="" id="input8" class="form-control checkFrom">
+                            <option value=""></option>
+                            <option >Arunachal Pradesh</option>
+                            <option >Andaman and Nicobar Islands</option>
+                            <option >Assam</option>
+                            <option >Bihar</option>
+                            <option >Chandigarh</option>
+                            <option >Chhattisgarh</option>
+                            <option >Dadra and Nagar Haveli</option>
+                            <option >Daman and Diu</option>
+                            <option >Delhi</option>
+                            <option >Goa</option>
+                            <option >Gujarat</option>
+                            <option >Haryana</option>
+                            <option >Himachal Pradesh</option>
+                            <option >Jammu and Kashmir</option>
+                            <option >Jharkhand</option>
+                            <option >Karnataka</option>
+                            <option >Kerala</option>
+                            <option >Ladakh</option>
+                            <option >Lakshadweep</option>
+                            <option >Madhya Pradesh</option>
+                            <option >Maharashtra</option>
+                            <option >Manipur</option>
+                            <option >Meghalaya</option>
+                            <option >Mizoram</option>
+                            <option >Odisha</option>
+                            <option >Nagaland</option>
+                            <option >Puducherry</option>
+                            <option >Punjab</option>
+                            <option >Rajasthan</option>
+                            <option >Sikkim</option>
+                            <option >Tamil Nadu</option>
+                            <option >Telangana</option>
+                            <option >Tripura</option>
+                            <option >Uttar Pradesh</option>
+                            <option >Uttarakhand</option>
+                          </select>
+                          <label class="form-label" for="form7Example1"> State </label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <select name=""  id="input9" class="form-control checkFrom" >
+                            <option value=""></option>
+                            <option value="india"> India </option>
+                          </select>
+                          <label class="form-label" for="form7Example2">Country </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of the city and the country -->
+                    <center class="mt-3" id="btnPlace">
+                                              <p id="err" style="color: red;"></p>
+                      <button id="payByAddresBtn"  class="btn btn-success" type="button" onclick="saveAddress()" > Save Address</button>
+                      <button style="margin-left: 1%;" id="cancelBtn"  class="btn btn-danger" type="button" > Cancel </button>
+                    </center>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+     
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="w3-container">
+
+  <div id="id02" class="w3-modal" style="z-index: 9999;">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <div class="w3-container" id="editProfile">
+        <div class="w3-section">
+          <div class="registration-form">
+            <form id="editProfileForm">
+                <div class="form-icon">
+                    <span><img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width: 100%; height: 100%; object-fit: contain;" alt=""></i></span>
+                </div>
+                <div class="form-group">
+                    <input name="userName" type="text" class="form-control item" id="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input name="email" type="text" class="form-control item" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input  disabled maxlength="10" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;"    name="phone" type="number" class="form-control item" id="phone" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success " onclick="submitNewProfile()">Save Changes</button>
+                    <button  onclick='document.getElementById("id02").style.display = "none"  ; document.getElementById("editProfileForm").reset()' type="button" class="btn btn-danger ">Cancel</button>
+                </div>
+               <center> <p id="errorEditProfile" style="color: red; margin-top: 2%;"></p></center>
+            </form>
+            </div>
+        </div>
+    
+
+      </div>
+      </div>
+      </div>
+
+
+
+<!-- ------------------------change password moodal ---------------------- -->
+
+<div class="w3-container">
+
+  <div id="id03" class="w3-modal" style="z-index: 9999;">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <div class="w3-container" id="editProfile">
+        <div class="w3-section">
+          <div class="registration-form">
+            <form id="changePassword">
+                <div class="form-icon">
+                    <span><img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width: 100%; height: 100%; object-fit: contain;" alt=""></i></span>
+                </div>
+             
+                <div class="form-group" style="position: relative;">
+                  <label for="">Enter The Old password</label>
+                    <input  maxlength="20" onKeyPress="if(this.value.length==20) return false;"    name="phone" type="password" class="form-control item" id="oldPassword" placeholder="Enter The Password">
+                    <i  style="position: absolute;    left: 91%;
+                    top: 55%;" onclick="showPaword('oldPassword' , 0)" class="fas fa-eye   showPass "></i>
+                </div>
+
+                <div class="form-group" style="position: relative;">
+                  <input  maxlength="20 "  onKeyPress="if(this.value.length==20) return false;"    name="phone" type="password" class="form-control item" id="newPassword" placeholder="Phone Number">
+                  <i  id="lastPass" style="position: absolute ;display: none;    left: 91%;
+                  top: 38%;" onclick="showPaword('newPassword' , 1)" class="fas fa-eye   showPass "></i>
+                  
+              </div>
+
+                <div class="form-group">
+
+                  <button id="loadingBtn" class="btn btn-success" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </button>
+
+                    <button id="saveNewPassword" type="button" class="btn btn-success " onclick="saveNewPass()">Save Password</button>
+                    <button id="submitBtnPass" type="button" class="btn btn-success " onclick="submitOldAddress()">Continue</button>
+                    <button  onclick='document.getElementById("id03").style.display = "none" ; document.getElementById("changePassword").reset()  ; document.getElementById("changePawordErr").innerHTML = ""'  type="button" class="btn btn-danger ">Cancel</button>
+                </div>
+               <center> <p id="changePawordErr" style="color: red; margin-top: 2%;"></p></center>
+            </form>
+            </div>
+        </div>
+    
+
+      </div>
+      </div>
+      </div>
+
+
+      
+       
+
+<script>
+
+$( document ).ready(function() {
+
+
+  var image1 = document.getElementById('sampleImage1');
+
+//modal1 and image 1
+    var modal1 = $('#modal1');
+    var cropper1;
+
+    $('#image1').change(function (event) {
+        var files = event.target.files;
+
+        var done = function (url) {
+            
+            image1.src = url;
+            modal1.modal('show');
+        };
+
+        if (files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function (event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    modal1.on('shown.bs.modal', function () {
+        cropper1 = new Cropper(image1, {
+             aspectRatio: 1/1,
+            viewMode: 1,
+            preview: '#preview1'
+        });
+    }).on('hidden.bs.modal', function () {
+        cropper1.destroy();
+        cropper1 = null;
+    });
+
+    $('#crop1').click(function () {
+        canvas = cropper1.getCroppedCanvas({
+            width: 800,
+            height: 500
+        });
+
+        canvas.toBlob(function (blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                var base64data = reader.result;
+                $('#chekPreview1').attr('src', base64data);
+                    // $("#imageValue1").val(base64data);
+                     
+               ;
+                modal1.modal('hide');
+
+                $.ajax({
+                  url : '/uploadProfilPic',
+                  data : {base64 : base64data},
+                  method : "post",
+                  success  :(result)=>{
+
+                  }
+                })
+            };
+        });
+    });
+
+
+
+
+
+
+  var refCode = $('#myInput').val();
+   var ref = window.location.host+ '/createAccount?refId='+ refCode ;
+   refCode = $('#myInput').val(ref);
+});
+
+
+
+function closeModal1(id){
+     $('#modal'+id).modal('hide')
+
+}
+
+
+function addImg(id){
+
+ }
+
+function copyRefId() {
+  /* Get the text field */
+
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyText.value);
+
+  
+}
+
+
+function showPaword(id , num) {
+  var x = document.getElementById(id);
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+  document.getElementsByClassName('showPass')[num].classList.toggle("fa-eye-slash")
+  document.getElementsByClassName('showPass')[num].classList.toggle("fa-eye")
+}
+
+function chagePassword (){
+  $('#lastPass').hide()
+    document.getElementById('id03').style.display = "block"
+    $('#newPassword').hide()
+    $('#loadingBtn').hide()
+  $('#submitBtnPass').show();
+  $('#saveNewPassword').hide();
+
+}
+
+function submitOldAddress(){
+  var err = document.getElementById("changePawordErr");
+  var odlPass = document.getElementById('oldPassword').value;
+  if(odlPass.length < 6) {err.innerHTML = "please Enter 6 Characters" ; return};
+  $('#loadingBtn').show()
+  $('#submitBtnPass').hide();
+  err.innerHTML = "";
+  $.ajax({
+    url :"/checkPassword",
+    data : {password : odlPass},
+    method : 'post',
+    success : (result)=>{
+      $('#submitBtnPass').hide();
+      $('#loadingBtn').fadeOut();
+      
+      if(result.status){
+          $('#newPassword').fadeIn()
+          $('#saveNewPassword').fadeIn();
+          $('#lastPass').show()
+
+      }else{
+        $('#submitBtnPass').fadeIn();
+        err.innerHTML = "Wrong Password";
+        return;
+      }
+     
+
+
+    }
+  })
+
+}
+
+
+function saveNewPass(){
+  var err = document.getElementById("changePawordErr");
+ var newPass =  document.getElementById('newPassword').value;
+  if(newPass.length < 6){err.innerHTML = "please Enter 6 characters Atleast"; return};
+  err.innerHTML = ""
+  $.ajax({
+    url:'/changePassword',
+    data : {pass : newPass},
+    method:'post',
+    success :(result)=>{
+      if(result.status){
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'password Changed Success Fully'
+})
+        document.getElementById("id03").style.display = "none" ; document.getElementById("changePassword").reset() 
+      }
+    }
+  })
+}
+
+
+function submitNewProfile(){
+
+  var userName = document.getElementById('username').value
+  var email = document.getElementById('email').value
+  var phone = document.getElementById('phone').value
+  var err = document.getElementById('errorEditProfile');
+  if( userName ==  "" ||   email ==  "" || phone ==  ""   ) {
+    err.innerHTML = "please Fill All the fields "
+    return;
+  }
+  err.innerHTML = "";
+
+  // email validation 
+  if(! email.match(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
+    err.innerHTML = "please Enter a valid email"
+    return ;
+  }
+  err.innerHTML = "";
+// phone number validateion
+  if(phone.length < 10 ){err.innerHTML = "please Enter A valid Phone Number"  ; return }
+  err.innerHTML = "";
+
+var pack = {
+  name : userName,
+  email : email ,
+  phone : phone 
+}
+
+  $.ajax({
+    url:'/eidtProfile',
+    data:pack,
+    method :"post",
+    success : (result)=>{
+      document.getElementById('profileName').innerHTML = userName;
+      document.getElementById('profileMail').innerHTML = email;
+      $('#id02').hide();
+      const Toast = Swal.mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Changes Applied   successfully'
+})
+    }
+  })
+}
+
+
+
+function editProdfile(){
+  $.ajax({
+    url : '/getDetailsOFUser',
+    method:"post",
+    success :(result)=>{
+      document.getElementById('username').value = result.data.name
+      document.getElementById('email').value = result.data.email
+      document.getElementById('phone').value = result.data.phone
+    }
+  })
+
+    document.getElementById('email').value = 
+
+document.getElementById('id02').style.display = "block";
+}
+
+
+
+
+  function showModal (){
+    var x = `
+<p id="err" style="color: red;"></p>
+                      <button id="payByAddresBtn"  class="btn btn-success" type="button" onclick="saveAddress()" > Save  Address</button>
+                      <button style="margin-left: 1%;" onclick='closeModal()'  class="btn btn-danger" type="button" > Cancel </button>
+
+                      `
+       var btnPlace =  document.getElementById("btnPlace");
+       btnPlace.innerHTML = x
+       document.getElementById('id01').style.display = "block";
+  }
+
+function closeModal(){
+    document.getElementById('formAddress').reset();
+    document.getElementById('id01').style.display = "none"
+  }
+
+
+
+
+  function saveAddress(){
+    var err = document.getElementById('err')
+     // empty validation 
+     for(var i = 0 ;i< 9; i++ ){
+          if(document.getElementById("input"+i).value == ""){
+              err.innerHTML = "Plese Fill The all field";
+              return ;
+          }
+     }
+     
+
+      err.innerHTML = ""
+     //  number validateion
+     var phone = document.getElementById("input2").value;
+      if(phone.length < 10 ){
+           err.innerHTML = "please Enter 10 digits In phone Number field";
+           return;
+      }
+      
+    err.innerHTML = ""
+
+      // emil validation
+      var email = document.getElementById("input3").value
+    var result =  String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    if(result == null){err.innerHTML = "please Enter a Valid Email " ; return ;}
+    err.innerHTML = ""
+
+//   validateion postal code 
+
+     var postal = document.getElementById("input7").value;
+     if(postal.length < 6 ){err.innerHTML = "please Enter a Valid Postal Code" ; return ;}
+    err.innerHTML = ""
+     var saveAddress ;
+
+    var pack = {
+          firstName : document.getElementById("input0").value,
+          secondeName : document.getElementById("input1").value,
+          phone : document.getElementById("input2").value,
+          email : document.getElementById("input3").value,
+          address : document.getElementById("input4").value,
+          landMark : document.getElementById("input5").value,
+          city : document.getElementById("input6").value,
+          poatalCode : document.getElementById("input7").value,
+          state : document.getElementById("input8").value,
+          country : document.getElementById("input9").value,
+     }
+
+     err.innerHTML = ""
+     $.ajax({
+          url:"/checkout/saveAddress",
+          data : pack,
+          method:"post",
+          success : (result)=>{
+            Swal.fire(
+  'SuccessFull!',
+  'Address Updated ',
+  'success'
+).then(()=>{
+  location.reload();
+})
+          }
+     })
+
+  }
+
+  function editAddress(id){
+    // get user current address 
+    $.ajax({
+      url:'/checkout/getAddress',
+       data:{id : id},
+       method:'post',
+       success:(result)=>{
+         var y = result.address
+       
+document.getElementById("input0").value = y.firstName
+document.getElementById("input1").value = y.secondeName
+document.getElementById("input2").value = y.phone
+document.getElementById("input3").value = y.email
+document.getElementById("input4").value =  y.address
+document.getElementById("input5").value =  y.landMark
+document.getElementById("input6").value = y.city
+document.getElementById("input7").value =   y.poatalCode
+document.getElementById("input8").value = y.state
+document.getElementById("input9").value =  y.country
+
+
+var x = `
+<p id="err" style="color: red;"></p>
+                      <button id="payByAddresBtn"  class="btn btn-success" type="button" onclick="submitEditAddress('${y._id}')" > Save Edited Address</button>
+                      <button style="margin-left: 1%;" onclick='closeModal()'  class="btn btn-danger" type="button" > Cancel </button>
+
+                      `
+       var btnPlace =  document.getElementById("btnPlace");
+       btnPlace.innerHTML = x
+       
+           document.getElementById('id01').style.display = "block"
+       }
+    })
+        // shoing form to user 
+       
+  }
+
+
+
+  function submitEditAddress(id){
+ 
+    var err = document.getElementById('err')
+     // empty validation 
+     for(var i = 0 ;i< 9; i++ ){
+          if(document.getElementById("input"+i).value == ""){
+              err.innerHTML = "Plese Fill The all field";
+              return ;
+          }
+     }
+     
+
+      err.innerHTML = ""
+     //  number validateion
+     var phone = document.getElementById("input2").value;
+      if(phone.length < 10 ){
+           err.innerHTML = "please Enter 10 digits In phone Number field";
+           return;
+      }
+      
+    err.innerHTML = ""
+
+      // emil validation
+      var email = document.getElementById("input3").value
+    var result =  String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    if(result == null){err.innerHTML = "please Enter a Valid Email " ; return ;}
+    err.innerHTML = ""
+
+//   validateion postal code 
+
+     var postal = document.getElementById("input7").value;
+     if(postal.length < 6 ){err.innerHTML = "please Enter a Valid Postal Code" ; return ;}
+    err.innerHTML = ""
+     $.ajax({
+      url:'/checkout/deleteAddress',
+       data:{id : id},
+       method:'delete',
+       success : (result)=>{
+         if(result.status == true){
+           document.getElementById('id01').style.display = "none"
+          saveAddress();   
+         }
+       }
+     })
+  }
+
+  function deleteAddress(id){
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+      url:'/checkout/deleteAddress',
+       data:{id : id},
+       method:'delete',
+       success : (result)=>{
+         if(result.status == true){
+           document.getElementById('tableRow'+id).style.display = "none"
+           if(result.address <= 0 ){
+            
+            var tem = `<center> <h5 class="mt-5 p-4">You Didn't Add One Address 😂</h5></center>
+                          <center><button class="btn btn-outline-primary "  onclick="showModal()" >ADD NEW ADDRESS</button></center>`;
+                          document.getElementById('lastContId').innerHTML = tem
+           }
+           const Toast = Swal.mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Address deleted successfully'
+})
+          document.getElementById('id01').style.display = "none"
+         
+         }
+       }
+     })
+  }
+})
+  
+  }
+  
+</script>

@@ -1,0 +1,536 @@
+
+<%- include('./partials/headers')%>
+
+
+<style>
+  * {box-sizing: border-box;}
+  
+  .img-magnifier-glass {
+    display : none;
+  position: absolute;
+  border: 3px solid #000;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 150px;
+  height: 150px;
+  margin-left: 15%;
+  margin-top: 4%;
+
+}
+.red{background-color: red;}
+.blue{background-color:blue;}
+.green{background-color: green;}
+.violet{background-color: violet;}
+.balck{background-color: balck;}
+.yellow{background-color: yellow;}
+.black{background-color: black;}
+
+input[type='radio'] {
+
+  outline:none;
+
+}
+
+
+
+
+</style>
+
+
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="breadcrumbs-content">
+              <h1 class="page-title">Single Product</h1>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <ul class="breadcrumb-nav">
+              <li>
+                <a href="index.html"><i class="lni lni-home"></i> Home</a>
+              </li>
+              <li><a href="index.html">Shop</a></li>
+              <li>Single Product</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="item-details section">
+      <div class="container">
+        <div class="top-area">
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 col-12">
+              <div class="product-images">
+                <main id="gallery">
+                  <div class="main-img   img-magnifier-container" onmouseleave='document.getElementsByClassName("img-magnifier-glass")[0].style.display = "none"  '   onmouseenter='document.getElementsByClassName("img-magnifier-glass")[0].style.display = "block"  ;'   >
+
+                    <img onmouseenter='magnify("myimage", 1)'  id="myimage" src="<%=product.image[0].imageUrl%>" width="500" height="400"  style="object-fit: contain;">
+                    
+                    
+                  </div>
+                  <div class="images">
+                    <img
+                    onclick="chageImageSrc('<%=product.image[0].imageUrl  %>')"
+                      src="<%=product.image[0].imageUrl  %>"
+                      class="img"
+                      style="height : 113px  ; width:  100px;"
+                      alt="#"
+                    />
+                    <img
+                    onclick="chageImageSrc('<%=product.image[1].imageUrl  %>')"
+                      src="<%=product.image[1].imageUrl  %>"
+                      class="img"
+                      style="height : 113px  ; width:  100px;"
+                      alt="#"
+                    />
+                    <img
+                    onclick="chageImageSrc('<%=product.image[2].imageUrl%>')"
+                      src="<%=product.image[2].imageUrl  %>"
+                      class="img"
+                      style="height : 113px  ; width:  100px;"
+                      alt="#"
+                    />
+                    
+                    
+                  </div>
+                </main>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+              <div class="product-info">
+                <h2 class="title productName"><%=product.productName %> </h2>
+                <p class="category">
+                  <i class="lni lni-tag"></i> Catagory:<a
+                    href="javascript:void(0)"
+                    ><%=product.catagory  %> </a
+                  >
+                </p>
+                <% if(product.offerPrice != null  ){%> 
+                <h3 class="price">₹ <%= product.offerPrice %> .00<span>₹ <%= product.price %> .00</span></h3>
+                <% }else{ %> 
+                <h3 class="price">₹ <%= product.price %> .00<span></span></h3>
+                  <% } %> 
+                <p class="info-text">
+                 <%= product.discription %> 
+                </p>
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-12">
+                    <div class="form-group color-option">
+
+                      <label class="title-label" for="size">Choose color</label>
+                      <% for(var i =0 ;i< product.color.length ; i++){%> 
+                        <a  id="color<%=i%>" class="shadow  <%=product.color[i]%>" style=" cursor: pointer; border-radius: 89px; margin: 2%;" href="#home"><input style="margin: 5px;" type="radio" name="optradio2"  id="color<%=i%>"  onchange="colorConfirm('<%=product.color[i]%>' , '<%=product._id%>')" ><label for="color<%=i%>" ></label> </a>
+                        <% } %> 
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-12">
+                    <div class="form-group">
+                      <label for="color">Select your Size</label>
+                      <select onchange="sizeConfirm('<%=product._id%>')" class="form-control" id="size">
+                        <option></option>
+                        <% for(var i =0 ;i< product.size.length ; i++){ %> 
+                        <option><%= product.size[i]%> </option>
+                        <%  }  %> 
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="bottom-content">
+                  <div class="row align-items-end">
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <div class="button cart-button">
+                        <p id="info" class="text-info"></p>
+                        <button  onclick="addToCart('<%=product._id%>')" class="btn" id="addToCartText" style="width: 100%">
+                          <i class="fas fa-cart-plus"></i>  Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <div style="visibility: hidden;" class="wish-button">
+                        <button class="btn">
+                          <i class="lni lni-reload"></i> Compare
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <div class="wish-button">
+                        <button class="btn" onclick="addToWihslist('<%=product._id%>')" >
+                          <i class="fas fa-heart"></i> To Wishlist
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="modal fade review-modal"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="review-name">Your Name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="review-name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="review-email">Your Email</label>
+                  <input
+                    class="form-control"
+                    type="email"
+                    id="review-email"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="review-subject">Subject</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="review-subject"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="review-rating">Rating</label>
+                  <select class="form-control" id="review-rating">
+                    <option>5 Stars</option>
+                    <option>4 Stars</option>
+                    <option>3 Stars</option>
+                    <option>2 Stars</option>
+                    <option>1 Star</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="review-message">Review</label>
+              <textarea
+                class="form-control"
+                id="review-message"
+                rows="8"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer button">
+            <button   type="button" class="btn">Submit Review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<style>
+
+    
+
+</style>
+<%- include('./partials/footer')%> 
+    
+    <a href="#" class="scroll-top">
+      <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <script
+      data-cfasync="false"
+      src="https://demo.graygrids.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script>
+
+
+
+const loading = `<span   class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Checking... `
+
+var color;
+var size;
+var info = document.getElementById('info');
+// function to create unique id for the user;
+const makeUniqueId = function(){
+    return Date.now().toString(36) + Math.random().toString(36).substr(2).trim();
+}
+
+function getCartCount(){
+  $.ajax({
+    url:"/getCartCount",
+    data:{id: localStorage.getItem('userId')},
+    method:'post',
+    success :(result)=>{
+      document.getElementById('badge').innerHTML = result.count;
+    }
+  })
+}
+
+
+async function   addToCart(id){
+
+  // {{validation to size and color }};
+    if(color ==  undefined){info.innerHTML = "Please Selct One Color" ;return;}
+    if(size == undefined){info.innerHTML = "please Select One Size " ;return;}
+
+    // {{ the ajax call}}
+    //check the user's browse have that id ;
+    var userId = localStorage.getItem('userId');
+  
+
+    if(userId == null){
+      userId =  makeUniqueId();
+      localStorage.setItem('userId' , userId);
+    }
+
+
+    var product = {
+      productId :id,
+      size: size,
+      color : color,
+      userId : userId
+    }
+
+   
+    var btn = document.getElementById('addToCartText');
+  btn.innerHTML = loading;
+  btn.disabled = true;
+
+    $.ajax({
+      url:'/cart/addToCart',
+      data : product,
+      method :"post",
+      success:(result)=>{
+        btn.disabled = false;
+        getCartCount();
+        if(result.status == false){
+          var localUserId = localStorage.getItem('userId');
+          localUserId  ="/cart?userId="+localUserId;
+          location.href = localUserId;
+        }
+        else if(result.status == true){
+
+          document.getElementById("addToCartText").innerHTML=  `<i class="fas fa-directions"></i>  Go To Cart`
+                  const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'bottom-end',
+                showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Item Added To Cart Successfully'
+                })
+
+        }
+      }
+      
+    })
+
+
+}
+
+function colorConfirm(Optcolor , id){
+  info.innerHTML = ""
+    color = Optcolor
+    if(size ==  undefined)return;
+
+  checkVarientInBackEnd(color , size , id )
+
+}
+function sizeConfirm(id){
+  info.innerHTML = ""
+  size = $('#size').val()
+  if(color ==  undefined)return;
+
+  checkVarientInBackEnd(color , size , id )
+
+   
+}
+
+function checkVarientInBackEnd(color , size , productId){
+  
+  var btn = document.getElementById('addToCartText')
+  btn.innerHTML = loading;
+  btn.idsabled = true
+    let userId = localStorage.getItem('userId');
+    var chekcPack = {
+       userId : userId,
+       productId :productId,
+       color: color,
+       size : size
+    }
+    $.ajax({
+          url:'/cart/checkVarient',
+          data: chekcPack,
+          method : "post",
+          success:(result)=>{
+            btn.idsabled = false
+            if(result.status == true){
+              document.getElementById("addToCartText").innerHTML=  `<i class="fas fa-directions"></i>  Go To Cart`
+            }else{
+              document.getElementById("addToCartText").innerHTML= `<i class="fas fa-cart-plus"></i> Add to Cart `
+            }
+          }
+
+    })
+}
+
+
+
+
+
+
+
+
+
+
+function  chageImageSrc(imgSrc){
+
+ var img =  document.getElementById('myimage')
+  img.src = imgSrc
+  
+}
+
+
+function magnify(imgID, zoom) {
+
+  var img, glass, w, h, bw;
+  img = document.getElementById('myimage');
+
+
+  /*create magnifier glass:*/
+  glass = document.createElement("DIV");
+  glass.setAttribute("class", "img-magnifier-glass");
+  /*insert magnifier glass:*/
+  
+  img.parentElement.insertBefore(glass, img);
+  
+  /*set background properties for the magnifier glass:*/
+   glass.style.backgroundImage = "url('" + img.src + "')";
+   glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+  bw = 3;
+  w = glass.offsetWidth / 2;
+  h = glass.offsetHeight / 2;
+  /*execute a function when someone moves the magnifier glass over the image:*/
+  glass.addEventListener("mousemove", moveMagnifier);
+  img.addEventListener("mousemove", moveMagnifier);
+  /*and also for touch screens:*/
+  
+  glass.addEventListener("touchmove", moveMagnifier);
+  img.addEventListener("touchmove", moveMagnifier);
+  function moveMagnifier(e) {
+    var pos, x, y;
+    /*prevent any other actions that may occur when moving over the image*/
+    e.preventDefault();
+    /*get the cursor's x and y positions:*/
+    pos = getCursorPos(e);
+    x = pos.x;
+    y = pos.y;
+    /*prevent the magnifier glass from being positioned outside the image:*/
+    if (x > img.width - (w / zoom)) {x = img.width - (w / zoom);}
+    if (x < w / zoom) {x = w / zoom;}
+    if (y > img.height - (h / zoom)) {y = img.height - (h / zoom);}
+    if (y < h / zoom) {y = h / zoom;}
+    /*set the position of the magnifier glass:*/
+    glass.style.left = (x - w) + "px";
+    glass.style.top = (y - h) + "px";
+    /*display what the magnifier glass "sees":*/
+    glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+  }
+
+  function getCursorPos(e) {
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /*get the x and y positions of the image:*/
+    a = img.getBoundingClientRect();
+    /*calculate the cursor's x and y coordinates, relative to the image:*/
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /*consider any page scrolling:*/
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+  }
+}
+
+
+
+function addToWihslist(id){
+    $.ajax({
+        url:'/addToWishlist',
+        data : {id : id},
+        method :'post',
+        success :(result)=>{
+            if(result.status){
+                            const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'item  added successfully'
+            })
+                        }else{
+                            Swal.fire({
+  title: 'User not logged in',
+  text: "You have to singin to for this action ",
+  icon: 'info',
+  showCancelButton: true,
+  confirmButtonColor: 'green',
+  cancelButtonColor: 'red',
+  confirmButtonText: 'Go To Signin'
+}).then((result) => {
+  if (result.isConfirmed) {
+    location.href = "/signup"
+  }
+})
+                        }
+                    }
+                })
+  }
+</script>
+      

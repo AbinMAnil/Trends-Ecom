@@ -1,0 +1,451 @@
+<%-include('./partials/header')%> 
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/admin/userManageMent.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
+/>
+
+<div  class="home-content loader">
+  <center><h1>Manage The Ordrs </h1></center>
+
+  </a>
+  </div>
+ <style>
+   .tabel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.tabel {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+div.scrollmenu {
+    text-align: center;
+    width: 100%;
+    color: white;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+    cursor: pointer;
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 6px;
+  text-decoration: none;
+  width: 100%;
+  height: 400px;
+  background-color: rgb(255, 255, 255);
+}
+
+
+
+.top{
+  color: black;
+  padding: 1rem;
+  height: 60%;
+
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+.preRight,
+.preLeft{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.preRight span{
+  font-size: 20px;
+  padding: .5rem;
+
+
+}
+.preLeft span{
+  padding: .5rem;
+  font-size: 20px;
+}
+.bottom{
+  height: 30%;
+  width: 100%;
+  
+}
+.imagePre{
+  float: left;
+  width: 30%;
+  height: 100%;
+  margin-left: 3%;
+}
+.imagePre img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.table>tbody>tr>td, .table>tfoot>tr>td {
+    padding:3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+   border-top: 1px solid rgb(1, 12, 51); 
+}
+ </style>
+
+
+
+
+  <div class="tabel" style="overflow: auto">
+    <table id="hello" class="table table-striped table-bordered">
+      <thead style="text-align: center">
+        <tr style="background-color: rgb(0, 0, 0); color: white">
+         
+          <th>product Details</th>
+          <th>Order Id </th>
+          <th>Payment Method</th>
+          <th>Address</th>
+          <th>Total Price</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+     
+      <tbody style="" class="shadow">
+          <% for(var i  = 0 ;i<orders.length ;i++ ){ %>  
+            <tr id="tr<%=i%>" >
+             
+              <!-- {{ the button to show the product detail and vairent }} -->
+              <td class="align-middle trClassDemo"  style="text-align: center; ">
+                  <button onclick="showOrderDetails('<%=orders[i]._id%>')" class="btn btn-light">Product Details</button>
+              </td>
+              <td  class="align-middle trClassDemo">
+                <div class="d-flex flex-column justify-content-center" style="text-align: center;">
+               
+                <span style="color: rgb(0, 255, 0) ;"><%=orders[i]._id%></span>
+              </div>
+              </td>
+
+              <td  class="align-middle trClassDemo">
+                <div class="d-flex flex-column justify-content-center" style="text-align: center;">
+               
+                <span class="text-white"><h4><code style="background-color: black; color: white;"><%=orders[i].paymentMethod%></code></h2></span>
+              </div>
+              </td>
+
+             <!-- {{ to show the address }} -->
+             <td class="align-middle trClassDemo "  style="text-align: center;">
+             
+               <button class="btn btn-danger" onclick="showAddress('<%=orders[i]._id%>')">Ordered Address</button>
+             </td>
+
+             <!-- {{ to show the total Price of the ordre}} -->
+             <td class="align-middle trClassDemo">
+                <span class="text-warning"> <h4 style="text-align: center;">₹ <span><%=orders[i].totalPrice  %> </span> .00</h3></span>
+             </td>
+
+             <!-- {{to change to status }} -->
+            <td class="align-middle trClassDemo" style="text-align: center;">
+              <div class="dropdown">
+                <%  var y = false %> 
+                <% if(orders[i].status.includes("Completed") || orders[i].status.includes("Cancel") )  y = true %> 
+                <button <%=y ? 'disabled' : ""  %>    class="btn btn-primary dropdown-toggle <%= orders[i].status.includes("Completed")  ? 'btn-success' : "" %>  <%= orders[i].status.includes("Cancel")  ? 'btn-danger' : "" %> " type="button" id="statusButton<%=orders[i]._id%>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 
+                  <%=orders[i].status[orders[i].status.length-1]%> 
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <% var x = true %> 
+                  <%for(var j = 0 ;j< stages.length ;j++){ %>
+                    <% for(var h = 0  ;h <orders[i].status.length ;h++ ){ %> 
+                      <% if(orders[i].status[h] ==   stages[j]) {%> 
+                  <% var x = false ;break %> 
+                    <% }else{x = true ;    }  } %> 
+                        <% if(x){ %> 
+                        
+
+                    <button id="stage<%=stages[j]%><%=orders[i]._id%>" onclick="chnageStatus('<%=stages[j]%>' , '<%=orders[i]._id%>' , )" class="dropdown-item p-3" type="button"><%=stages[j]%> </button>
+                          <% } %> 
+                <%  } %> 
+                  
+                </div>
+              </div>
+            </td>
+
+            </tr>
+            
+            <% } %> 
+      </tbody>
+    </table>
+    
+    <div class="pagination">
+      <a href="#">&laquo;</a>
+      <% for(var i = 0 ;i< result.length/10;i++){ %> 
+        <% if(i ==0 ){ %> 
+      <a href="#" class="active" ><%=i+1%> </a>
+      <% }else{ %> 
+          <a href="#" class="active" ><%=i+1%> </a>
+        <% }} %> 
+      <a href="#">&raquo;</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="w3-container">
+  <div id="id01" class="w3-modal" style="z-index: 99999;" >
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px ; z-index: 9999;">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <h4>Oreder Address</h4>
+      </div>
+
+      <form class="w3-container" >
+        <div class="w3-section" id="addressData" >
+            
+        </div>
+      </form>
+
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small">Message With User </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+
+
+function chnageStatus (status, id){
+  Swal.fire({
+  title: 'Are you sure?',
+  text: "The change will Be updated Everyware",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, Update  it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   var staBtn =  document.getElementById('statusButton'+id);
+   staBtn.innerHTML = status;
+   var x =  document.getElementById("stage"+status+id).style.display = "none"
+   if(status == "Completed" || status == "Cancel" ) staBtn.disabled = true;
+   if(status == "Cancel"  ) staBtn.classList.add("btn-danger")
+   if( status == "Completed" ) staBtn.classList.add("btn-success")
+
+   $.ajax({
+     url:'/admin/orders/changeStatus',
+     data : {id : id , update : status},
+     method: 'post',
+     success  :(updateStatus)=>{
+
+     }
+   })
+
+  }
+})
+  
+  } 
+
+
+
+
+
+
+
+
+
+
+  $(document).ready(function () {
+
+    var tr = document.getElementsByClassName("trClassDemo")
+    for(var i = 0 ;i < tr.length ;i++){
+      tr[i].style.background = "hsl(240, 100%, 10%)"
+      
+    }
+
+
+
+    var table = $("#hello").DataTable({
+      bPaginate: false,
+    });
+
+    $("#hello tbody").on("click", "tr", function () {
+      var data = table.row(this).data();
+      
+    });
+    
+
+  
+  //   $('#hello').DataTable({
+  //   "iDisplayLength": 100,
+  //   "bFilter": false,
+  //   "aaSorting": [
+  //     [2, "desc"]
+  //   ],
+  //   "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+  //     if (aData[2] == "5") {
+  //       $('td', nRow).css('background-color', 'Red');
+  //     } else if (aData[2] == "4") {
+  //       $('td', nRow).css('background-color', 'Orange');
+  //     }
+  //   }
+  // });
+
+  });
+
+
+function showAddress(id){
+ 
+
+  $.ajax({
+    url: '/admin/orders/getOrder',
+    data :{id : id},
+    method : "post",
+    success :(result)=>{
+      var addressData = document.getElementById('addressData');
+
+      var data  = `<div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>firstName</div>
+              <div>${result.result.firstName}</div>
+            </div>
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>secondeName</div>
+              <div>${result.result.secondeName}</div>
+            </div>
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>phone</div>
+              <div>${result.result.phone}</div>
+            </div>
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>Address</div>
+              <div>${result.result.address}</div>
+            </div>
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>Land Mark</div>
+              <div>${result.result.landMark}</div>
+            </div>
+
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>City</div>
+              <div>${result.result.city}</div>
+            </div>
+
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>Postal-code</div>
+              <div>${result.result.poatalCode}</div>
+            </div>
+
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>state</div>
+              <div>${result.result.state}</div>
+            </div>
+
+            
+
+            <div class="p-3" style="display: flex; justify-content: space-evenly; width: 100%;" >
+              <div>country</div>
+              <div>${result.result.country}</div>
+            </div> `;
+
+            addressData.innerHTML = data;
+            document.getElementById('id01').style.display = "block"
+
+
+    }
+  })
+}
+
+
+
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+
+
+function showOrderDetails(id){
+ 
+  $.ajax({
+    url: '/admin/orders/orderedProduct',
+    data :{id : id},
+    method :"post",
+    success :(result)=>{
+   
+      var  fullData = `<div class="scrollmenu"> 
+        <h5 style="color:red">Total ${result.data.length} Orders</h5>
+        `
+      for(var i = 0 ;i< result.data.length;i++){
+  var productData  = `
+
+  <a class= "shadow ">
+    <h4 style="color: black;">Product Details</h4>
+    <div class="top">
+      <div class="preLeft">
+        <span>Product Name</span>
+        <span>Cataogyry</span>
+        <span>Quantity</span>
+        <span>Color</span>
+        <span>Size</span>
+      </div>
+      <div class="preRight ">
+        <span>${result.data[i].productArray[0].productName}</span>
+        <span>${result.data[i].productArray[0].catagory}</span>
+        <span>${result.data[i].quantity}</span>
+        <span>${result.data[i].color}</span>
+        <span>${result.data[i].size}</span>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="imagePre">
+        <img src="${result.data[i].productArray[0].image[0].imageUrl}" alt="">
+      </div>
+      <div class="imagePre">
+        <img src="${result.data[i].productArray[0].image[1].imageUrl}" alt="">
+        </div>
+      <div class="imagePre">
+        <img src="${result.data[i].productArray[0].image[2].imageUrl}" alt="">
+        </div>
+    </div>
+    <h2>Total Price : ${result.data[i].totalPrice}</h2>
+  </a>`
+   fullData+= productData
+      }
+      var y = `</div>`;
+      var finalData = fullData+y;
+
+      addressData.innerHTML = finalData;
+            document.getElementById('id01').style.display = "block"
+
+     
+
+    }
+  })
+
+
+  
+}
+    
+
+</script>

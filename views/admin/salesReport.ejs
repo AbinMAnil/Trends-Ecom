@@ -1,0 +1,427 @@
+<%-include('./partials/!docType')%>
+<%-include('./partials/header')%>
+<div class="home-content loader">
+
+
+
+
+<link rel="stylesheet" href=" https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css
+">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css
+">
+
+
+<script src=" https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js
+"></script>
+<script src=" https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js
+"></script>
+
+<script src=" https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js
+"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js
+"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js
+"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js
+"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js
+"></script>
+
+
+     <style>
+       
+          .range{
+               margin-left: 30%;
+               box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          }
+          @media screen and (max-width : 560px){
+          .secondOpt{
+               box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+               padding-top: 3%;
+          }
+          .range{
+               margin-left: 0%;
+          }
+     }
+     .spinnerLoader{
+          position: absolute;
+          width: 81%;
+          margin-top: 4%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+     }
+     </style>
+<div class="container">
+<div style="" class=" row col-md-12 sm-12"  >
+<!-- -----------day select ========== -->
+<div class="col-md-2  col-12">
+<select  onchange="searachByMOnth()"   id="monthSelector" class="form-select form-select-sm shadow-sm  col-3 col-md-3" aria-label=".form-select-sm example" style="outline: none; border: none">
+  
+   </select>
+</div>
+<!-- -------end  of the day select --------- -->
+
+<!-- ----------month select------------ -->
+<div class="col-md-2  col-12  secondOpt">
+     <select  onchange="getSalesByDay()"   id="daySelector" class="form-select form-select-sm shadow-sm  col-3 col-md-3" aria-label=".form-select-sm example" style="outline: none; border: none">
+          
+        </select>
+     </div>
+<!-- ---------end  fo the month select-------- -->
+
+<!-- ---------year select ----------- -->
+<div class="col-md-2  col-12 secondOpt ">
+     <select onchange="getEarlySales()"  id="yearSelecotor" class="form-select form-select-sm shadow-sm  col-3 col-md-3" aria-label=".form-select-sm example" style="outline: none; border: none">
+        </select>
+     </div>
+<!-- ---------end of the year select===== -->
+<div class="col-md-2 mr-auto  col-12 secondOpt range d-flex" style="justify-content: space-evenly;" >
+     <div class="d-flex flex-column">
+          <label for="">form</label>
+<input  id="firstDate" class="form-control   form-control-sm" type="date" placeholder=".form-control-sm">
+<label for="">to</label>
+<input id="lastDate" class="form-control form-control-sm mt-2" type="date" placeholder=".form-control-sm">
+</div>
+<button  onclick="salseBetweenRange()" style="height: 35px; text-align:center; margin-left: 3% ;  margin-top : 3.2rem" class="       col-md-4 btn btn-success">Filter</button>
+
+</div>
+
+</div>
+     
+</div>
+<div class="   container mt-5 px-2">
+     <style>
+          @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+
+.search {
+    top: 6px;
+    left: 10px
+}
+
+.form-control {
+    border: none;
+    padding-left: 32px
+}
+
+.form-control:focus {
+    border: none;
+    box-shadow: none
+}
+
+.green {
+    color: green
+}
+.mag{
+     color: white;
+    position: fixed;
+    left: 89%;
+    z-index: 99;
+    top: 26.5%;
+    padding: 0.7rem;
+    background: darkblue;
+}
+@media screen and (max-width : 560px){
+     .mag{
+          top: 34.2%;
+     }
+}
+
+
+     </style>
+
+     <i  class="fas fa-search mag"  ></i>
+     <div class="table-responsive">
+         <table style="border-bottom: none;"  id="salesTable" class="table table-responsive table-borderless">
+             <thead  style="border-bottom: none;">
+                 <tr class="bg-light">
+                     <th scope="col" width="5%">#</th>
+                     <th scope="col" width="10%">Date</th>
+                     <th scope="col" width="10%">Status</th>
+                     <th  style="text-align: start;" scope="col" width="25%">Order ID</th>
+                     <th  style="text-align: start  ;" scope="col" width="15%">Method</th>
+                     <th  style="text-align: start  ;" scope="col" width="20%">ConsumerMail</th>
+                     <th scope="col" class="text-end" width="14%"><span>Revenue</span></th>
+                 </tr>
+             </thead>
+             <tbody  id="tableBody">
+                  <% for(var i = 0 ;i< data.length ; i++){ %> 
+                 <tr>
+                     <td><%= i+1 %> </td>
+                     <td><%=data[i].onlyDate %> </td>
+                     <td style="text-align: start;"><i class="fa fa-check-circle-o green"></i><span class="ms-1"><code class="shadow-sm"  style="   padding: .3rem; border-radius: 30px;"><%=  data[i].status[  data[i].status.length-1  ]%> </code></span></td>
+                     <td style="text-align: start;"><%=data[i]._id %> </td>
+                     <td style="text-align: start;"><code style="background-color:rgb(235, 234, 234); padding: .3rem; border-radius: 20px;  color : black" class="shadow-sm"><%=data[i].paymentMethod  %> </code></td>
+                     <td style="text-align: start;"><img src="https://i.imgur.com/VKOeFyS.png" width="25"><%= data[i].address.email  %> </td>
+                     <td class="text-end"><span class="fw-bolder">₹ <%= data[i].totalPrice  %>.00 </span> <i class="fa fa-ellipsis-h ms-2"></i></td>
+                 </tr>
+                 <% } %> 
+             </tbody>
+         </table>
+     </div>
+ </div>
+ </div>
+
+
+ <style>
+      #salesTable_paginate{
+           padding: 1rem !important;
+      }
+    .buttons-excel , .buttons-pdf  {
+           background-color: #0A2558 !important;
+           border-radius: 5px !important;
+           color: white !important;
+           border: 1px solid black;
+           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px  !important;
+                }
+                .paginate_button{
+                     
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
+                }
+
+                #salesTable_filter{
+                     color: transparent;
+                }
+                .dataTables_wrapper .dataTables_filter input{
+                     /* border: none !important; */
+                     outline: none !important;
+                     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                     border-top: 1px solid darkblue !important;
+                     border-left: 1px solid darkblue !important;
+                     border-bottom: none!important;
+                     border-right: none !important;
+          }
+
+          .previous , .next{
+               background-color: white !important;
+               color: black;
+               box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;   
+                 }
+
+                 
+
+          
+ </style>
+
+ <script>
+
+
+
+function  salseBetweenRange(){
+     var formDate = $('#firstDate').val()
+     var toDate = $('#lastDate').val()
+     if(formDate == ""  || toDate == "" ){
+          return;
+     }
+     var d = new Date()
+     var testToDate = JSON.stringify(toDate).substring(1, 10)
+     var testFormDate = JSON.stringify(formDate).substring(1, 10)
+
+     if(testToDate > JSON.stringify(d).substring(1, 10)  || testFormDate > JSON.stringify(d).substring(1, 10)){
+         swal.fire('Warning ' , "please Select a previous date ");
+         return ;
+     }
+
+     var tableBody = document.getElementById('tableBody');
+
+
+tableBody.innerHTML = loading
+$.ajax({
+     url : '/admin/sales/betweenRange',
+     method : 'post',
+     data : {formDate : formDate , toDate : toDate},
+    success : (data)=>{
+         tableBody.innerHTML = ""
+         if(data.length <= 0){
+          $('.buttons-excel').hide();
+          $('.buttons-pdf').hide();
+              tableBody.innerHTML = ` <center class='spinnerLoader'  ><h4>NO Orders found 😞 </h4></center>`
+         }else{
+         
+              makeTable(data)
+    }
+    }
+
+})
+
+   
+}
+
+
+
+
+
+
+
+
+
+      $(document).ready(()=>{
+
+          $('#salesTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+
+            'excelHtml5',
+            'pdfHtml5'
+        ]
+    } );
+
+
+    document.getElementById("salesTable_wrapper").style.position  ="unset"
+
+
+          const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+     const d = new Date();
+     const monthSelect = document.getElementById('monthSelector');
+     for(var i = 0 ;i< 12 ;i++){
+          var opt ;
+          if(i == d.getMonth() ){
+               opt = ` <option selected  value='${i+1}'>${month[d.getMonth()]}</option>`
+          }else{
+               opt = `<option  value='${i+1}'>${month[i]}</option>`
+          }
+          monthSelect.innerHTML += opt;
+     }
+
+     var daySelector = document.getElementById('daySelector');
+     var date = new Date().getDate();
+     for(var i = 0 ;i < 31 ; i++ ){
+          var days ;
+          if(i+1 == date){
+               days = `<option selected  value='${i+1}'>${i+ 1}</option>`
+          }else{
+               days = `<option   value='${i+1}'>${i+ 1}</option>`
+          }
+
+          daySelector.innerHTML += days;
+     }
+     var yearSelector = document.getElementById('yearSelecotor');
+     for(var i = 0 ;i < 5 ;i++){
+          var orgYear = new Date().getFullYear() -  i ;
+          var year ;
+               year = `<option  value='${orgYear}'>${orgYear}</option>`
+          yearSelector.innerHTML += year; 
+     }
+      })
+
+     const loading = `<div class="text-center   spinnerLoader  ">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>`
+
+function makeTable (data ){
+     $('.buttons-excel').show();
+              $('.buttons-pdf').show()
+     var tableBody = document.getElementById('tableBody');
+
+     for(var i = 0 ;i< data.length ;i++){
+
+                   var tr = ` <tr>
+                     <td>${i+1}</td>
+                     <td>${data[i].onlyDate}</td>
+                     <td style="text-align: start;"><i class="fa fa-check-circle-o green"></i><span class="ms-1"><code class="shadow-sm"  style="   padding: .3rem; border-radius: 30px;">${data[i].status[data[i].status.length-1] }</code></span></td>
+                     <td style="text-align: start;"><img src="https://i.imgur.com/VKOeFyS.png" width="25">${data[i]._id}</td>
+                     <td style="text-align: start;"><code style="background-color:rgb(235, 234, 234); padding: .3rem; border-radius: 20px;  color : black" class="shadow-sm">  ${data[i].paymentMethod}</code></td>
+                     <td style="text-align: start;"><img src="https://i.imgur.com/VKOeFyS.png" width="25">${data[i].address.email} </td>
+                     <td class="text-end"><span class="fw-bolder">₹ ${data[i].totalPrice}.00 </span> <i class="fa fa-ellipsis-h ms-2"></i></td>
+                 </tr> `
+               tableBody.innerHTML += tr;
+
+
+               }
+}
+
+      function searachByMOnth(){
+          var tableBody = document.getElementById('tableBody');
+
+           var month = $('#monthSelector').val();
+           var year =  $('#yearSelecotor').val();
+           if(month > new Date().getMonth() + 1    &&  year == new Date().getFullYear()  ){
+                swal.fire('Warning ' , 'Please enter an previous Month OR chage the Year'  , )
+                return ;
+           }
+           tableBody.innerHTML = loading
+           $.ajax({
+                url : '/admin/sales/getMonthlySales',
+                method : 'post',
+                data : {year : year , month : month},
+               success : (data)=>{
+                    $('.buttons-excel').hide();
+                      $('.buttons-pdf').hide()
+                    tableBody.innerHTML = ""
+                    if(data.length <= 0){
+                         tableBody.innerHTML = ` <center class='spinnerLoader'  ><h4>NO Orders found 😞 </h4></center>`
+                    }else{
+                    
+                         makeTable(data)
+               }
+               }
+
+           })
+
+      }
+
+      function getSalesByDay(){
+var tableBody = document.getElementById('tableBody');
+
+var month = $('#monthSelector').val();
+var year =  $('#yearSelecotor').val();
+var day =  $('#daySelector').val();
+console.log(month ,year , day)
+
+if(month == new Date().getMonth() +1    &&  year == new Date().getFullYear()   && day >= new Date().getDate() ){
+     swal.fire('Warning ' , 'Please enter an previous day OR chage the Year or month ' )
+     return ;
+}
+tableBody.innerHTML = loading
+$.ajax({
+     url : '/admin/sales/getDailySales',
+     method : 'post',
+     data : {year : year , month : month, day : day },
+    success : (data)=>{
+         tableBody.innerHTML = ""
+         if(data.length <= 0){
+          $('.buttons-excel').hide();
+              $('.buttons-pdf').hide()
+              tableBody.innerHTML = ` <center class='spinnerLoader'  ><h4>NO Orders found 😞 </h4></center>`
+         }else{
+         
+              makeTable(data)
+    }
+    }
+
+})
+      }
+
+      function getEarlySales(){
+var tableBody = document.getElementById('tableBody');
+
+
+var year =  $('#yearSelecotor').val();
+
+
+
+tableBody.innerHTML = loading
+$.ajax({
+     url : '/admin/sales/getEarlySales',
+     method : 'post',
+     data : {year : year  },
+    success : (data)=>{
+         tableBody.innerHTML = ""
+         if(data.length <= 0){
+              $('.buttons-excel').hide();
+              $('.buttons-pdf').hide()
+              tableBody.innerHTML = ` <center class='spinnerLoader'  ><h4>NO Orders found 😞 </h4></center>`
+         }else{
+         
+              makeTable(data)
+    }
+    }
+
+})
+      }
+
+ </script>

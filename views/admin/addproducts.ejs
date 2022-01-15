@@ -1,0 +1,729 @@
+<html style="overflow: hidden; scroll-behavior: smooth;" class="supernova">
+     <style>body{
+        
+         scroll-behavior: smooth;
+         }
+         body, html {
+         touch-action: auto
+         }
+       
+
+         .varientList::-webkit-scrollbar{
+          
+         width: 20px;
+
+         }
+
+         .modal-backdrop {
+                    z-index: -1 !important;
+         }
+
+         .preview {
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+
+    .modal-lg {
+        max-width: 1000px !important;
+    }
+
+    div.scrollmenu {
+ color: rgb(6, 5, 68);
+ cursor: pointer;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+     border-right: 1px solid gold;
+  display: inline-block;
+  color: rgb(0, 0, 0);
+
+  text-align: center;
+  padding: 14px;
+
+}
+
+div.scrollmenu a:hover {
+     color: rgb(0, 0, 0);
+  background-color: rgb(232, 229, 243);
+}
+
+.scrollmenu::-webkit-scrollbar{
+     display: none;
+}
+
+     </style>
+<%-include('./partials/spinner') %> 
+
+ <%-include('./partials/header')%>
+ 
+<!-- Material Dashboard CSS -->
+       <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+     <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+
+<script src="https://unpkg.com/dropzone"></script>
+     <script src="https://unpkg.com/cropperjs"></script>
+
+         <meta name="robots" content="noindex,follow" />
+         <style type="text/css">@media print{.form-section{display:inline!important}.form-pagebreak{display:none!important}.form-section-closed{height:auto!important}.page-section{position:initial!important}}</style>
+         <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?themeRevisionID=5eb3b4ae85bd2e1e2966db96"/>
+         <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3" />
+         <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3" />
+         <style type="text/css" id="tempThumbnail">@media only screen and (max-width: 800px) { body, .supernova { background-color: #fff !important; }
+             .form-all { box-shadow: none !important}
+             }
+         </style>
+         <style>html { -webkit-overflow-scrolling: touch; overflow: scroll; }body { height: 100%; overflow: scroll; }</style>
+     </head>
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------start of the crop   modal---------------------------------------------------------------------------- -->
+<% for(var i = 1;i<=6 ; i++){%> 
+
+     <div class="modal fade" id="modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelaria-hidden="true>
+          <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Crop Image Here</h5>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>
+                    <div class="modal-body">
+                         <div class="img-container">
+                              <div class="row">
+                              <div class="col-md-8">
+                                   <img src="" id="sampleImage<%=i%>" />
+                              </div>
+                              <div class="col-md-4">
+                                   <div class="preview" id="preview<%=i%>"></div>
+                              </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="modal-footer">
+
+                         <button type="button" id="crop<%=i%>" class="btn btn-primary">Crop</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal"  onclick="closeModal1('<%=i%>')"  >Cancel</button>
+
+                    </div>
+               </div>
+          </div>
+          </div>
+
+          <% } %> 
+<!-- --------------------------------------------------------------------------------------------------------------------------end of the crop  modal-------------------------------------------------------------- -->
+
+
+<!-- --------------------------------------------------------------------------------------------------------------------------start of the public id -------------------------------------------------------------- -->
+
+
+
+<% for(var i = 1 ;i<= 6 ; i++) {%> 
+    <input style="display: none;" type="text" id="publicId<%=i%>">
+    <% } %> 
+
+<!-- --------------------------------------------------------------------------------------------------------------------------end of the public id ------------------------------------------------------------- -->
+
+
+
+
+     <body style="overflow-x:hidden;">
+          <div class="home-content loader">
+         <div class="jotform-form">
+             <div role="main" class="form-all" style="margin:0 auto;">
+                 <style>.form-all:before { background: none;}</style>
+                 <ul class="form-section page-section shadow-lg">
+                 <li id="cid_1" class="form-input-wide" data-type="control_head">
+                     <div class="form-header-group header-large">
+                         <div class="header-text httal htvam">
+                             <h2 id="header_1" class="form-header" data-component="header">Increase Your Inventroy</h2>
+                         </div>
+                     </div>
+                 </li>
+                 <!-- name and barnd  -->
+                 <li class="form-line" data-type="control_fullname" id="id_2">
+                    <div id="cid_2" class="form-input-wide" data-layout="full">
+                        <div data-wrapper-react="true"><span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
+                            <input  onkeyup="clearMainErr()" type="text" id="productName" class="form-textbox"  data-component="first"  name=""     />
+                            <label class="form-sub-label" for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false"> Product Name </label>
+                             </span><span class="form-sub-label-container" style="vertical-align:top" data-input-type="last"><input  onkeyup="clearMainErr()" type="text" id="brandName" name="brand" class="form-textbox" data-defaultvalue="" size="15" value="" data-component="last" aria-labelledby="label_2 sublabel_2_last" />
+                            <label class="form-sub-label" for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false"> Brand Name  </label></span>
+                        </div>
+                    </div>
+                </li>
+                <!-- {{ end of the name and bradn}} -->
+
+                <!-- {{ catagory and subcatagory}} -->
+                
+                <li class="form-line" data-type="control_address" id="id_4">
+                     <div id="cid_4" class="form-input-wide" data-layout="full">
+                         <div summary="" class="form-address-table jsTest-addressField">
+                             <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                             <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+ 
+                                 <!-- catagory  -->
+                                 <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                     <span class="form-sub-label-container" style="vertical-align:top">
+                                         <!-- subcatagory -->
+                                         <select class="form-dropdown form-address-country noTranslate"name="catagory" id="mainCat" data-component="country" required="" aria-labelledby="label_4 sublabel_4_country" onchange="getSub()" onkeyup="clearMainErr()">
+                                            <option value=""></option>
+                                             <%if(data){ %> 
+                                                 <!-- rendering the data in the main catagory  -->
+                                                 <% for(i =0 ;i< data.length;i++){ %> 
+                                                 <option> <%=data[i].catagory%> </option>
+                                                 <% }} %> 
+                                         </select>
+                                         <label class="form-sub-label" for="input_4_country" id="sublabel_4_country" style="min-height:13px" aria-hidden="false"> Select a Catagory </label>
+                                     </span>
+                                 </span>
+ 
+                             <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                 <span class="form-sub-label-container" style="vertical-align:top">
+                                     <!-- subcatagory -->
+                                     <span id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                     <select class="   form-dropdown form-address-country noTranslate" name="subCatagory" id="subCatSel" data-component="country" required="" aria-labelledby="label_4 sublabel_4_country"  onkeyup="clearMainErr()">
+                                         <option value=""></option>
+                                     </select>
+                                     <label class="form-sub-label" for="input_4_country" id="sublabel_4_country" style="min-height:13px" aria-hidden="false"> Select a sub Catagory </label>
+                                 </span>
+                             </span>
+                             </div>
+                         </div>
+                     </div>
+                 </li>
+
+                <!-- end of the catagory and subcatagory -->
+                <hr width="100%">
+
+
+
+
+                <!-- ------------------------------------------------------------------------------------------- -->
+
+
+                <li class="form-line card-3col" data-type="control_paypalcomplete" id="id_19" data-payment="true">
+                    <label class="form-label form-label-top" id="label_19" for="input_19"> Products Image </label>
+                    <div id="cid_19" class="form-input-wide" data-layout="full">
+                        <div data-wrapper-react="true">
+                            <div data-wrapper-react="true" class="product-container-wrapper">
+                            <div class="filter-container"></div>
+                                <!-- image is here -->
+                            <div data-wrapper-react="true">
+                                <span class="form-product-item hover-product-item on_col1 show_image show_option full_img new_ui" categories="non-categorized" pid="1001" aria-labelledby="label_19" style="height: 200px;">
+                                    <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                        <div class="p_col">
+                                        </div>
+                                        <div class="p_image">
+                                            
+                                            <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                <!-- loading  -->
+                                                <div  id="imageSpinner1" style=" display: none; position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                  </div>
+                                            <img src="data:image/png;base64,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" alt="products" id="chekPreview1" >
+                                        </div>
+                                        </div>
+                                    <p style="position: absolute; text-align: center; cursor: pointer; color: white; font-size: 20px;"  id="chekPreview1">Add Products</p>
+                                        <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file" accept=".jpg"  name="img1" id="image1" style="opacity: 0;"></button>
+                                  <textarea name="image1_b64" id="imageValue1" cols="30" rows="10"  hidden></textarea>
+
+                                    </div>
+                                </span> 
+
+                                <div class="p_item_separator "></div>
+                                <span class="form-product-item hover-product-item on_col2 show_image show_option full_img new_ui" categories="non-categorized" pid="1002" aria-labelledby="label_19">
+                                    <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                        <div class="p_col">
+                                        
+                                        </div>
+                                        <div class="p_image">
+                                            <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                <div  id="imageSpinner2" style=" display: none;position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                  </div>
+                                            <img src="data:image/png;base64,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" alt="produts" id="chekPreview2" >
+                                        </div>
+                                        <p style="position: absolute; text-align: center; cursor: pointer; color: white; font-size: 20px;" >Add Products</p>
+                                        <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file"   name="img2" id="image2" onchange="addImg(2)"  style="opacity: 0;"></button>
+                                        <textarea name="image1_b64" id="imageValue2" cols="30" rows="10"  hidden></textarea>
+                                        </div>
+                                    
+                                    </div>
+                                </span>
+                                <div class="p_item_separator "></div>
+                                <span class="form-product-item hover-product-item on_col3 show_image show_option new_ui" categories="non-categorized" pid="1003" aria-labelledby="label_19">
+                                    <div data-wrapper-react="true" class="form-product-item-detail new_ui">
+                                        <div class="p_col">
+                                        
+                                        </div>
+                                        <div class="p_image">
+                                            <div style="position: relative;" role="img"  class="image_area form-product-image-with-options">
+                                                <div  id="imageSpinner3" style="  display: none; position: absolute; left: 45%; top: 50%;" class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                  </div> 
+                                            <img src="data:image/png;base64,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" alt="products" id="chekPreview3" >
+                                        </div>
+                                        <p style="position: absolute; text-align: center; cursor: pointer; color: rgb(255, 255, 255); font-size: 20px;" >Add Products</p>
+                                        <button style="width: 100%; cursor: pointer;" type="button" class="btn  btn-primary"><input type="file" name="img3" id="image3"  style="opacity: 0;" ></button>
+                                        <textarea name="image1_b64" id="imageValue3" cols="30" rows="10"  hidden></textarea>
+
+                                        </div>
+                                        
+                                    </div>
+                                </span>
+                                
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+
+                <!-- -------------------------------------end of  the image sesseion ------------------------------------------------------ -->
+
+
+
+
+
+                <!-- -------------------------------------start of the  varient session  sesseion ------------------------------------------------------ -->
+
+                <!-- color session  -->
+                <li class="form-line" data-type="control_address" id="id_4">
+                    <h5>Add  The Avaliable  Color Varient </h5>
+                        <div id="cid_4" class="form-input-wide" data-layout="full">
+                        <div summary="" class="form-address-table jsTest-addressField">
+                            <div class="scrollmenu shadow mb-3"  id="funcPreColr" >
+                                <a id="preColor">Preview</a>
+                               
+                              </div>
+
+                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                            <div  style="margin-left: 15%; width: 70%;"class="form-address-line-wrapper jsTest-address-line-wrapperField">
+
+                        
+                            <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                <span  class="form-sub-label-container" style="vertical-align:top ">
+                                    <!-- subcatagory -->
+                                    <span  id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                    <select class="   form-dropdown form-address-country noTranslate" name="" id="ProductColor"  onkeyup="clearMainError()">
+                                        <option ></option>
+                                        <option >red</option>
+                                        <option >black</option>
+                                        <option >blue</option>
+                                        <option >green</option>
+                                        <option >violet</option>
+                                        <option >yellow</option>
+                                        <option >brown</option>
+
+                                    </select>
+                                    
+                                </span>
+                                <button onclick="colorFix()" class="btn btn-danger">ADd</button>
+
+                            </span>
+                            </div>
+                            <p style="color: red;" id="colorErr"></p>
+
+                        </div>
+                    </div>
+
+                </li>
+                <!-- end of the color sessionn  -->
+
+
+                <!-- {{ color and size session }} -->
+
+                <li class="form-line" data-type="control_address" id="id_4">
+                    <h5>Add  The Avaliable  Size Varient </h5>
+                        <div id="cid_4" class="form-input-wide" data-layout="full">
+                        <div summary="" class="form-address-table jsTest-addressField">
+                            <div class="scrollmenu shadow mb-3"  id="sizePreview" >
+                                <a id="preColor">Preview</a>
+                               
+                              </div>
+
+                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span class="form-address-line form-address-street-line jsTest-address-lineField"><span class="form-sub-label-container" style="vertical-align:top">
+                            <div  style="margin-left: 15%; width: 70%;"class="form-address-line-wrapper jsTest-address-line-wrapperField">
+
+                        
+                            <span class="form-address-line form-address-country-line jsTest-address-lineField ">
+                                <span  class="form-sub-label-container" style="vertical-align:top ">
+                                    <!-- subcatagory -->
+                                    <span  id="loaderForSubCatagory" style="display: none; position: absolute;" class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true">     &nbsp &nbsp   Loading </span>
+                                    <select class="   form-dropdown form-address-country noTranslate" name="" id="productSize"  onkeyup="clearMainError()">
+                                        <option ></option>
+                                        <option >SM</option>
+                                        <option >L</option>
+                                        <option >XL</option>
+                                        <option >XXL</option>
+                                        <option >M</option>
+                                        <option >EX</option>
+
+                                    </select>
+                                    
+                                </span>
+                                <button onclick="addVarient()" class="btn btn-danger">ADd</button>
+
+                            </span>
+                            </div>
+                            <p style="color: red;" id="sizeErr"></p>
+
+                        </div>
+                    </div>
+                    <hr>
+
+                </li>
+
+                <!-- {{ end of the size sesseion}} -->
+
+                <!-- {{ start of the quanitity and price sesseion }} -->
+
+                <li class="form-line" data-type="control_fullname" id="id_2">
+                    <div id="cid_2" class="form-input-wide" data-layout="full">
+                        <div data-wrapper-react="true"><span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
+                            <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" autocomplete="" onkeypress="return event.charCode != 32" type="number" min="1" class="form-textbox"  data-component="first"  name=""   onkeyup="cleaerColorErr()"   id="productPrice" />
+                            <label class="form-sub-label" for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false"> Price </label>
+                             </span><span class="form-sub-label-container" style="vertical-align:top" data-input-type="last">
+                                
+                                <input  oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" autocomplete="" onkeypress="return event.charCode != 32" type="number" min="1"    onkeyup="cleaerColorErr()" class="form-textbox" data-defaultvalue="" size="15" value="" data-component="last" aria-labelledby="label_2 sublabel_2_last" id="quanitity" />
+                            <label class="form-sub-label" for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false"> Quanity  </label></span>
+                        </div>
+                    </div>
+                </li>
+               
+               <p id="varientErr" style="color: red; margin-left: 1%;margin-top: 1%;"></p>
+
+                <!-- {{ end of the quanity of the price session }} -->
+
+
+
+           
+                 
+             
+                 <!-- text area of Discription -->
+                 <li class="form-line" data-type="control_textarea" id="id_14">
+                     <label class="form-label form-label-top" id="label_14" for="input_14"> More  in  Discription </label>
+                     <div class="form-input-wide" data-layout="full"><textarea id="discription" class="form-textarea" name="discription" style="width:648px;height:163px" data-component="textarea" aria-labelledby="label_14" onkeyup="clearMainErr()"></textarea></div>
+                 </li>
+                 
+                 <li class="form-line" data-type="control_button" id="id_13">
+                     <div id="cid_13" class="form-input-wide" data-layout="full">
+                        
+                         <div data-align="center" class="form-buttons-wrapper form-buttons-center jsTest-button-wrapperField">
+                            <button id="input_13" type="button" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="" onclick="subminManiForm()"  >Add Product</button></div>
+                            <center> <p id="mainErr" style="color: red;"></p></center>
+                     </div>
+                 </li>
+                 </ul>
+             </div>
+            </div>
+     </div>
+      </body>
+      <canvas id="canvas" width="1000px" height="500px"></canvas>
+
+<script src="/javascripts/admin/adminAddProuduct.js"></script>
+
+ <script>
+var imageArray1 = [];
+
+$('document').ready(function() {
+//modal1 and image 1
+    var image1 = document.getElementById('sampleImage1');
+    var modal1 = $('#modal1');
+    var cropper1;
+
+    $('#image1').change(function (event) {
+        var files = event.target.files;
+
+        var done = function (url) {
+            
+            image1.src = url;
+            modal1.modal('show');
+        };
+
+        if (files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function (event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    modal1.on('shown.bs.modal', function () {
+        cropper1 = new Cropper(image1, {
+            aspectRatio: 3/4,
+            viewMode: 1,
+            preview: '#preview1'
+        });
+    }).on('hidden.bs.modal', function () {
+        cropper1.destroy();
+        cropper1 = null;
+    });
+
+    $('#crop1').click(function () {
+        canvas = cropper1.getCroppedCanvas({
+            width: 600,
+            height: 600
+        });
+
+        canvas.toBlob(function (blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                var base64data = reader.result;
+                
+                modal1.modal('hide');
+                var currentId = document.getElementById('publicId1').value ;
+                
+                if(currentId != "") imageArray1 =  imageArray1.filter((iter => iter.publicId !== currentId));
+
+                // sending the image base64 to the backend to uplaod in coloudanry;
+                document.getElementById("imageSpinner1").style.display = "block";
+                $.ajax({
+                url: '/admin/products/uploadImage',
+                data: {base64 : base64data , productId : document.getElementById("publicId1").value},
+                method: "post",
+                success:(result)=>{
+                    $('#chekPreview1').attr('src', base64data);
+                    $("#imageValue1").val(result.status.url);  
+                    document.getElementById('publicId1').value = result.status.publicId;
+                    document.getElementById("imageSpinner1").style.display = "none";
+
+                    var sampleObj = {
+                        publicId : result.status.publicId,
+                        imageUrl : result.status.url
+                    }
+                    imageArray1.push(sampleObj);
+
+                    
+                }
+                })
+
+            
+               
+            };
+        });
+    });
+
+
+
+//modal2 and image 2
+var image2 = document.getElementById('sampleImage2');
+    var modal2 = $('#modal2');
+    var cropper2;
+
+    $('#image2').change(function (event) {
+        var files = event.target.files;// getting the files;
+
+     // image preview happended here;
+        var done = function (url) {
+            image2.src = url;
+            modal2.modal('show');
+        };
+
+        if (files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function (event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    modal2.on('shown.bs.modal', function () {
+        cropper2 = new Cropper(image2, {
+            aspectRatio: 1,
+            viewMode: 3,
+            preview: '#preview2'
+        });
+    }).on('hidden.bs.modal', function () {
+        cropper2.destroy();
+        cropper2 = null;
+    });
+
+    $('#crop2').click(function () {
+        canvas = cropper2.getCroppedCanvas({
+            width: 600,
+            height: 600
+        });
+
+        canvas.toBlob(function (blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                var base64data = reader.result;
+                modal2.modal('hide');
+                var currentId = document.getElementById('publicId2').value ;
+                
+                if(currentId != "") imageArray1 =  imageArray1.filter((iter => iter.publicId !== currentId));
+
+                 // sending the image base64 to the backend to uplaod in coloudanry;
+                 document.getElementById("imageSpinner2").style.display = "block";
+                $.ajax({
+                url: '/admin/products/uploadImage',
+                data: {base64 : base64data , productId : document.getElementById("publicId2").value},
+                method: "post",
+                success:(result)=>{
+                    $('#chekPreview2').attr('src', base64data);
+                    $("#imageValue2").val(result.status.url);  
+                    document.getElementById('publicId2').value = result.status.publicId;
+                    document.getElementById("imageSpinner2").style.display = "none";
+                    var sampleObj = {
+                        publicId : result.status.publicId,
+                        imageUrl : result.status.url
+                    }
+                    imageArray1.push(sampleObj);
+
+                    
+                }
+                })
+            };
+        });
+    });
+//image  3  and modal 3 end
+
+
+
+
+//modal3 and image 3
+var image3 = document.getElementById('sampleImage3');
+    var modal3 = $('#modal3');
+    var cropper3;
+
+    $('#image3').change(function (event) {
+        var files = event.target.files;// getting the files;
+
+     // image preview happended here;
+        var done = function (url) {
+            image3.src = url;
+            modal3.modal('show');
+        };
+
+        if (files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function (event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    modal3.on('shown.bs.modal', function () {
+        cropper3 = new Cropper(image3, {
+            aspectRatio: 1,
+            viewMode: 3,
+            preview: '#preview3'
+        });
+    }).on('hidden.bs.modal', function () {
+        cropper3.destroy();
+        cropper3 = null;
+    });
+
+    $('#crop3').click(function () {
+        canvas = cropper3.getCroppedCanvas({
+            width: 600,
+            height: 600
+        });
+
+        canvas.toBlob(function (blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                var base64data = reader.result;
+                modal3.modal('hide');
+                var currentId = document.getElementById('publicId3').value ;
+                
+                if(currentId != "") imageArray1 =  imageArray1.filter((iter => iter.publicId !== currentId));
+
+                // sending the image base64 to the backend to uplaod in coloudanry;
+                document.getElementById("imageSpinner3").style.display = "block";
+                $.ajax({
+                url: '/admin/products/uploadImage',
+                data: {base64 : base64data , productId : document.getElementById('publicId3').value},
+                method: "post",
+                success:(result)=>{
+                    $('#chekPreview3').attr('src', base64data);
+                    $("#imageValue3").val(result.status.url);  
+                    document.getElementById('publicId3').value = result.status.publicId;
+                    document.getElementById("imageSpinner3").style.display = "none";
+
+                    var sampleObj = {
+                        publicId : result.status.publicId,
+                        imageUrl : result.status.url
+                    }
+                    imageArray1.push(sampleObj);
+
+                    
+                }
+                })
+            };
+        });
+    });
+//image 3 and modal 3  end  
+});
+
+function closeModal1(id){
+     $('#modal'+id).modal('hide')
+
+}
+
+ function addImg(id){
+     // alert(document.getElementById('img'+id).value);
+         var oFReader = new FileReader();
+         oFReader.readAsDataURL(document.getElementById("img"+id).files[0]);
+ 
+         oFReader.onload = function (e){
+             document.getElementById("uploadPreview"+id).src = e.target.result;
+         }
+ }
+ //end of  image preview
+ 
+ 
+ // get sub catagory with ajax call
+ function getSub() {
+ 
+   document.getElementById("subCatSel").innerText = ""
+ 
+   var data = {
+    catagory: document.getElementById("mainCat").value
+   }
+ 
+ 
+   if (data.catagory != "") {
+    document.getElementById("loaderForSubCatagory").style.display = "block"
+
+     $.ajax({
+       url: '/admin/catagory/getSubs',
+       data: data,
+       method: "post",
+       success: (data) => {
+        setTimeout(()=>{
+            var select = document.getElementById("subCatSel");
+            const demo = document.createElement('option');
+            demo.innerText = "";
+            select.appendChild(demo)
+         for (var i = 0; i < data.status.length; i++) {
+           const newOption = document.createElement('option');
+           newOption.innerText = data.status[i];
+           select.appendChild(newOption)
+         }
+        document.getElementById("loaderForSubCatagory").style.display = "none"
+        } , 500)        
+       }
+     })
+   }
+ }
+
+ // end of the ajax get sub catagory
+ </script>
+ </html>
+

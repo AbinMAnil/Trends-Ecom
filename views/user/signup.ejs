@@ -1,0 +1,394 @@
+<%- include('./partials/headers')%> 
+<script src="jquery-3.5.1.min.js"></script>
+<style>
+    #partitioned {
+  padding-left: 15px;
+  letter-spacing: 42px;
+  border: 0;
+  background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 50px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 35px;
+  width: 220px;
+  min-width: 220px;
+}
+
+#divInner{
+  left: 0;
+  position: sticky;
+}
+
+#divOuter{
+  width: 190px; 
+  overflow: hidden;
+}
+</style>
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="breadcrumbs-content">
+              <h1 class="page-title">Login</h1>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <ul class="breadcrumb-nav">
+              <li>
+                <a href="index.html"><i class="lni lni-home"></i> Home</a>
+              </li>
+              <li>Login</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-login section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+            <form class="card login-form" method="post">
+              <div class="card-body">
+                <div class="title">
+                  <h3>Login Now</h3>
+                  <p>
+                    You can login using your social media account or email
+                    address.
+                  </p>
+                </div>
+                <div class="social-login">
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <a class="btn facebook-btn" href="javascript:void(0)"
+                        ><i class="lni lni-facebook-filled"></i> Facebook
+                        login</a
+                      >
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <a class="btn twitter-btn" href="javascript:void(0)"
+                        ><i class="lni lni-twitter-original"></i> Twitter
+                        login</a
+                      >
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <a class="btn google-btn" href="javascript:void(0)"
+                        ><i class="lni lni-google"></i> Google login</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="alt-option">
+                  <span>Or</span>
+                </div>
+                
+                  <!-- timer to limit user time -->
+                  <center style="display: none;" id="createAccountHide" class="mt-4">
+                    <div id='progressbar4'></div>
+                        <div style="margin-top: -5%;" class="timer" id="timer">
+                            <h4 class="timing" id="safeTimerDisplay">02 : 60</h4>
+                        </div>
+                        <p id="chanceIndicator" >your have<b id="limitIndicator" class="text-danger"> 4 </b>chances left</p>
+                    </center> 
+
+                    <!-- end of the timer -->
+
+                <div id="emailDiv" class="form-group input-group">
+                  <label for="reg-fn">Email</label>
+                  <input
+                    class="form-control"
+                    type="email"
+                    id="email"
+                    required
+                    value="abinmanil80@gmail.com"
+                  />
+                </div>
+
+                <!-- --------------phone ----------- -->
+                <div  class="form-group input-group" id="phoneDiv">
+                  <label for="reg-fn">Phone Number</label>
+                  <input
+                    class="form-control  item"
+                    pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;"   type="number"  id="phone" 
+                
+                  />
+                </div>
+                <!-- -----------end of phone ------------  -->
+
+
+                 <!-- ----------for otp------------------ -->
+                 <div   id="otpDiv" style="display: none;" class="form-group mb-4 mt-4">
+                  <center >
+                   <div id="divOuter">
+                   <div id="divInner">
+                 <input style="outline: none; border: none;" id="partitioned" type="text" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  onKeyPress="if(this.value.length==4) return false;"/>
+                   </div>
+                 </div> </center>
+
+               </div>
+
+                 <!-- -----------end of top============== -->
+
+
+                <div id="passwordDiv" class="form-group input-group">
+                  <label for="reg-fn">Password</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    id="password"
+                    required
+                    value="123456"
+                  />
+                </div>
+
+
+                <div
+                  class="
+                    d-flex
+                    flex-wrap
+                    justify-content-between
+                    bottom-content
+                  "
+                >
+                  <div class="form-check">
+                    <input
+                    style="visibility: hidden;"
+                      type="checkbox"
+                      class="form-checkput width-auto"
+                      id="exampleCheck1"
+                    />
+                    <label class="form-check-label"></label>
+                  </div>
+                  <a  id="contOtpPara" class="lost-pass" style="cursor: pointer; " onclick="showOtpForm()"
+                    >Continue With OTP?</a
+                  >
+
+                  <a id="cancelPara" class="lost-pass" style="cursor: pointer; " onclick="location.reload()"
+                    >Cancel Go back</a
+                  >
+                </div>
+                <div class="button">
+                  <center><p id="err" class="text-danger mb-2"></p></center>
+                  <button onclick="simpleSubmit()" id="loginBtn" class="btn" type="button">Login</button>
+                  <button  id="getOtpBtn" class="btn" type="button" onclick="getOtp()">Continue</button>
+                  <button onclick="submitOTPforExistUser()"  id="SubmitBtn" class="btn" type="button">Submit</button>
+                </div>
+                <p class="outer-link">
+                  Don't have an account?
+                  <a href="/createAccount">Register here </a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<%- include('./partials/footer')%> 
+   
+
+   
+
+<script>
+
+const loading = `  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>  Loading...`
+
+
+  $(document).ready(function(){
+    $('#cancelPara').hide()
+    $('#cancel').hide()
+    $('#getOtpBtn').hide()
+    $('#SubmitBtn').hide()
+    $('#allTimer').hide()
+    $('#phoneDiv').hide()
+    $('#submitPhone').hide();
+    $('#submitOtp').hide()
+    $('#birth-date').mask('00/00/0000');
+    $('#otp').hide()
+    $('#phone-number').mask('00000-00000');
+   })
+  
+  // --------
+  
+  var phone;
+       function showOtpForm(){
+         $('#contOtpPara').hide()
+        $('#cancelPara').show()
+        $('#loginBtn').hide()
+         $('#passwordDiv').hide()
+         $('#emailDiv').hide()
+
+        $('#getOtpBtn').show()
+         $('#simpleCont').hide()
+        $('#submitPhone').show();
+        $('#phoneDiv').show()
+       }
+   
+   
+  //      // to type otp form rendering 
+
+  
+   var intravel;
+   var timeLimit = true;
+    function stopTimer (){
+      timeLimit = false;
+      clearInterval(intravel);
+      swal.fire("Sorry !", " Try again ", "error").then(() => {
+              location.reload();
+          })
+  
+    }
+   function startTimer  (){
+    var  timer = document.getElementById('safeTimerDisplay');
+   var minute = 2;
+   var second =60
+   
+        intravel = setInterval(()=>{
+       second --;
+       if(second == 0 ){
+       minute --;
+       second = 60;
+       if(minute == 0 ){
+       second = '00'
+       minute = '00'
+          stopTimer();
+       }
+       }
+       timer.innerHTML ="0"+minute + ":" + second;
+       
+     },1000)
+   
+    }
+     
+  //  // request otp with phone number;
+   function getOtp(){
+      
+      phone =  document.getElementById('phone').value
+      alert(phone)
+     if(phone.length != 10 ){
+       document.getElementById("err").innerHTML = ""
+       document.getElementById("err").innerHTML = "Ckeck the Phone Number"
+     }else{
+       var btn = document.getElementById('getOtpBtn')
+      btn.innerHTML = loading;
+      btn.disabled = true
+       document.getElementById("err").innerHTML = ""
+       $.ajax({
+                url:'/otpSignUp',
+                data:{phone:parseInt(phone)},
+                method:"POST",
+                success:(result)=>{
+                  
+                    if(result.status == true){
+                      $('#createAccountHide').show()
+                          $('#otpDiv').show()
+                        btn.style.display = "none"
+                        $('#SubmitBtn').hide()
+                        $('#phoneDiv').hide()
+                        $('#SubmitBtn').show()
+                        startTimer();
+                         
+                    }else{
+                      btn.innerHTML = "Continue";
+                        btn.disabled = false
+                        document.getElementById("err").innerText = result.status;
+                    }
+                }
+            })
+   
+     }
+   }
+   var checker= 4;
+   
+  function submitOTPforExistUser(){
+  
+    let button=document.querySelector("#SubmitBtn");
+    button.innerHTML=`<div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">submitting...</span>
+    </div>
+  </div>`
+     button.disabled = true;
+  
+  
+    var otp = document.getElementById("partitioned").value;
+     if(checker != 0 && timeLimit ){
+     if( parseInt(otp.length ) == 4){
+      checker--;
+      document.getElementById("chanceIndicator").innerHTML = checker;
+       
+       document.getElementById('err').innerHTML = "";
+       $.ajax({
+         url:'/otpCheckForExistUser',
+         data:{phone:phone, otp:otp ,  gustUserId : localStorage.getItem("userId")},
+         method:"post",
+         success :(result)=>{
+          button.disabled = false;
+          button.innerHTML = "Submit"
+            if(result.status == true){
+             location.href = "/";
+            }else{
+              document.getElementById('err').innerHTML = result.status;
+            }
+         }
+       })
+       
+     }else{
+       document.getElementById("err").innerText = "Please Enter 4 number "
+     }
+    }else{
+  
+      swal.fire("Sorry !", " Try again ", "error").then(() => {
+              location.reload();
+          })
+  
+    }
+  }
+  
+
+  
+   function simpleSubmit (){
+ 
+
+     var err = document.getElementById("err")
+     err.style.display = "block";
+    var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+  
+    if(email.match(pattern) === null|| email == ""){
+      err.innerHTML = "check your Email"
+      return;
+    }
+    else if(password.length < 6 || password == ""){
+      err.innerHTML = "Enter a Valid Password";
+      return;
+  
+    }else{
+      // document.getElementById('id01').style.display = 'block'
+      err.innerHTML = "";
+      var btn = document.getElementById('loginBtn');
+       btn.innerHTML = loading;
+       btn.disabled = true
+      $.ajax({
+        url:"/signupWithEmail",
+        data:{email:email , password : password , gustUserId : localStorage.getItem("userId")},
+        method:"post",
+        success : (result)=>{
+          btn.innerHTML = "Login";
+           btn.disabled = false
+          if(result.status === true){
+            location.href = "/"
+          }else{
+            err.innerHTML = result.status;
+          }
+        }
+      })
+    }
+  
+  
+   }
+  
+   
+     </script>

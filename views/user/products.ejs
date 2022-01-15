@@ -1,0 +1,416 @@
+<%- include('./partials/headers')%> 
+
+<style>
+          
+.productName {
+    letter-spacing: 0px;
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+ 
+}
+</style>
+
+
+<% if(result.product.length <= 0 ){ %>
+    
+    <center class="p-5"> <h4>NO result found !</h4>
+      <a href="/"><button class="  m-4 btn btn-primary">Go To Home</button></a>  
+    </center>
+    <% }else{ %> 
+  <section class="product-grids section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-12">
+          <div class="product-sidebar">
+            <div class="single-widget search">
+              <h3>Search Product</h3>
+              <form action="#">
+                <input type="text" placeholder="Search Here..." />
+                <button type="submit">
+                  <i class="lni lni-search-alt"></i>
+                </button>
+              </form>
+            </div>
+
+            <div class="single-widget">
+              <h3>All Categories</h3>
+              <ul class="list">
+                <li>
+                  <a href="product-grids.html">Computers & Accessories </a
+                  ><span>(1138)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">Smartphones & Tablets</a
+                  ><span>(2356)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">TV, Video & Audio</a
+                  ><span>(420)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">Cameras, Photo & Video</a
+                  ><span>(874)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">Headphones</a
+                  ><span>(1239)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">Wearable Electronics</a
+                  ><span>(340)</span>
+                </li>
+                <li>
+                  <a href="product-grids.html">Printers & Ink</a
+                  ><span>(512)</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="single-widget range">
+              <h3>Price Range</h3>
+              <input
+                type="range"
+                class="form-range"
+                name="range"
+                step="1"
+                min="100"
+                max="10000"
+                value="10"
+                onchange="rangePrimary.value=value"
+              />
+              <div class="range-inner">
+                <label>$</label>
+                <input type="text" id="rangePrimary" placeholder="100" />
+              </div>
+            </div>
+
+            <div class="single-widget condition">
+              <h3>Filter by Price</h3>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault1"
+                />
+                <label class="form-check-label" for="flexCheckDefault1">
+                  $50 - $100L (208)
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault2"
+                />
+                <label class="form-check-label" for="flexCheckDefault2">
+                  $100L - $500 (311)
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault3"
+                />
+                <label class="form-check-label" for="flexCheckDefault3">
+                  $500 - $1,000 (485)
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault4"
+                />
+                <label class="form-check-label" for="flexCheckDefault4">
+                  $1,000 - $5,000 (213)
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-12">
+          <div class="product-grids-head">
+            <div class="product-grid-topbar">
+              <div class="row align-items-center">
+                <div class="col-lg-7 col-md-8 col-12">
+                  <div class="product-sorting">
+                    <label for="sorting">Sort by:</label>
+                    <select class="form-control" id="sorting">
+                      <option>Popularity</option>
+                      <option>Low - High Price</option>
+                      <option>High - Low Price</option>
+                      <option>Average Rating</option>
+                      <option>A - Z Order</option>
+                      <option>Z - A Order</option>
+                    </select>
+                    <h3 class="total-show-product">
+                      Showing: <span>1 - 12 items</span>
+                    </h3>
+                  </div>
+                </div>
+                <div class="col-lg-5 col-md-4 col-12">
+                  <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button
+                        class="nav-link"
+                        id="nav-grid-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-grid"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-grid"
+                        aria-selected="true"
+                      >
+                      <i class="fas fa-line-columns"></i>
+                      </button>
+                      <button
+                        class="nav-link active"
+                        id="nav-list-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-list"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-list"
+                        aria-selected="false"
+                      >
+                      <i class="fas fa-align-justify"></i>
+                      </button>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+              <div
+                class="tab-pane   active "
+                id="nav-grid"
+                role="tabpanel"
+                aria-labelledby="nav-grid-tab"
+              >
+
+
+              <!-- ------------------------------ flex direction column ---------------- -->
+                <div class="row">
+                    <%for(var i = 0 ; i<result.product.length ;i++){  %> 
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="single-product">
+                      <div class="product-image">
+                          <a href="/product/productDetails?id=<%=result.product[i]._id%>">
+                        <img  
+                        src="<%=result.product[i].image[0].imageUrl%>" 
+                          alt="#"
+                        />
+                    </a>
+                        <% if(result.product[i].offerPercentage !== null){ %> 
+                            <span class="sale-tag">-<%=result.product[i].offerPercentage%>%</span>
+                            <% } %> 
+                        <div class="button">
+                          <a onclick="addToWihslist('<%=result.product[i]._id%>')" class="btn" style="width: 200px;"
+                            ><i class="fas fa-heart"></i> Add to wishlist</a
+                          >
+                        </div>
+                      </div>
+                      <div class="product-info">
+                        <span class="category"><%=result.product[i].subCatagory  %> </span>
+                        <h4 class="title">
+                          <a  class="productName" href="/product/productDetails?id=<%=result.product[i]._id%>"><%=result.product[i].productName  %></a>
+                        </h4>
+                        <ul class="review">
+                           <i class="fas fa-star  text-warning"></i>
+                           <i class="fas fa-star  text-warning"></i>
+                           <i class="fas fa-star  text-warning"></i>
+                           <i class="fas fa-star  text-warning"></i>
+                           <i class="fas fa-star  text-warning"></i>
+                          <li><span>5.0 Review(s)</span></li>
+                        </ul>
+                        <% if(result.product[i].offerPrice != null){ %> 
+                            <div class="price">
+                              <span>₹ <%=result.product[i].offerPrice%> .00 </span>
+                              <span class="discount-price">₹ <%=result.product[i].price%> .00 </span>
+                            </div>
+                            <% }else{ %> 
+                                <div class="price">
+                                    <span>₹ <%=result.product[i].price%> .00 </span>
+                                     </div>
+                                <% } %>
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <% } %> 
+                  
+                  
+                </div>
+
+
+                <!-- -------------------------end of  the flex-direction column ---------------- -->
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="pagination left">
+                      <ul class="pagination-list">
+                        <li><a href="javascript:void(0)">1</a></li>
+                        <li class="active">
+                          <a href="javascript:void(0)">2</a>
+                        </li>
+                        <li><a href="javascript:void(0)">3</a></li>
+                        <li><a href="javascript:void(0)">4</a></li>
+                        <li>
+                          <a href="javascript:void(0)"
+                            ><i class="lni lni-chevron-right"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane show  fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab" >
+
+                <!-- -------------fist sohowing list --------------------- -->
+
+                <div class="row">
+
+                    <%for(var i = 0 ; i<result.product.length ;i++){  %> 
+
+                  <div class="col-lg-12 col-md-12 col-12">
+                    <div class="single-product">
+                      <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-4 col-12">
+                          <div class="product-image">
+                            <a href="/product/productDetails?id=<%=result.product[i]._id%>">
+                                <img  
+                                src="<%=result.product[i].image[0].imageUrl%>" style="width: 100%; height: 320px; object-fit: fill;"
+                                  alt="#"
+                                />
+                            </a>
+                            <% if(result.product[i].offerPercentage !== null){ %> 
+                            <span class="sale-tag">-<%=result.product[i].offerPercentage%>%</span>
+                            <% } %> 
+                            <div class="button" style="width: fit-content;">
+                              <a onclick="addToWihslist('<%=result.product[i]._id%>')" class="btn" style="width: 200px;"
+                                ><i class="fas fa-heart"></i> Add to wishlist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-12">
+                          <div class="product-info">
+                            <span class="category">Speaker</span>
+                            <h4 class="title">
+                                <a class="productName" href="/product/productDetails?id=<%=result.product[i]._id%>"><%=result.product[i].productName  %></a>
+                            </h4>
+                            <ul class="review">
+                                <i class="fas fa-star  text-warning"></i>
+                               <i class="fas fa-star  text-warning"></i>
+                               <i class="fas fa-star  text-warning"></i>
+                               <i class="fas fa-star  text-warning"></i>
+                               <i class="fas fa-star  text-warning"></i>
+                              <li><span>5.0 Review(s)</span></li>
+                            </ul>
+
+                            <% if(result.product[i].offerPrice != null){ %> 
+                            <div class="price">
+                              <span>₹ <%=result.product[i].offerPrice%> .00 </span>
+                              <span class="discount-price">₹ <%=result.product[i].price%> .00 </span>
+                            </div>
+                            <% }else{ %> 
+                                <div class="price">
+                                <span>₹ <%=result.product[i].price%> .00 </span>
+                                 </div>
+                                <% } %> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <% } %> 
+                 
+            
+                </div>
+
+
+                <!-- --------------end of  the row wise product list------------------ -->
+
+                
+                <div class="row">
+                  <div class="col-12">
+                    <div class="pagination left">
+                      <ul class="pagination-list">
+                        <li><a href="javascript:void(0)">1</a></li>
+                        <li class="active">
+                          <a href="javascript:void(0)">2</a>
+                        </li>
+                        <li><a href="javascript:void(0)">3</a></li>
+                        <li><a href="javascript:void(0)">4</a></li>
+                        <li>
+                          <a href="javascript:void(0)"
+                            ><i class="lni lni-chevron-right"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <% } %> 
+
+
+<%- include('./partials/footer')%> 
+<script>
+    function addToWihslist(id){
+    $.ajax({
+        url:'/addToWishlist',
+        data : {id : id},
+        method :'post',
+        success :(result)=>{
+            if(result.status){
+                            const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'item  added successfully'
+            })
+                        }else{
+                            Swal.fire({
+  title: 'User not logged in',
+  text: "You have to singin to for this action ",
+  icon: 'info',
+  showCancelButton: true,
+  confirmButtonColor: 'green',
+  cancelButtonColor: 'red',
+  confirmButtonText: 'Go To Signin'
+}).then((result) => {
+  if (result.isConfirmed) {
+    location.href = "/signup"
+  }
+})
+                        }
+                    }
+                })
+  }
+</script>

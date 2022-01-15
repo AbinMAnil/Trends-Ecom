@@ -1,0 +1,313 @@
+
+     @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+     body {
+        
+         font-family: 'Open Sans', serif
+     }
+     
+
+     
+     .card {
+         position: relative;
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: flex;
+         -webkit-box-orient: vertical;
+         -webkit-box-direction: normal;
+         -ms-flex-direction: column;
+         flex-direction: column;
+         min-width: 0;
+         word-wrap: break-word;
+         background-color: #fff;
+         background-clip: border-box;
+         border: 1px solid rgba(0, 0, 0, 0.1);
+         border-radius: 0.10rem
+     }
+     
+     .card-header:first-child {
+         border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+     }
+     
+     .card-header {
+         padding: 0.75rem 1.25rem;
+         margin-bottom: 0;
+         background-color: #fff;
+         border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+     }
+     
+     .track {
+         position: relative;
+         background-color: rgb(202, 201, 201);
+         height: 5px;
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: flex;
+         margin-bottom: 60px;
+         margin-top: 50px
+     }
+     
+     .track .step {
+         -webkit-box-flex: 1;
+         -ms-flex-positive: 1;
+         flex-grow: 1;
+         width: 25%;
+         margin-top: -18px;
+         text-align: center;
+         position: relative
+     }
+     
+     .track .step.active:before {
+          background: rgb(0,189,255);
+          background: linear-gradient(90deg, rgba(0,189,255,1) 0%, rgba(3,188,253,1) 60%, rgba(255,122,60,1) 92%);
+     }
+     .track .step.active1:before {
+          background: rgb(255,122,60);
+background: linear-gradient(90deg, rgba(255,122,60,1) 0%, rgba(255,122,60,1) 53%, rgba(247,255,42,1) 82%);    
+      }
+      .track .step.active2:before {
+          background: rgb(247,255,42);
+          background: linear-gradient(90deg, rgba(247,255,42,1) 0%, rgba(247,255,42,1) 56%, rgba(42,255,56,1) 84%);
+      }
+      .track .step.active3:before {
+          background: rgb(42,255,56);
+background: linear-gradient(90deg, rgba(42,255,56,1) 0%, rgba(42,255,56,1) 28%, rgba(53,157,0,1) 84%);
+      }
+
+      .track .step.cancel:before {
+          background: rgb(255,0,0);
+          background: linear-gradient(90deg, rgba(255,0,0,0.4514180672268907) 0%, rgba(255,0,0,1) 52%, rgba(255,0,0,0.5018382352941176) 84%);
+      }
+
+     
+     .track .step::before {
+         height: 5px;
+         position: absolute;
+         content: "";
+         width: 100%;
+         left: 0;
+         top: 18px
+     }
+     
+     .track .step.active .icon {
+         background: #168fff;
+         color: #fff
+     }
+     .track .step.active1 .icon {
+          background: #FF5722;
+          color: #fff
+      }
+      .track .step.active2 .icon {
+          background: #fae85c;
+          color: rgb(0, 0, 0)
+      }
+      .track .step.active3 .icon {
+          background: #0e8d52;
+          color: #fff
+      }
+      .track .step.active3 .icon {
+        background: #0e8d52;
+        color: #fff
+    }
+      .track .step.cancel .icon {
+          background: #a50d0d;
+          color: #fff
+      }
+      
+     
+     .track .icon {
+         margin-top: 2%;
+         display: inline-block;
+         width: 30px;
+         height: 30px;
+         position: relative;
+         border-radius: 100%;
+         background: #ddd
+     }
+     
+     .track .step.active .text {
+         font-weight: 400;
+         color: #000
+     }
+     
+     .track .text {
+         display: block;
+         margin-top: 7px
+     }
+     
+     .itemside {
+         position: relative;
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: flex;
+         width: 100%
+     }
+     
+     .itemside .aside {
+         position: relative;
+         -ms-flex-negative: 0;
+         flex-shrink: 0
+     }
+     
+     .img-sm {
+         width: 80px;
+         height: 80px;
+         padding: 7px
+     }
+     
+     ul.row,
+     ul.row-sm {
+         list-style: none;
+         padding: 0
+     }
+     
+     .itemside .info {
+         padding-left: 15px;
+         padding-right: 7px;
+         text-align: start;
+     
+     }
+     
+     .itemside .title {
+         display: block;
+         margin-bottom: 5px;
+         color: #212529
+     }
+     
+     p {
+         margin-top: 0;
+         margin-bottom: 1rem
+     }
+     
+     .btn-warning {
+         color: #ffffff;
+         background-color: #ee5435;
+         border-color: #ee5435;
+         border-radius: 1px
+     }
+     
+     .btn-warning:hover {
+         color: #ffffff;
+         background-color: #ff2b00;
+         border-color: #ff2b00;
+         border-radius: 1px
+     }
+     
+     .statusBar{
+          position: relative;
+     }
+     .activeTrack{
+          position: absolute;
+         width: 100%;
+         top: -1002%;
+     }
+     .allDetails{
+          height: 100%;
+     }
+     .bottom{
+          display: flex;
+     }
+     
+     .cancel-btn{
+          margin-left: 31%;
+         margin-top: -6%;
+     }
+     
+     
+     
+     @media all and (max-width: 500px){
+         #successDiv{
+            height: 21.1vh;
+
+         }
+        #cnacelDiv{
+            height: 21.1vh;
+         }
+       
+     .cancel-btn{
+          margin-left: 23%;
+         margin-top: -11%;
+     }
+     
+          .itemside .info {
+               text-align: start;
+          font-size: 12px;
+     }
+     .track {
+          font-size: 13px;
+     }
+     
+     
+          .activeTrack{
+          position: absolute;
+          width: 100%;
+           top: -1008%;
+     }
+     .bottom{
+          display: flex;
+          flex-direction: column;
+     }
+     
+     .track .icon {
+         margin-top: 9%;
+         display: inline-block;
+         width: 25
+     px
+     ;
+         height: 25
+     px
+     ;
+         line-height: 40px;
+         position: relative;
+         border-radius: 100%;
+         background: #ddd;
+     }
+     div.scrollmenu a {
+       display: inline-block;
+       color: white;
+       text-align: center;
+       padding: 0px;
+       text-decoration: none;
+     }
+     
+     }
+     
+     div.scrollmenu {
+        
+       background-color: rgb(255, 255, 255);
+       overflow: auto;
+       white-space: nowrap;
+     }
+     
+     div.scrollmenu a {
+       display: inline-block;
+       color: white;
+       text-align: start;
+       padding: 14px;
+       text-decoration: none;
+     }
+     
+   
+     .cnacelDiv{
+         z-index: 999;
+        position: absolute;
+        width:100%;
+        height: 13.8vh;
+        border: 1px solid red;
+      
+     }
+
+     .cnacelDiv h3  {
+        
+         color: rgba(255, 0, 0, 0.891);
+     }
+     .successDiv{
+         border: 1px solid green;
+        z-index: 999;
+        position: absolute;
+        width:100%;
+        height: 13.8vh;
+     }
+     .successDiv h3{
+         color: green;
+     }

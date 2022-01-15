@@ -1,0 +1,312 @@
+#defaultOpen{
+     background-color: #0d3073;
+}
+.home-content{
+     overflow-y: auto;
+}
+
+
+/* Style tab links */
+.tablink {
+  background-color: #0d3073;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+}
+
+.tablink:hover {
+  background-color: #253f6f;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: rgb(7, 7, 7);
+  display: none;
+  padding: 100px 20px;
+  height: 80vh;
+}
+
+#Home,
+#News,
+#Contact ,
+#About{
+  background-color: white;
+}
+
+.control{
+     width: 80vw;
+     margin: 0 auto;
+}
+
+#catagory{
+     margin-top: 5vh;
+     width: 40vw;
+     display: flex;
+     text-align: center;
+}
+
+
+.options{
+     display: flex;
+}
+.options button{
+     font-size: 26px;
+    margin-left: 1vw;
+    margin-top: -.6vh;
+    
+}
+.options i {
+     padding-left: .5rem;
+    padding-right: .5rem;
+}
+.edit-Cat{
+   display: none;
+     margin-top: 2vh;
+    
+}
+.input{
+     width: 30vw;
+}
+.sample-para{
+     margin-top: -2%;
+     margin-bottom: 2%;
+}
+
+
+@media all and (max-width:400px){
+
+     #hel{
+          width: 73vw;
+     }
+
+     .display-flex{
+          flex-direction: column;
+     }
+
+
+     .tablink{
+          font-size: .7rem;
+     }
+     .sample-para{
+          font-size: 1rem;
+     }
+     #catagory{
+          width: 70vw;
+     }
+     .options button{
+          font-size: 26px;
+         margin-left: .5vw;
+         margin-top: -.4vh;
+         
+     }
+     .options i {
+        
+          font-size: 15px;
+     }
+     .options {
+          margin-left: 1%;
+          margin-top: -8%;
+          display: flex;
+          gap: .5rem;
+          flex-direction: column;
+     }
+     .form-select{
+          height: 3rem;
+     }
+     .btn-cntrl{
+          padding: 0px;
+     }
+     .input{
+          background-color: white;
+          margin-left: 2% ;
+          width: 60vw;
+          height:2.5rem ;
+     }
+     .edit-Cat{
+          margin-top: 4vh;
+          display: flex;
+     }
+     .addCatAndSubCat{
+          width: 100vh;
+          display: flex;
+          flex-direction: column;
+         
+     }
+     #addCat {
+          width: 95%;
+          height: 45%;
+     }
+     #addSubCat{
+          width: 95%;
+          height: 70%;
+
+         
+     }
+
+     #addCatAndSubCat{
+          height: 100vh;
+     }
+
+}
+
+
+.addCatAndSubCat{
+     height: 40vh;
+     padding: 1rem;
+     width:100%;
+     display: flex;
+     justify-content: space-evenly;
+}
+.addCat{
+     height: 42vh;
+     width: 45%;
+     float: left;
+     background-color: rgb(255, 255, 255);
+}
+
+.addSubCat{
+     height: 42vh;
+     width: 45%;
+     background-color:#0d3073;
+     float: left;
+}
+.addCat input{
+ 
+     width: 70%;
+     margin: 0 auto;
+}
+
+.addCat h2,
+.addSubCat h2{
+     margin: 3%;
+     color: goldenrod; 
+}
+
+.select-catagory-add{
+     width: 80%;
+     margin: 0 auto;
+}
+.add-sub-cat{
+
+    
+}
+
+#sub-cat{
+     padding: 1rem;
+     height: 3rem;
+}
+
+div.scrollmenu {
+     display: none;
+     border-top: 1px solid white;
+     color: white;
+     background-color: #1a3974;
+     overflow: auto;
+     white-space: nowrap;
+     border-bottom: 1px solid white;
+   }
+   
+   div.scrollmenu a {
+        cursor: pointer;
+     display: inline-block;
+     color: rgb(255, 255, 255);
+     text-align: center;
+     padding: 14px;
+     text-decoration: none;
+   }
+   
+   div.scrollmenu a:hover {
+        color: white;
+     background-color: rgb(13, 0, 70);
+   }
+
+
+.scrollmenu::-webkit-scrollbar {
+     width: 0;
+     height: 0;  /* Remove scrollbar space */
+     background: transparent;  /* Optional: just make scrollbar invisible */
+ }
+
+ .hel{
+      padding: .7rem;
+      text-align: center;
+      margin-top: 3vh;
+     width: 20vw;
+     color: white;
+     background-color: #1a3974;
+     font-size: 20xp;
+}
+
+table {
+     border-collapse: collapse;
+     width: 100%;
+   }
+   
+   th, td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid rgb(253, 245, 6);
+   }
+   
+   tr:hover {
+      
+        background-color: #20417e;
+
+}
+
+.t-head{
+     color: goldenrod;
+}
+
+td{
+     padding-top: 1rem;
+     padding-bottom: 1rem;
+}
+
+td input{
+     width: 60%;
+}
+
+.fa-check,
+.fa-window-close{
+     font-size: 16px;
+}
+
+
+.fa-window-close,
+.fa-pen-fancy {
+     margin-left: 30%;
+}
+.fas{
+     cursor: pointer;
+    color: rgb(232, 232, 232);
+}
+.display-flex{
+     display: flex; 
+     justify-content: space-evenly;
+}
+.table-icon:hover{
+     font-size: 20px;
+     color: rgb(255, 199, 57);
+     transition: 500ms;
+}
+.form-control{
+     width: 80%;
+}
+.overFlow::-webkit-scrollbar{
+     width: 0;
+     height: 0;  /* Remove scrollbar space */
+     background: transparent;
+}
+.overFlow{
+     height: 48vh;
+      overflow-y: auto;
+}
+.hide{
+     display: none;
+}

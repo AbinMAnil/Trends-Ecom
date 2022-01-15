@@ -1,0 +1,201 @@
+
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#chanceIndicator{
+  color: rgb(3, 23, 120);
+  display: none;
+  font-size: 20px;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.timer {
+  margin-top: 2vh;
+  display: none;
+  text-align: center;
+  width: 30%;
+  background: rgb(251,251,251);
+  background: radial-gradient(circle, rgba(251,251,251,1) 0%, rgba(255,170,170,1) 100%);
+  padding: .4rem;
+  color: white;
+  font-size: 30px;
+    -webkit-text-stroke-width: 1.9px;
+    -webkit-text-stroke-color: #000000;
+    -webkit-text-fill-color: #e2e2e2;
+    letter-spacing: 7px;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+
+#otp{
+  width: 27vw;
+  padding: 13px;
+  margin-top: 0vh;
+}
+.hideBeforeOtp{
+  display: none;
+}
+
+.otpField{
+
+  margin-top: 0px;
+  padding: 0px;
+  display: none;
+}
+
+.right h1{
+  border-bottom: 1px solid black;
+  width: 50%;
+  padding-bottom: 1%;
+}
+
+.outer button{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+    .outer{
+      vertical-align: middle;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.75);
+      width: 80vw;
+      height: 70vh;
+      background-color: blue;
+      margin: 0 auto;
+      display: flex;
+    }
+   .left{
+    box-shadow: 11px 2px 25px -9px rgba(0,0,0,0.72);
+-webkit-box-shadow: 11px 2px 25px -9px rgba(0,0,0,0.72);
+-moz-box-shadow: 11px 2px 25px -9px rgba(0,0,0,0.72);
+     width: 40%;
+     height: 100%;
+     position: relative;
+     background-color: rgb(223, 223, 223);
+     
+    
+   }
+   .right{
+     position: relative;
+     width: 60%;
+     height: 100%;
+     background-color: rgb(255, 255, 255);
+   }
+   .form-body{
+     
+     padding: 3% 20% 3% 20%;
+     display: flex;
+     flex-direction: column;
+
+   }
+   .form{
+    outline: none;
+    border: none;
+    font-size: 15px;
+    background: #f1f1f1;
+     margin: 3%;
+     padding: 2%;
+   }
+
+   @media only screen and (min-width: 500px) and (max-width: 1024px) and (orientation:landscape) {
+    #image-text{
+        font-size: 48px;
+      }
+      #outer{
+        height: 130vh;
+      }
+      
+    }
+
+
+@media all and (max-width : 500px){
+  .right h1{
+    padding: .5rem;
+    width: 70%;
+  }
+  .timer{
+    font-size: 20px;
+  }
+  #chanceIndicator{
+    font-size: 15px;
+  }
+  .outer button{
+    padding: 5px;
+  }
+  .timer{
+    width: 60%;
+  }
+  .outer{
+    width: 95vw;
+    height: 75vh;
+
+  }
+  .left{
+    display: none;
+  }
+  .right{
+    width: 100%;
+    height: 80vh;
+  }
+  .form-body{
+     padding: 3%;
+
+     display: flex;
+     flex-direction: column;
+
+   }
+   .form{
+     margin: 5%;
+   }
+    #otp{
+      width: 81vw;
+    }
+    
+}
+
+@media all and (max-height:600px){
+  .outer{
+    height: 110vh;
+  }
+}
+.section{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+ 
+}
+.image{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  filter: blur(5px);
+  -webkit-filter: blur(7px);
+}
+
+
+.image-text{
+  z-index: 99;
+  position: absolute;
+  top:25%;
+  width: 100%;
+  left: 0%;
+  color: #eded57;
+  font-size: 80px;
+  text-shadow: 3px 8px 6px rgba(102, 109, 0, 0.8);
+  text-align: center;
+
+}
+
